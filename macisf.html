@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v5.6.3, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v5.6.3, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/forensicxlab-350x122.png" type="image/x-icon">
+  <meta name="description" content="">
+
+
+  <title>MacISF</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</head>
+<body>
+
+  <section data-bs-version="5.1" class="menu cid-t0PzKLYkxn" once="menu" id="menu1-17">
+
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="index.html">
+                        <img src="assets/images/forensicxlab-350x122.png" alt="Mobirise Website Builder" style="height: 4.6rem;">
+                    </a>
+                </span>
+
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="contact.html">Contact</a></li></ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+</section>
+
+<section data-bs-version="5.1" class="image3 cid-t0PzKLIvjP" id="image3-16">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4">
+                <div class="image-wrapper">
+                    <img src="assets/images/kernel-debug-kit-96x96-2x-192x192.png" alt="">
+                    <p class="mbr-description mbr-fonts-style mt-2 align-center display-1">Volatility3 - Mac</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content4 cid-t0PzKMBDbi" id="content4-18">
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-12">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-5">Generating Symbol Tables for all MacOs system versions</h3>
+                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">Félix Guyard - 22.03.2022</h4>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0Q10hI5j1" id="content5-1f">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">Abstract</h4>
+                <p class="mbr-text mbr-fonts-style display-7">
+                    Being interested in memory forensic for a while now I have learned a lot about the volatility framework. This article will introduce volatility3 core component and focus on SymbolTables. Next, I will explain the first version of the script and steps I took to generate a lot of MacOs SymbolTables. Finally you will be able to retrieve those SymbolsTables directly from github ! The final goal is to create a public repository like windows to automatically identify mac os system version and directly download the associated SymbolTable. MacOs SymbolTable will be included in <a href="https://github.com/k1nd0ne/VolWeb" class="text-primary" target="_blank">VolWeb</a> in a few release.&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0PzKMQxK3" id="content5-19">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">Volatility<br></h4>
+                <p class="mbr-text mbr-fonts-style display-7">Memory analysis is focusing on the extraction of evidence by exploiting the Random Access Memory (abbreviated to RAM) of a given system.&nbsp;Volaltility is the best state of the art framework to perform digital forensic on RAM after its acquisition. Volatility has become the world’s most widely used memory forensics platform and its python3 version is currently under active development.<br><br></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0PzKN85I1" id="content5-1a">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">Volatility main components<br></h4>
+                <p class="mbr-text mbr-fonts-style display-7"></p><p>When doing memory analysis with Volatility3, the memory is split into three major components :</p><p><span style="font-size: 1.2rem;">-</span><span style="font-size: 1.2rem;">&nbsp;</span><strong><u>Memory Layers :</u></strong><span style="font-size: 1.2rem;"> This component is allowing correct memory mapping and address translation.</span></p><p>- <u><strong>Templates and Objects :</strong></u>&nbsp; A template is the representation of what we know about the structure of the final object we want to extract from the memory layer and explore to perform memory forensics.</p><p>- <u><strong>Symbol Tables :</strong></u></p><p>When a program is compiled, it is aware of its own structures and how they are stored. This means that when doing offline memory analysis, volatility needs to be aware of the <strong>context</strong> of the program that were executed.</p><p>When the compilation of a program is performed, debugging <strong>symbols</strong> are produce alongside it.&nbsp;<span style="font-size: 1.2rem;">A symbol can be viewed as an address associated to a template.</span></p><p><span style="font-size: 1.2rem;">We&nbsp;</span><span style="font-size: 1.2rem;">can picture&nbsp;</span><span style="font-size: 1.2rem;">the set of debugging symbols produced at compilation being equal to </span><span style="font-size: 1.2rem;">one <strong>SymbolTable</strong>&nbsp;which is a JSON structure understandable by volatility.&nbsp;</span><span style="font-size: 1.2rem;">The more SymbolTable volatility possesses the more symbols and templates it can extract from memory.</span></p><p><span style="font-size: 1.2rem;">The representation of all SymbolTable </span>retrieved<span style="font-size: 1.2rem;">&nbsp;by volatility is called the <strong>SymbolSpace</strong>. The SymbolSpace is stored within the <strong>context </strong>of the volatility framework. When execution volatility on a memory dump, it is going to build its context and SymbolSpace from the user's provided SymbolTables.&nbsp;</span></p><p><br></p><p>As a memory forensics investigator, our goal will be first to extract the debugging symbols generated by the kernel when compiled which will allow us to identify how the system essential structures are stored in memory. The majority of basic Volatility3 plugging are using the kernel symbols.&nbsp;</p><p>For <strong>Windows</strong> memory analysis, Volatility is going to build the context using Windows PDB files which are directly fetched from microsoft website and translated into SymbolTables if not already present locally.</p><p>For <strong>Linux</strong>, the task is more complicated. Indeed Linux can be declined into a lot of distributions which are all having a different kernel version which means different SymbolSpace for each version. If you want to perform memory forensic on a random linux you need to extract the kenel debugging symbols of the target which are not always easy to find according to the distribution.&nbsp;</p>For <strong>Mac</strong> the task is the same, however there is only one single distribution. Mac is tracking the system versions and build numbers. For each system version and build number there is different kernel version therefore potentially different kernel debugging symbols.<br><br>As I'm going deeper into memory forensic, I want to try to focus on mac memory forensic for a while. The first step to even be able to analyse a memory dump is to build the right context. Any IRT team or investigator would gain a fair amount of time not bothering generating SymbolTables. In the next section we will go deeper on how to generate Intermediate Symbol Format (ISF) file for mac and my journey into the automation of the process for good amount of mac system version.<p></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0Q10kJljI" id="content5-1g">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">MacOs Kernel Debug Kit</h4>
+                <p class="mbr-text mbr-fonts-style display-7">If you have an apple account, you can find what apple calls "Kernel Debug Kits" (KDK). For one specific mac os version and build number, the package contains development &amp; debug versions of the macOS kernel and many I/O Kit families for use with LLDB remote (two-machine) kernel debugging. These files contain full symbolic information, unlike the equivalent files in a normal macOS installation. This is exactly what we need to create our SymbolTables. Mac as well as Linux are using DWARF file to represent the kernel with debugging symbols. The VolatilityFoundation created a go program call dwarf2json to parse the appropriate DWARF files into a JSON ISF file to build the SymbolTables. The Kernel Debugging Kits are available <a href="https://developer.apple.com/download/all/?q=Kernel%20Debug%20Kit" class="text-primary" target="_blank">here</a>.<br><br>Therefore here is the goals :&nbsp;<br>- Download all KDK available from apple's website.&nbsp;<br>- Identify the kernel symbols for each version.<br>- Generate the ISF files.&nbsp;<br>- Share and maintain.&nbsp;<br></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0Q10ulgL2" id="content5-1h">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">Automation</h4>
+                <p class="mbr-text mbr-fonts-style display-7"></p><p>The first step was to download all the KDK which are dmg images&nbsp;from&nbsp;<a href="https://developer.apple.com/download/all/?q=Kernel%20Debug%20Kit" class="text-primary" target="_blank">Apple's developper website</a>. We can identify that there is 241 available KDK that are covering mac os version&nbsp;10.4.11_build_8s216 to&nbsp;12.3_Build_StarESeed21E5212f.<br><br></p><p></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="image3 cid-t0QDEdW2Hg" id="image3-1m">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <div class="image-wrapper">
+                    <img src="assets/images/screenshot-2022-03-22-at-22.32.09-2136x1626.png" alt="Mobirise Website Builder">
+                    <p class="mbr-description mbr-fonts-style mt-2 align-center display-4">Downloaded KDKs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0Q10Pv5dP" id="content5-1i">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-7"><p>I have decided to pick one KDK per major system version to identify the differences in the file structures and were the kernel debugging symbols are located. From there we can begin the script. <br></p><br><p>The major steps are for each KDK :<br></p>- Extract the pkg file from the dmg image.&nbsp;<br>- Unpackage the pkg file.<br>- Find the kernel debugging symbols DWARF files.<br>- create the IFS JSON file<br><p><br>I have choose to use python3 for the implementation :&nbsp;<br></p></h4>
+<pre><code class="python">
+  import subprocess
+  import argparse
+  import logging
+  import os
+  import re
+
+  def find_kernel_macho(dir_path):
+      possible_paths_macho = {
+      "mach_kernel.dSYM/Contents/Resources/DWARF/mach_kernel":"mach_kernel",
+      "KDKDebugKernel.pkg/Payload/System/Library/Kernels/kernel.debug.dSYM/Contents/Resources/DWARF/kernel.debug":"KDKDebugKernel.pkg/Payload/System/Library/Kernels/kernel.debug",
+      "KDK.pkg/Payload/System/Library/Kernels/kernel.debug.dSYM/Contents/Resources/DWARF/kernel.debug":"KDK.pkg/Payload/System/Library/Kernels/kernel.debug",
+      "KDK.pkg/Payload/System/Library/Kernels/kernel.dSYM/Contents/Resources/DWARF/kernel":"KDK.pkg/Payload/System/Library/Kernels/kernel"
+      }
+      for s, k in possible_paths_macho.items():
+          full_path_s = dir_path+"/"+s
+          full_path_k = dir_path+"/"+k
+          if os.path.isfile(full_path_s) and os.path.isfile(full_path_k):
+              return full_path_s, full_path_k
+      return "false", "false"
+
+
+  def extract_isf(path1, path2,kernel_version):
+      logger.info(f"Generating volatility ISF for {kernel_version} ")
+      cmd = ['./dwarf2json', 'mac', '--macho', path1, '--macho-symbols', path2]
+
+      with open("ISF/"+kernel_version[0]+".json", "w") as outfile:
+          try:
+              subprocess.run(cmd, stdout=outfile)
+          except:
+              logger.error(f'Could not generate ISF for {kernel_version}')
+
+  def dir_path(string):
+      if os.path.isdir(string):
+          return string
+      else:
+          raise NotADirectoryError(string)
+
+  if __name__ == '__main__':
+      parser = argparse.ArgumentParser(description = "Generate all volatility symbole files for the different macOs versions")
+      parser.add_argument('--path', type=dir_path)
+
+      """init"""
+      args = parser.parse_args()
+      logging.basicConfig(level=logging.INFO)
+      logger = logging.getLogger(__name__)
+      logger.info('Started')
+      src_dir = args.path
+      reg_exp = r'[k|K]ern[e|a]l_[d|D]ebug_[K|k]it_(.*)\.dmg'
+
+      """routine"""
+      for dmg_image in os.listdir(src_dir):
+          if "DS_Store" in dmg_image:
+              continue
+          kernel_version = re.findall(reg_exp, dmg_image)
+          logger.info(f'Kernel version : {kernel_version} ')
+          logger.info(f'Extracting {dmg_image}')
+          try:
+              subprocess.check_output(['7z', 'x', src_dir+"/"+dmg_image])
+          except subprocess.CalledProcessError as err:
+              logger.error(f'Could not extract pkg from : {dmg_image} : {err}')
+              continue
+          try:
+              kernel_debug_kit_path = dir_path("KernelDebugKit")
+              macho_path = find_kernel_macho(kernel_debug_kit_path)
+              #macho_symbols_path = find_kernel_macho_symbols(kernel_debug_kit_path)
+              #extract_isf(macho_path, macho_symbols_path)
+              print(f'OK -> {kernel_debug_kit_path}')
+              macho_path, macho_symbols_path = find_kernel_macho(kernel_debug_kit_path)
+              if (macho_path == "false") or (macho_symbols_path == "false"):
+                  logger.error(f'Could not find kernel for {kernel_version}')
+              else:
+                  extract_isf(macho_path, macho_symbols_path, kernel_version)
+          except NotADirectoryError:
+              pass
+              try:
+                  kernel_debug_kit_path = dir_path("Kernel Debug Kit")
+                  logger.info(f'Extracting pkg...')
+                  try:
+                      subprocess.check_output(['pkgutil', '--expand-full', kernel_debug_kit_path+"/KernelDebugKit.pkg", "KernelDebugKit"])
+                      subprocess.check_output(['rm', '-rf', kernel_debug_kit_path])
+                      kernel_debug_kit_path = "KernelDebugKit"
+                      macho_path, macho_symbols_path = find_kernel_macho(kernel_debug_kit_path)
+                      if (macho_path == "false") or (macho_symbols_path == "false"):
+                          logger.error(f'Could not find kernel for {kernel_version}')
+                      else:
+                          extract_isf(macho_path, macho_symbols_path, kernel_version)
+                  except subprocess.CalledProcessError as err:
+                      logger.error(f'Could not extract pkg from : {kernel_debug_kit_path} : {err}')
+                      pass
+
+              except NotADirectoryError:
+                  logger.error(f'Could not find the KernelDebugKit directory for {dmg_image}')
+                  pass
+          os.system("rm -rf KernelDebugKit")
+
+</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content15 cid-t0QIYssmBf" id="content15-1n">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card col-md-12 col-lg-10">
+                <div class="card-wrapper">
+                    <div class="card-box align-left">
+                        <h4 class="card-title mbr-fonts-style mbr-white mb-3 display-7">
+                            <strong>Note</strong></h4>
+                        <p class="mbr-text mbr-fonts-style display-7">This code is adapted to work on most of the correctly named KDK. I had to rename some of the dmg image that had non-conventional names. The kernel debugging file identified might be incomplete and will be updated on the public github repository if new files were identified.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content11 cid-t0PzKOOkLx" id="content11-1d">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="mbr-section-btn align-center"><a class="btn btn-black display-4" href="#" target="_blank">Mac Os ISF : Github</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="footer7 cid-t0PzKOUwT9" once="footers" id="footer7-1e">
+
+
+
+
+
+    <div class="container">
+        <div class="media-container-row align-center mbr-white">
+            <div class="col-12">
+                <p class="mbr-text mb-0 mbr-fonts-style display-7">
+                    © Copyright 2022 forensicxlab - All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
