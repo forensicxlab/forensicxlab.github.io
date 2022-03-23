@@ -196,34 +196,27 @@
   import subprocess
   import argparse
   import logging
-  import os
+  import os, os.path
   import re
 
-  def find_kernel_macho(dir_path):
-      possible_paths_macho = {
-      "mach_kernel.dSYM/Contents/Resources/DWARF/mach_kernel":"mach_kernel",
-      "KDKDebugKernel.pkg/Payload/System/Library/Kernels/kernel.debug.dSYM/Contents/Resources/DWARF/kernel.debug":"KDKDebugKernel.pkg/Payload/System/Library/Kernels/kernel.debug",
-      "KDK.pkg/Payload/System/Library/Kernels/kernel.debug.dSYM/Contents/Resources/DWARF/kernel.debug":"KDK.pkg/Payload/System/Library/Kernels/kernel.debug",
-      "KDK.pkg/Payload/System/Library/Kernels/kernel.dSYM/Contents/Resources/DWARF/kernel":"KDK.pkg/Payload/System/Library/Kernels/kernel"
-      }
-      for s, k in possible_paths_macho.items():
-          full_path_s = dir_path+"/"+s
-          full_path_k = dir_path+"/"+k
-          if os.path.isfile(full_path_s) and os.path.isfile(full_path_k):
-              return full_path_s, full_path_k
-      return "false", "false"
-
-
-  def extract_isf(path1, path2,kernel_version):
-      logger.info(f"Generating volatility ISF for {kernel_version} ")
-      cmd = ['./dwarf2json', 'mac', '--macho', path1, '--macho-symbols', path2]
-
-      with open("ISF/"+kernel_version[0]+".json", "w") as outfile:
-          try:
-              subprocess.run(cmd, stdout=outfile)
-          except:
-              logger.error(f'Could not generate ISF for {kernel_version}')
-
+  def find_and_generate_kernel_symbols(dir_path, kernel_version):
+      possible_paths_macho = (
+      "mach_kernel",
+      "kernel.debug",
+      "kernel",
+      "kernel."
+      )
+      for file_name in possible_paths_macho:
+          for dirpath, dirnames, files in os.walk(dir_path):
+              if file_name in files:
+                  todo = os.path.join(dirpath, file_name)
+                  cmd = ['./dwarf2json', 'mac', '--macho-symbols', todo]
+                  logger.info(f"Generating volatility ISF for {todo} ")
+                  with open("ISF/"+kernel_version[0]+".json", "a") as outfile:
+                      try:
+                          subprocess.run(cmd, stdout=outfile)
+                      except:
+                          logger.error(f'Could not generate ISF for {todo}')
   def dir_path(string):
       if os.path.isdir(string):
           return string
@@ -256,15 +249,7 @@
               continue
           try:
               kernel_debug_kit_path = dir_path("KernelDebugKit")
-              macho_path = find_kernel_macho(kernel_debug_kit_path)
-              #macho_symbols_path = find_kernel_macho_symbols(kernel_debug_kit_path)
-              #extract_isf(macho_path, macho_symbols_path)
-              print(f'OK -> {kernel_debug_kit_path}')
-              macho_path, macho_symbols_path = find_kernel_macho(kernel_debug_kit_path)
-              if (macho_path == "false") or (macho_symbols_path == "false"):
-                  logger.error(f'Could not find kernel for {kernel_version}')
-              else:
-                  extract_isf(macho_path, macho_symbols_path, kernel_version)
+              find_and_generate_kernel_symbols(kernel_debug_kit_path, kernel_version)
           except NotADirectoryError:
               pass
               try:
@@ -274,11 +259,7 @@
                       subprocess.check_output(['pkgutil', '--expand-full', kernel_debug_kit_path+"/KernelDebugKit.pkg", "KernelDebugKit"])
                       subprocess.check_output(['rm', '-rf', kernel_debug_kit_path])
                       kernel_debug_kit_path = "KernelDebugKit"
-                      macho_path, macho_symbols_path = find_kernel_macho(kernel_debug_kit_path)
-                      if (macho_path == "false") or (macho_symbols_path == "false"):
-                          logger.error(f'Could not find kernel for {kernel_version}')
-                      else:
-                          extract_isf(macho_path, macho_symbols_path, kernel_version)
+                      find_and_generate_kernel_symbols(kernel_debug_kit_path, kernel_version)
                   except subprocess.CalledProcessError as err:
                       logger.error(f'Could not extract pkg from : {kernel_debug_kit_path} : {err}')
                       pass
@@ -294,6 +275,29 @@
     </div>
 </section>
 
+<section data-bs-version="5.1" class="content5 cid-t0Q10ulgL2" id="content5-1h">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <p class="mbr-text mbr-fonts-style display-7">Once this code is executed on the directory containing all the dmg images, the ISF files are extracted successfully from the multiple kernel debug Symbols.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t0Q10ulgL2" id="content5-1h">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="card col-md-12 col-lg-10">
+            <img src="assets/images/generated.png" width="100" height="800">
+
+          </div>
+      </div>
+  </div>
+</section>
+
+
 <section data-bs-version="5.1" class="content15 cid-t0QIYssmBf" id="content15-1n">
 
 
@@ -306,7 +310,7 @@
                     <div class="card-box align-left">
                         <h4 class="card-title mbr-fonts-style mbr-white mb-3 display-7">
                             <strong>Note</strong></h4>
-                        <p class="mbr-text mbr-fonts-style display-7">This code is adapted to work on most of the correctly named KDK. I had to rename some of the dmg image that had non-conventional names. The kernel debugging file identified might be incomplete and will be updated on the public github repository if new files were identified.</p>
+                        <p class="mbr-text mbr-fonts-style display-7">This blog is written from my own understanding of memory forensic. Don't hesitate to reach me at felix.guyard@forensicxlab.com.</p>
                     </div>
                 </div>
             </div>
