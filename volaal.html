@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v5.6.3, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v5.6.3, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/forensicxlab-350x122.png" type="image/x-icon">
+  <meta name="description" content="">
+
+
+  <title>VolAAL</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</head>
+<body>
+
+  <section data-bs-version="5.1" class="menu cid-t0PzKLYkxn" once="menu" id="menu1-17">
+
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="index.html">
+                        <img src="assets/images/forensicxlab-350x122.png" alt="Mobirise Website Builder" style="height: 4.6rem;">
+                    </a>
+                </span>
+
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="contact.html">Contact</a></li></ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+</section>
+
+<section data-bs-version="5.1" class="image3 cid-t6Fuq6URr9" id="image3-1o">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4">
+                <div class="image-wrapper">
+                    <img src="assets/images/mbr-696x696.png" alt="">
+                    <p class="mbr-description mbr-fonts-style mt-2 align-center display-1">Memory Forensics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content4 cid-t6Fuq7pofY" id="content4-1q">
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-12">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-5">Using Volatility3 as a library</h3>
+                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">Félix Guyard - 30.05.2022</h4>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t6Fuq7xmx8" id="content5-1r">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Abstract</h4>
+                <p class="mbr-text mbr-fonts-style display-7">Being interested in memory forensic for a while now, I have learned a lot about the volatility3 framework.
+                  In this article, we will go through how you can use the framework's libraries to automate your memory analysis tasks and directly exploit the results.
+                  I will assume in this article that the reader has a basic understanding of how volatility3 is exploiting memory to extract evidence.
+                  If you want to learn more about volatility3, you can check the links in the "References" section.&nbsp;
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t6Fuq7P3ne" id="content5-1u">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Volatility3 CLI</h4>
+                <p class="mbr-text mbr-fonts-style display-7">
+                  When using the volatility3 framework on a memory image the analyst is typically using the command line interface (CLI) component of the framework.
+                  It is one of the best way to interact with the framework and get results quickly. In the bellow example, we execute the PsList plugin on a memory dump using the CLI.
+                </p>
+<pre><code class="bash">
+» vol -r pretty -f Triage-Memory.mem windows.pslist
+  Volatility 3 Framework 2.0.1
+  Formatting...0.00		PDB scanning finished
+    |  PID | PPID |  ImageFileName |      Offset(V) | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime | File output
+  * |    4 |    0 |         System | 0xfa8003c72b30 |      87 |     547 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+  * |  252 |    4 |       smss.exe | 0xfa8004616040 |       2 |      30 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+  * |  332 |  324 |      csrss.exe | 0xfa80050546b0 |      10 |     516 |         0 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+  * |  372 |  364 |      csrss.exe | 0xfa800525a9e0 |      11 |     557 |         1 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+  * |  380 |  324 |    wininit.exe | 0xfa8005259060 |       3 |      78 |         0 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+  * |  416 |  364 |   winlogon.exe | 0xfa8005268b30 |       3 |     110 |         1 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+  * |  476 |  380 |   services.exe | 0xfa8005680910 |      12 |     224 |         0 | False | 2019-03-22 05:31:59.000000  |      N/A |    Disabled
+  * |  484 |  380 |      lsass.exe | 0xfa80056885e0 |       7 |     650 |         0 | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
+  * |  492 |  380 |        lsm.exe | 0xfa8005696b30 |      10 |     155 |         0 | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
+  * |  592 |  476 |    svchost.exe | 0xfa80056e1060 |       9 |     375 |         0 | False | 2019-03-22 05:32:01.000000  |      N/A |    Disabled
+  * |  672 |  476 |    svchost.exe | 0xfa800570d060 |       7 |     341 |         0 | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
+  * |  764 |  476 |    svchost.exe | 0xfa800575e5b0 |      20 |     447 |         0 | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
+  * |  796 |  476 |    svchost.exe | 0xfa8005775b30 |      15 |     368 |         0 | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
+  * |  820 |  476 |    svchost.exe | 0xfa800577db30 |      33 |    1073 |         0 | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
+[etc...]
+</code></pre>
+<p class="mbr-text mbr-fonts-style display-7">
+Having those results is a great way to perform investigations. But what if we want to make the framework perform more specific tasks to include it to an other platform.
+For example, you could integrate the results directly inside a sandbox or a web UI.
+Behind the scene of the execution of this command, volatility3 is using multiple libraries from the framework to build such a result, it's simply parsing the user's arguments and perform the following steps :
+<br>
+<ul class="mbr-text mbr-fonts-style display-7">
+  <li>Create an empty memory context for the image;</li>
+  <li>Determine if the requested plugin exist in the available list of plugins;</li>
+  <li>Determine what configuration options the plugin requires;</li>
+  <li>Complete the context configuration using the plugin requirements, automagics and the user's arguments;</li>
+  <li>Run the plugin;</li>
+  <li>Render the result into the desired format.</li>
+</ul>
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+Great, now you have a high level understanding of what's going on in the background when a plugin tries to be run.
+Using the <a href="https://volatility3.readthedocs.io/en/stable/using-as-a-library.html" class="text-primary" target="_blank">Volatility3 documentation</a>,
+let's try to write a simple sample of code to run the PsList plugin with volatility3 as a library.
+</p>
+
+<h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Constructing and running a plugin</h4>
+<p class="mbr-text mbr-fonts-style display-7">
+In this section we will take a look at how we can run the PsList pluging using volatility3 as a library. Let's first take a look at the following code sample :
+</p>
+<pre><code class="python">
+  import volatility3.framework
+  from volatility3.framework import contexts
+  from volatility3 import plugins
+  import logging
+
+  logging.basicConfig(level=logging.INFO)
+  logger = logging.getLogger(__name__)
+  volatility3.framework.require_interface_version(2, 0, 0)
+
+  ctx = contexts.Context()  # Construct a blank context
+
+  failures = volatility3.framework.import_files(plugins, True) #Load the framework plugins
+  if failures:
+      logger.info(f"Some volatility3 plugin couldn't be loaded : {failures}")
+  else:
+      logger.info(f"Plugins are loaded without failure")
+  plugin_list = volatility3.framework.list_plugins()
+  logger.info(plugin_list)
+</code></pre>
+<h6>OUTPUT :</h6>
+<pre><code class="python">
+INFO:__main__:Plugins are loaded without failure
+INFO:__main__:
+{
+'windows.statistics.Statistics': <class 'volatility3.plugins.windows.statistics.Statistics'>,
+'timeliner.Timeliner': <class 'volatility3.plugins.timeliner.Timeliner'>,
+'windows.pslist.PsList': <class 'volatility3.plugins.windows.pslist.PsList'>,
+...
+}
+</code></pre>
+<p class="mbr-text mbr-fonts-style display-7">
+In this first step we have constructed a blank context and loaded the native framework plugins.
+Next, we need to choose which plugin we want to run and construct the linked context.
+For this, I propose we create a function which can construct a simple plugin with no specific arguments.
+</p>
+
+<pre><code class="python">
+1    def build_context(image_name ,context, base_config_path, plugin):
+2        available_automagics = automagic.available(context)
+3        plugin_config_path = interfaces.configuration.path_join(base_config_path, plugin.__name__)
+4        automagics = automagic.choose_automagic(available_automagics, plugin)
+5        context.config['automagic.LayerStacker.stackers'] = automagic.stacker.choose_os_stackers(plugin)
+6        context.config['automagic.LayerStacker.single_location'] = "file://" + os.getcwd() + "/" + image_name
+7        constructed = construct_plugin(context, automagics, plugin, base_config_path, None, None)
+8        return constructed
+</code></pre>
+<p class="mbr-text mbr-fonts-style display-7">
+
+Let's decompose the function :
+<ul class="mbr-text mbr-fonts-style display-7">
+  <li> The <b>image_name</b> is the name or relative path of the memory image you want to explore.</li>
+  <li> The <b>context</b> is going to be the object in which the memory context, plugin configuration and requirements will be stored.</li>
+  <li> The <b>base_config_path</b> The path within the context's config containing the plugin's configuration. By default, this value is set to "plugins"</li>
+  <li> The <b>plugin</b> Is the plugin object choosen from the list of plugins.</li>
+</ul>
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+Volatility3 is using what is called automagics to help with plugin construction,
+it helps a lot with automatically determining stack <a href="https://volatility3.readthedocs.io/en/stable/basics.html">layers</a>.<br>
+Line 2, 4 and 5 of the code are determining what automagics are available, choose the automagics that apply to the operating system and update the context configuration.
+<br><br>Line 6 is simply giving to the context configuration the memory image location.
+<br><br>Once the context is ready, we can construct the plugin using the framework build-in function "construct_plugin".
+<br>This function will check that all the plugin's requirements are fulfilled and if so, is returning the contucted plugin which is an object.
+The sample code and output bellow allows us to see a bit more of what happended behind the scene and construct the 'PsList' plugin.
+<br>Notice that our logger also display the volatility3 logs !.
+</p>
+
+<pre><code class="text">
+import volatility3.framework
+from volatility3.framework import contexts, interfaces
+from volatility3 import plugins
+from volatility3.framework import automagic
+from volatility3.framework.plugins import construct_plugin
+import logging, os
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+volatility3.framework.require_interface_version(2, 0, 0)
+
+def build_context(image_name ,context, base_config_path, plugin):
+    available_automagics = automagic.available(context)
+    logger.info(f"Available automagics : {available_automagics}")
+    plugin_config_path = interfaces.configuration.path_join(base_config_path, plugin.__name__)
+    automagics = automagic.choose_automagic(available_automagics, plugin)
+    context.config['automagic.LayerStacker.stackers'] = automagic.stacker.choose_os_stackers(plugin)
+    context.config['automagic.LayerStacker.single_location'] = "file://" + os.getcwd() + "/" + image_name
+    constructed = construct_plugin(context, automagics, plugin, base_config_path, None, None)
+    logger.info(f"Contructed plugin : {constructed}")
+    return constructed
+
+ctx = contexts.Context()  # Construct a blank context
+failures = volatility3.framework.import_files(plugins, True) #Load the framework plugins
+if failures:
+    logger.info(f"Some volatility3 plugin couldn't be loaded : {failures}")
+else:
+    logger.info(f"Plugins are loaded without failure")
+plugin_list = volatility3.framework.list_plugins()
+base_config_path = "plugins"
+
+constructed = build_context("Triage-Memory.mem", ctx, base_config_path, plugin_list['windows.pslist.PsList'])
+
+logger.info(f"Context configuration {ctx.config}")
+</code></pre>
+
+<h6>OUTPUT :</h6>
+<pre><code class="python">
+  INFO:__main__:Plugins are loaded without failure
+  INFO:__main__:Available automagics :
+  [volatility3.framework.automagic.symbol_cache.SymbolBannerCache object at 0x1052d9e20,
+    volatility3.framework.automagic.mac.MacBannerCache object at 0x1052d9eb0,
+    volatility3.framework.automagic.linux.LinuxBannerCache object at 0x1052d9f40,
+    volatility3.framework.automagic.construct_layers.ConstructionMagic object at 0x1063a6340,
+    volatility3.framework.automagic.stacker.LayerStacker object at 0x1063b4280,
+    ...
+  ]
+
+
+  INFO:volatility3.framework.automagic:Detected a windows category plugin
+  INFO:volatility3.framework.automagic:Running automagic: ConstructionMagic
+  INFO:volatility3.framework.automagic:Running automagic: LayerStacker
+  INFO:volatility3.framework.automagic:Running automagic: WinSwapLayers
+  INFO:volatility3.framework.automagic:Running automagic: KernelPDBScanner
+  INFO:volatility3.framework.automagic:Running automagic: KernelModule
+
+
+  INFO:__main__:Contructed plugin : volatility3.plugins.windows.pslist.PsList object at 0x1063c1ee0
+
+
+  INFO:__main__:Context configuration {
+    "automagic.LayerStacker.single_location": "file:///REDACTED/REDACTED/REDACTED/REDACTED/REDACTED/REDACTED/Triage-Memory.mem",
+    "automagic.LayerStacker.stackers": [
+      "AVMLStacker",
+      "LimeStacker",
+      "Elf64Stacker",
+      "QemuStacker",
+      "WindowsCrashDumpStacker",
+      "VmwareStacker",
+      "WindowsIntelStacker"
+    ],
+    "plugins.PsList.dump": false,
+    "plugins.PsList.kernel": "kernel",
+    "plugins.PsList.kernel.class": "volatility3.framework.contexts.Module",
+    "plugins.PsList.kernel.layer_name": "layer_name",
+    "plugins.PsList.kernel.layer_name.class": "volatility3.framework.layers.intel.WindowsIntel32e",
+    "plugins.PsList.kernel.layer_name.kernel_virtual_offset": 272678925664256,
+    "plugins.PsList.kernel.layer_name.memory_layer": "memory_layer",
+    "plugins.PsList.kernel.layer_name.memory_layer.class": "volatility3.framework.layers.physical.FileLayer",
+    "plugins.PsList.kernel.layer_name.memory_layer.location": "file:///REDACTED/REDACTED/REDACTED/REDACTED/REDACTED/REDACTED/Triage-Memory.mem",
+    "plugins.PsList.kernel.layer_name.page_map_offset": 1601536,
+    "plugins.PsList.kernel.layer_name.swap_layers": true,
+    "plugins.PsList.kernel.layer_name.swap_layers.number_of_elements": 0,
+    "plugins.PsList.kernel.offset": 272678925664256,
+    "plugins.PsList.kernel.symbol_table_name": "symbol_table_name1",
+    "plugins.PsList.kernel.symbol_table_name.class": "volatility3.framework.symbols.windows.WindowsKernelIntermedSymbols",
+    "plugins.PsList.kernel.symbol_table_name.isf_url": "file:///REDACTED/REDACTED/REDACTED/REDACTED/python/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/2E37F962D699492CAAF3F9F4E9770B1D-2.json.xz",
+    "plugins.PsList.kernel.symbol_table_name.symbol_mask": 0,
+    "plugins.PsList.physical": false,
+    "plugins.PsList.pid": []
+  }
+</code></pre>
+
+
+<p class="mbr-text mbr-fonts-style display-7">
+Once our plugin is constructed we can run it. However we need to specify to volatility how we want to render the output.
+The framework is providing us with multiple <b>renderers</b>. Let's use the "pretty text renderer" that we have used with the CLI at the begining of the blog and run the plugin.
+<p>
+<pre><code class="python">
+import volatility3.framework
+from volatility3.framework import contexts, interfaces
+from volatility3 import plugins
+from volatility3.framework import automagic
+from volatility3.framework.plugins import construct_plugin
+from volatility3.cli import text_renderer
+import logging, os
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+volatility3.framework.require_interface_version(2, 0, 0)
+
+def build_context(image_name ,context, base_config_path, plugin):
+    available_automagics = automagic.available(context)
+    plugin_config_path = interfaces.configuration.path_join(base_config_path, plugin.__name__)
+    automagics = automagic.choose_automagic(available_automagics, plugin)
+    context.config['automagic.LayerStacker.stackers'] = automagic.stacker.choose_os_stackers(plugin)
+    context.config['automagic.LayerStacker.single_location'] = "file://" + os.getcwd() + "/" + image_name
+    constructed = construct_plugin(context, automagics, plugin, base_config_path, None, None)
+    return constructed
+
+ctx = contexts.Context()  # Construct a blank context
+failures = volatility3.framework.import_files(plugins, True) #Load the framework plugins
+if failures:
+    logger.info(f"Some volatility3 plugin couldn't be loaded : {failures}")
+else:
+    logger.info(f"Plugins are loaded without failure")
+plugin_list = volatility3.framework.list_plugins()
+base_config_path = "plugins"
+constructed = build_context("Triage-Memory.mem", ctx, base_config_path, plugin_list['windows.pslist.PsList'])
+
+if constructed:
+    result = text_renderer.PrettyTextRenderer().render(constructed.run())
+    </code></pre>
+
+<h6>OUTPUT :</h6>
+<pre><code class="python">
+INFO:__main__:Plugins are loaded without failure
+INFO:volatility3.framework.automagic:Detected a windows category plugin
+INFO:volatility3.framework.automagic:Running automagic: ConstructionMagic
+INFO:volatility3.framework.automagic:Running automagic: LayerStacker
+INFO:volatility3.framework.automagic:Running automagic: WinSwapLayers
+INFO:volatility3.framework.automagic:Running automagic: KernelPDBScanner
+INFO:volatility3.framework.automagic:Running automagic: KernelModule
+Formatting...
+  |  PID | PPID |  ImageFileName |      Offset(V) | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime | File output
+* |    4 |    0 |         System | 0xfa8003c72b30 |      87 |     547 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+* |  252 |    4 |       smss.exe | 0xfa8004616040 |       2 |      30 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+* |  332 |  324 |      csrss.exe | 0xfa80050546b0 |      10 |     516 |         0 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+* |  372 |  364 |      csrss.exe | 0xfa800525a9e0 |      11 |     557 |         1 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+* |  380 |  324 |    wininit.exe | 0xfa8005259060 |       3 |      78 |         0 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+* |  416 |  364 |   winlogon.exe | 0xfa8005268b30 |       3 |     110 |         1 | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+* |  476 |  380 |   services.exe | 0xfa8005680910 |      12 |     224 |         0 | False | 2019-03-22 05:31:59.000000  |      N/A |    Disabled
+...
+</code></pre>
+
+<h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Going further</h4>
+<p class="mbr-text mbr-fonts-style display-7">
+Great, we now know how to run a simple plugin with no specfic configuration and a default text renderer.
+In this section, we'll try to dump a specific process from the PsList. Next, we'll see how we can build a custom text_renderer.
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+If you take a look at the context configuration displayed earlier, you'll notice that some options about the PsList plugin are set by default.
+What if we want to try to dump a specific process ? With the volatility3 CLI, the command will be the following :
+</p>
+<pre><code class="bash">
+» vol -f Triage-Memory.mem windows.pslist --pid 252 --dump                                                                                                                             k1nd0ne@MacBook-Pro-de-Felix
+Volatility 3 Framework 2.0.1
+Progress:  100.00		PDB scanning finished
+PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
+
+252	4	smss.exe	0xfa8004616040	2	30	N/A	False	2019-03-22 05:31:55.000000 	N/A	pid.252.0x48430000.dmp
+</pre></code>
+<p class="mbr-text mbr-fonts-style display-7">
+The argument we specified are the PID which is the process ID we want to filter, and the DUMP option which means that we want to dump the list of resulting process.
+<br>If we take a look at the plugin context configuration, the entries reponsable are the following :
+<br><b>"plugins.PsList.pid": []</b>
+<br><b>"plugins.PsList.dump": false</b>
+
+In our code, we just have to clarify those 2 values.
+</p>
+<pre><code class="python">
+...
+ctx.config["plugins.PsList.pid"] = [252]
+ctx.config["plugins.PsList.dump"] = True
+constructed = build_context("Triage-Memory.mem", ctx, base_config_path, plugin_list['windows.pslist.PsList'])
+</pre></code>
+<h6>OUTPUT :</h6>
+<pre><code class="python">                                                                                                                                                                        1 ↵ k1nd0ne@MacBook-Pro-de-Felix
+INFO:__main__:Plugins are loaded without failure
+INFO:volatility3.framework.automagic:Detected a windows category plugin
+INFO:volatility3.framework.automagic:Running automagic: ConstructionMagic
+INFO:volatility3.framework.automagic:Running automagic: LayerStacker
+INFO:volatility3.framework.automagic:Running automagic: WinSwapLayers
+INFO:volatility3.framework.automagic:Running automagic: KernelPDBScanner
+INFO:volatility3.framework.automagic:Running automagic: KernelModule
+Formatting...
+| PID | PPID | ImageFileName |      Offset(V) | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime |            File output
+* | 252 |    4 |      smss.exe | 0xfa8004616040 |       2 |      30 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A | pid.252.0x48430000.dmp
+</pre></code>
+<p class="mbr-text mbr-fonts-style display-7">
+This code will be interpreted without error, however you'll never find your process on your drive ! Why ?
+Well, in the "build_context" function I have called the volatility3 framework's "construct_plugin" function with no <b>File Handler Interface</b>.
+By default, the volatility3 framework let you decide how to handle files by rewritting the methods (open, write, ...).
+
+In this example, we want the file to be directly written in the current directory from where the script is executed.
+The following code is using the CLIDirectFileHandler from the native framework with a little bit of tweaking. Once integrated into our code, the final result will look like the following.</p>
+<pre><code class="python">
+import volatility3.framework
+from volatility3.framework import contexts, interfaces
+from volatility3 import plugins
+from volatility3.framework import automagic
+from volatility3.framework.plugins import construct_plugin
+from volatility3.cli import text_renderer
+import logging, os, io, tempfile
+
+
+def file_handler(output_dir):
+    class CLIFileHandler(interfaces.plugins.FileHandlerInterface):
+        """The FileHandler from Volatility3 CLI"""
+        def _get_final_filename(self):
+            """Gets the final filename"""
+            if output_dir is None:
+                raise TypeError("Output directory is not a string")
+            os.makedirs(output_dir, exist_ok = True)
+
+            pref_name_array = self.preferred_filename.split('.')
+            filename, extension = os.path.join(output_dir, '.'.join(pref_name_array[:-1])), pref_name_array[-1]
+            output_filename = f"{filename}.{extension}"
+
+            counter = 1
+            if os.path.exists(output_filename):
+                os.remove(output_filename)
+            return output_filename
+
+    class CLIDirectFileHandler(CLIFileHandler):
+        """We want to save our files directly to disk"""
+        def __init__(self, filename: str):
+            fd, self._name = tempfile.mkstemp(suffix = '.vol3', prefix = 'tmp_', dir = output_dir)
+            self._file = io.open(fd, mode = 'w+b')
+            CLIFileHandler.__init__(self, filename)
+            for item in dir(self._file):
+                if not item.startswith('_') and not item in ['closed', 'close', 'mode', 'name']:
+                    setattr(self, item, getattr(self._file, item))
+
+        def __getattr__(self, item):
+            return getattr(self._file, item)
+
+        @property
+        def closed(self):
+            return self._file.closed
+
+        @property
+        def mode(self):
+            return self._file.mode
+
+        @property
+        def name(self):
+            return self._file.name
+
+        def close(self):
+            """Closes and commits the file (by moving the temporary file to the correct name"""
+            # Don't overcommit
+            if self._file.closed:
+                return
+
+            self._file.close()
+            output_filename = self._get_final_filename()
+            os.rename(self._name, output_filename)
+
+    return CLIDirectFileHandler
+
+def build_context(image_name ,context, base_config_path, plugin):
+    available_automagics = automagic.available(context)
+    plugin_config_path = interfaces.configuration.path_join(base_config_path, plugin.__name__)
+    automagics = automagic.choose_automagic(available_automagics, plugin)
+    context.config['automagic.LayerStacker.stackers'] = automagic.stacker.choose_os_stackers(plugin)
+    context.config['automagic.LayerStacker.single_location'] = "file://" + os.getcwd() + "/" + image_name
+    constructed = construct_plugin(context, automagics, plugin, base_config_path, None, file_handler(os.getcwd()))
+    return constructed
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+volatility3.framework.require_interface_version(2, 0, 0)
+
+ctx = contexts.Context()  # Construct a blank context
+failures = volatility3.framework.import_files(plugins, True) #Load the framework plugins
+if failures:
+    logger.info(f"Some volatility3 plugin couldn't be loaded : {failures}")
+else:
+    logger.info(f"Plugins are loaded without failure")
+plugin_list = volatility3.framework.list_plugins()
+base_config_path = "plugins"
+ctx.config["plugins.PsList.pid"] = [252]
+ctx.config["plugins.PsList.dump"] = True
+constructed = build_context("Triage-Memory.mem", ctx, base_config_path, plugin_list['windows.pslist.PsList'])
+
+if constructed:
+    result = text_renderer.PrettyTextRenderer().render(constructed.run())
+</pre></code>
+
+<p class="mbr-text mbr-fonts-style display-7">
+  There we got, this script will dump the process with PID 252 using the PsList plugin.
+  Now that you know more how to use the framework's libraries, you can imagine any application you want to a real case scenario!
+</p>
+<h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Conclusion</h4>
+<p class="mbr-text mbr-fonts-style display-7">
+I hope you now have a better understanding of how the volatility3 framework is working behind the scene and how easy it is to exploit and
+integrate it inside your investigation tools. You can of course write your own renderers to directly inject the results inside a database or any format that suite your needs.
+VolWeb is using volatility3 as a library and this article is directly linked to the latest release exploiting this capability.
+<br>You can check VolWeb by clicking the link bellow.
+<br><br>This article is written from my own understanding of this subject and any critics you may have are welcomed to make this article evolve. You can contact me at <a href="mailto:felix.guyard@forensicxlab.com" class="text-primary">felix.guyard@forensicxlab.com.</a>
+
+<p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content11 cid-t6Fuq8SCpK" id="content11-1z">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="mbr-section-btn align-center"><a class="btn btn-black display-4" href="https://github.com/k1nd0ne/VolWeb/releases/" target="_blank">VolWeb Lastest</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section data-bs-version="5.1" class="content5 cid-t6Fuq7P3ne" id="content5-1u">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-10">
+              <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">References</h4>
+              Volatility3 Documentation : <a href="https://github.com/volatilityfoundation/volatility3">https://volatility3.readthedocs.io/en/stable/using-as-a-library.html</a>
+              <br>Volatility3 Project : <a href="https://github.com/volatilityfoundation/volatility3">https://github.com/volatilityfoundation/volatility3</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section data-bs-version="5.1" class="footer7 cid-t6Fuq9n1au" once="footers" id="footer7-20">
+    <div class="container">
+        <div class="media-container-row align-center mbr-white">
+            <div class="col-12">
+                <p class="mbr-text mb-0 mbr-fonts-style display-7">
+                    © Copyright 2022 forensicxlab - All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
