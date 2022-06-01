@@ -116,7 +116,7 @@
                 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Volatility3 CLI</h4>
                 <p class="mbr-text mbr-fonts-style display-7">
                   When using the volatility3 framework on a memory image the analyst is typically using the command line interface (CLI) component of the framework.
-                  It is one of the best way to interact with the framework quickly and get results. In the bellow example, we are executing the PsList plugin on a memory dump using the CLI.
+                  It is one of the best way to interact with the framework quickly and get results. In the below example, we are executing the PsList plugin on a memory dump using the CLI.
                 </p>
 <pre><code class="bash">
 » vol -r pretty -f Triage-Memory.mem windows.pslist
@@ -228,9 +228,9 @@ Indeed it is helping a lot to automatically determine specific stack <a href="ht
 Line 2, 4 and 5 of the code are determining what automagics are available, choose the automagics that apply to the operating system and update the context configuration.
 <br><br>Line 6 is simply giving to the context configuration the memory image location.
 <br><br>Once the context is ready, we can construct the plugin using the framework build-in function "construct_plugin".
-<br>This function will check that all the plugin's requirements are fulfilled and if so, will returne the contucted plugin (which is an object).
-The sample code and output bellow allows us to see a bit more of what happended behind the scene and construct the 'PsList' plugin.
-<br>Notice that our logger also display the volatility3 logs !.
+<br>This function will check that all the plugin's requirements are fulfilled and if so, will return the constructed plugin (which is an object).
+The sample code and output below allows us to see a bit more of what happended behind the scene and construct the 'PsList' plugin.
+<br>Notice that our logger also displays the volatility3 logs !
 </p>
 
 <pre><code class="text">
@@ -409,7 +409,7 @@ PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	Exit
 </pre></code>
 <p class="mbr-text mbr-fonts-style display-7">
 The arguments we specified are the PID, which is the process ID we want to filter, and the DUMP option, which means that we want to dump the list of the filtered processes.
-<br>If we take a look at the plugin context configuration, the entries reponsable are the following :
+<br>If we take a look at the plugin context configuration, the entries reponsible are the following :
 <br><b>"plugins.PsList.pid": []</b>
 <br><b>"plugins.PsList.dump": false</b>
 In our code, we just have to clarify those two values:
@@ -436,7 +436,7 @@ Formatting...
 <p class="mbr-text mbr-fonts-style display-7">
 This code will be interpreted without error. However you'll never find your process on your drive ! Why ?
 Well, in the "build_context" function I have called the volatility3 framework's "construct_plugin" function with no <b>File Handler Interface</b>.
-By default, the volatility3 framework let you decide how to handle files by rewritting the methods (open, write, ...).
+By default, the volatility3 framework lets you decide how to handle files by rewritting the methods (open, write, ...).
 
 In this example, we want the file to be directly written in the current directory from where the script is executed.
 The following code is using the CLIDirectFileHandler from the native framework with a little bit of tweaking. Once integrated into our code, the final result will look like the following.</p>
@@ -537,14 +537,14 @@ if constructed:
 
 <p class="mbr-text mbr-fonts-style display-7">
   There we go, when interpreted, this script will dump the process with PID 252 using the PsList plugin.
-  Now that you know more about how to use the volatilit3 framework libraries, you can imagine any application you want to a real case scenario!
+  Now that you know more about how to use the volatility3 framework libraries, you can imagine any application you want to a real case scenario!
 </p>
 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Conclusion</h4>
 <p class="mbr-text mbr-fonts-style display-7">
 I hope you now have a better understanding of how the volatility3 framework is working behind the scene, how easy it is to exploit and
 integrate it inside your investigation tools. You can of course write your own renderers to directly inject the results inside a database or any format that suite your needs.
 VolWeb is using volatility3 as a library and this article is directly linked to the latest release exploiting this capability.
-<br>You can check VolWeb by clicking the link bellow.
+<br>You can check VolWeb by clicking the link below.
 <br><br>This article is written from my own understanding of this subject and any critics you may have are welcomed to make this article evolve. You can contact me at <a href="mailto:felix.guyard@forensicxlab.com" class="text-primary">felix.guyard@forensicxlab.com.</a>
 
 <p>
