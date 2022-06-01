@@ -115,7 +115,7 @@
 
                 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Volatility3 CLI</h4>
                 <p class="mbr-text mbr-fonts-style display-7">
-                  When using the volatility3 framework on a memory image the analyst is typically using the command line interface (CLI) component of the framework.
+                  When using the volatility3 framework on a memory image, the analyst is typically using the command line interface (CLI) component of the framework.
                   It is one of the best way to interact with the framework quickly and get results. In the below example, we are executing the PsList plugin on a memory dump using the CLI.
                 </p>
 <pre><code class="bash">
@@ -140,13 +140,13 @@
 [etc...]
 </code></pre>
 <p class="mbr-text mbr-fonts-style display-7">
-Having those results is a great way to help you during an investigation, but what if we want to make the framework perform more specific tasks to include it to an other platform ?
+Having those results is a great way to help you during an investigation, but what if we want to make the framework perform more specific tasks to include it to another platform ?
 For example, you may want to integrate the results directly inside a sandbox or a Web UI.
 Behind the scene of the execution of this command, volatility3 is using multiple libraries from the framework to produce its results. It's simply parsing the user's arguments and perform the following steps :
 <br>
 <ul class="mbr-text mbr-fonts-style display-7">
   <li>Create an empty memory context for the memory image;</li>
-  <li>Determine if the requested plugin exist in the available list of plugins;</li>
+  <li>Determine if the requested plugin exists in the available list of plugins;</li>
   <li>Determine what configuration options the plugin requires;</li>
   <li>Complete the context configuration using the plugin requirements, automagics and the user's arguments;</li>
   <li>Run the plugin;</li>
@@ -155,7 +155,7 @@ Behind the scene of the execution of this command, volatility3 is using multiple
 </p>
 
 <p class="mbr-text mbr-fonts-style display-7">
-Great, now you have a high level understanding of what's going on in the background when a plugin tries to be run.
+Great, now you have a high level understanding of what's going on in the background when attempting to run a plugin.
 Using the <a href="https://volatility3.readthedocs.io/en/stable/using-as-a-library.html" class="text-primary" target="_blank">Volatility3 documentation</a>,
 let's try to write a simple sample of code to run the PsList plugin with volatility3 as a library.
 </p>
@@ -226,10 +226,10 @@ Let's decompose the function :
 Volatility3 is using what is called "automagics" to help with plugin construction.
 Indeed it is helping a lot to automatically determine specific stack <a href="https://volatility3.readthedocs.io/en/stable/basics.html">layers</a>.<br>
 Line 2, 4 and 5 of the code are determining what automagics are available, choose the automagics that apply to the operating system and update the context configuration.
-<br><br>Line 6 is simply giving to the context configuration the memory image location.
-<br><br>Once the context is ready, we can construct the plugin using the framework build-in function "construct_plugin".
+<br><br>Line 6 is simply giving the memory image location to the context configuration.
+<br><br>Once the context is ready, we can construct the plugin using the framework built-in function "construct_plugin".
 <br>This function will check that all the plugin's requirements are fulfilled and if so, will return the constructed plugin (which is an object).
-The sample code and output below allows us to see a bit more of what happended behind the scene and construct the 'PsList' plugin.
+The sample code and output below allows us to see a bit more of what happened behind the scene and construct the 'PsList' plugin.
 <br>Notice that our logger also displays the volatility3 logs !
 </p>
 
@@ -397,7 +397,7 @@ In this section, we'll try to dump a specific process using the capabilities of 
 
 <p class="mbr-text mbr-fonts-style display-7">
 If you take a look at the context configuration displayed earlier, you'll notice that some options about the PsList plugin are set by default.
-What if we want to try to dump a specific process ? With the volatility3 CLI, the command will be the following :
+What if we want to try to dump a specific process ? With the volatility3 CLI, the command is the following :
 </p>
 <pre><code class="bash">
 » vol -f Triage-Memory.mem windows.pslist --pid 252 --dump                                                                                                                             k1nd0ne@MacBook-Pro-de-Felix
@@ -435,11 +435,11 @@ Formatting...
 </pre></code>
 <p class="mbr-text mbr-fonts-style display-7">
 This code will be interpreted without error. However you'll never find your process on your drive ! Why ?
-Well, in the "build_context" function I have called the volatility3 framework's "construct_plugin" function with no <b>File Handler Interface</b>.
+Well, in the "build_context" function, I have called the volatility3 framework's "construct_plugin" function with no <b>File Handler Interface</b>.
 By default, the volatility3 framework lets you decide how to handle files by rewritting the methods (open, write, ...).
 
 In this example, we want the file to be directly written in the current directory from where the script is executed.
-The following code is using the CLIDirectFileHandler from the native framework with a little bit of tweaking. Once integrated into our code, the final result will look like the following.</p>
+The following code is using the CLIDirectFileHandler from the native framework with a little bit of tweaking. Once integrated into our code, the final result looks like this :</p>
 <pre><code class="python">
 import volatility3.framework
 from volatility3.framework import contexts, interfaces
