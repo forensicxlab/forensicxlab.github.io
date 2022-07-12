@@ -113,14 +113,13 @@
 
                 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Analysis creation</h4>
                 <p class="mbr-text mbr-fonts-style display-7">
-                  After fireing up your instance of VolWeb, login to the platform and create a new Windows case and upload the challenge memory image.
-                  Once the image is uploaded, launch the analysis from the "Analysis" menu. Once it's finished, click on the analysis and click the "Review results" button.
-
+                  After fireing up your instance of VolWeb, login to the platform, create a new Windows investigation and upload the challenge memory image.
+                  Once the image is uploaded, launch the analysis from the "Analysis" menu. Once it's finished, select the analysis and click the "Review results" button.
                 </p>
                   <img src="assets/images/brave/1.png" alt="">
 
 <p class="mbr-text mbr-fonts-style display-7">
-  From there we can start our investigation of the memory image using the left panel by clicking on the "Plugins" button.
+  From there, we can start our investigation of the memory image using the left panel by clicking on the "Plugins" button.
   From the first default displayed menu named "Case", we have the information we need to answer question #2 about the SHA256 value of the RAM image which is : <b>9db01b1e7b19a3b2113bfb65e860fffd7a1630bdf2b18613d206ebf2aa0ea172</b>
 </p>
 <img src="assets/images/brave/2.png" alt="">
@@ -129,7 +128,7 @@
 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Process Analysis</h4>
 
 <p class="mbr-text mbr-fonts-style display-7">
-Let's try to find what tool were used to dump the memory of this machine and at the same time identify the PID of "brave.exe" to answer question #1 & #3. For this we are going to go throught the process tree graph.
+Let's try to find what tool were used to dump the memory of this machine and at the same time, identify the PID of "brave.exe" to answer question #1 & #3. For this we are going to go throught the process tree graph.
 </p>
 </div>
 <div class="col-md-6">
@@ -140,16 +139,16 @@ Let's try to find what tool were used to dump the memory of this machine and at 
 </div>
 <div class="col-md-12">
 <p class="mbr-text mbr-fonts-style display-7">
-Using this plugin, we immediatly have the process ID of brave.exe which is <b>4856</b> and thus, is the answer for question #3.
+Using this plugin, we immediately have the process ID of brave.exe which is <b>4856</b> and thus, is the answer for question <b>#3</b>.
 If we look deeper into the tree we can also spot "FTK Imager" which is a known forensic tool that can be used to dump memory from a live system.
 </p>
 
 <p class="mbr-text mbr-fonts-style display-7">
-Howerver the time at which this process were created is no the time the memory image was fully acquired. We need to find the time when the RAM image was acquired. For this, I like to use the timeline plugin.
+To answer question #1, we need to find the time at which the RAM image was fully acquired.
+For this, I like to use the timeline plugin.
 It's always good to take a look at the timeline to have a good view of the activities registered on the machine.
- We can try to identify the time when the memory dump was done by looking for the FTK Imager activities.
- We know that the process was started at the date : <b>2021-04-30T17:51:31</b>.
- We also know that when the procedure is finished, then the have no more information because the memory is no longer dumped, which means we need to identify the last event timestamp recorded.<br>
+ We can try to identify the time at which the memory dump was finished by looking for the FTK Imager activities.
+ We know that when the dumping procedure is finished, we have no more information registered, which means we need to identify the last event timestamp recorded.<br>
  Looking at the timeline, we find the following :
 </p>
 <img src="assets/images/brave/7.png" alt="">
@@ -165,8 +164,8 @@ The answer for question <b>#1</b> is indeed <b>2021-04-30 17:52:19</b>.
 
 <div class="col-6 mb-4">
 <p class="mbr-text mbr-fonts-style display-7">
-To answer question <b>#4</b>, we can use the netscan & netstat plugin. By using the search bar we can look for the key word "ESTABLISHED" and count how many connexions are identified :
-For this question the "netstat" plugin is returning 10 connexions marked as ESTABLISHED and only 9 connexions for the "netscan" plugin. The answer for question #4 is indeed <b>10</b>.
+To answer question <b>#4</b>, we can use the <b>netscan</b> and the <b>netstat</b> plugin. By using the search bar, we can look for the key word "ESTABLISHED" and count how many connections are identified :
+For this question, the "netstat" plugin is returning 10 connections marked as ESTABLISHED, and only 9 connections for the "netscan" plugin. The answer for question #4 is indeed <b>10</b>.
 </p>
 </div>
 <div class="col-6 mb-4">
@@ -175,7 +174,7 @@ For this question the "netstat" plugin is returning 10 connexions marked as ESTA
 <div class="col-6">
 
 <p class="mbr-text mbr-fonts-style display-7">
-For the next question, we are looking for a FQDN that the chrome process established a connexion with.
+For the next question, we are looking for a FQDN that the chrome process established a connection with.
 By looking at the IP contacted by the chrome processes, we can extract some public IP addresses.
 </p>
 </div>
@@ -235,7 +234,7 @@ The answer is indeed <b>hacker</b> for question <b>#7</b>.
 </div>
 <div class="col-md-8">
   <p class="mbr-text mbr-fonts-style display-7">
-    Question <b>#8</b> is pretty straight forward, just go back using the ProcessTree plugin and fetch the PID of the parent process of "powershell.exe".
+    Question <b>#8</b> is pretty straight forward, just go back to using the ProcessTree plugin and fetch the PPID of "powershell.exe".
   </p>
 </div>
 <div class="col-md-4">
@@ -245,8 +244,8 @@ The answer is indeed <b>hacker</b> for question <b>#7</b>.
 
 <div class="col-md-4 mt-4">
 <p class="mbr-text mbr-fonts-style display-7">
-For question <b>#9</b>, we need to investigate to find the full path and name of the last file opened in notepad. The CmdLine plugin is the way to go for this question
-indeed we can look for the keyword "notepad" in the Cmdline search bar and extract the answer, which is <b>C:\Users\JOHNDO~1\AppData\Local\Temp\7zO4FB31F24\accountNum</b>.
+For question <b>#9</b>, we need to investigate to find the full path and name of the last file opened in notepad. The CmdLine plugin is the way to go for this question.
+Indeed, we can look for the keyword "notepad" in the Cmdline search bar and extract the answer which is <b>C:\Users\JOHNDO~1\AppData\Local\Temp\7zO4FB31F24\accountNum</b>.
 </p>
 </div>
 <div class="col-md-8 mt-4">
@@ -256,7 +255,7 @@ indeed we can look for the keyword "notepad" in the Cmdline search bar and extra
 
 <div class="col-md-4 mt-4">
 <p class="mbr-text mbr-fonts-style display-7">
-The last question is a little bit more tricky. Windows systems maintain a set of keys in the registry database (UserAssist keys) to keep track of programs that executed.
+  The last question is a little bit more tricky. Windows systems maintain a set of keys in the registry database (UserAssist keys) to keep track of programs that executed.
 We can use the UserAssist plugin and look for the execution of brave and how long it was used (Time Focused). The answer is <b>04:01:54</b>
 </p>
 </div>
@@ -268,7 +267,7 @@ We can use the UserAssist plugin and look for the execution of brave and how lon
 <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Conclusion</h4>
 <p class="mbr-text mbr-fonts-style display-7">
 To conclude this writeup, we were able to use the VolWeb platform to easly get answers and make our investigation more efficient.
-VolWeb is based on volatilit3 and therefore doesn't fully cover all the cyberdefenders.org memory analysis challenges questions at the moment.
+VolWeb is based on volatility3 and therefore doesn't fully cover all the cyberdefenders.org memory analysis challenges questions at the moment.
 Happy hunting !
 </p>
 </div>
