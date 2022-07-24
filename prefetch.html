@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v5.6.3, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v5.6.3, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/forensicxlab-350x122.png" type="image/x-icon">
+  <meta name="description" content="">
+
+  <title>Memory Forensics - Prefetch</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+
+  <section data-bs-version="5.1" class="menu cid-t0PzKLYkxn" once="menu" id="menu1-17">
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="index.html">
+                        <img src="assets/images/forensicxlab-350x122.png" alt="Mobirise Website Builder" style="height: 4.6rem;">
+                    </a>
+                </span>
+
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="contact.html">Contact</a></li></ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+</section>
+
+<section data-bs-version="5.1" class="image3 cid-t6Fuq6URr9" id="image3-1o">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4">
+                <div class="image-wrapper">
+                    <img src="assets/images/prefetch/logo.png" alt="">
+                    <p class="mbr-description mbr-fonts-style mt-2 align-center display-2">Memory Forensics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content4 cid-t6Fuq7pofY" id="content4-1q">
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-12">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-5">Prefetch</h3>
+                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">Félix Guyard - 24.07.2022</h4>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t6Fuq7xmx8" id="content5-1r">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Introduction</h4>
+                <p class="mbr-text mbr-fonts-style display-7">
+                  Windows prefetch files are temporary files stored in the <b>%SystemRoot%\System\Prefetch</b> folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content5 cid-t6Fuq7P3ne" id="content5-1u">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+
+                <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Windows Prefetch file format</h4>
+                <p class="mbr-text mbr-fonts-style display-7">
+                  Windows prefetch files are constructed with one file header and multiple sections. In each sections different information can be found in which there can be some interesting valuable forensic artifacts. With the evolution of the Windows versions, prefetch files format changed we will see later those changes and the differences between them. Integers are stored in little-endian order, Strings in UTF-16 little-endian and Timestamp in Windows FILETIME UTC. You can see bellow a representation of a prefetch file header and how the information is stored:
+                </p>
+                <p class="mbr-text mbr-fonts-style display-7">
+                <img src="assets/images/prefetch/prefetch_header.png" alt="">
+                </p>
+
+<u><h4 class="mbr-section-subtitle mbr-fonts-style mb-3">Format version: </h4></u>
+
+<p class="mbr-text mbr-fonts-style display-7">
+  For the different windows versions, the prefetch format version is different:
+</p>
+<ul class="mbr-text mbr-fonts-style display-7">
+  <li >17 (0x11) - Windows XP, Windows 2003</li>
+  <li>23 (0x17) - Windows Vista, Windows 7</li>
+  <li>26 (0x1a) - Windows 8.1</li>
+  <li>30 (0x1e) - Windows 10</li>
+</ul>
+
+<u><h4 class="mbr-section-subtitle mbr-fonts-style mb-3">Signature:</h4></u>
+<ul class="mbr-text mbr-fonts-style display-7">
+  <li>SCCA - Windows XP to Windows 8.1</li>
+  <li>MAM – Windows 10/11</li>
+</ul>
+
+<u><h4 class="mbr-section-subtitle mbr-fonts-style mb-3">Original executable name and hash:</h4></u>
+<p class="mbr-text mbr-fonts-style display-7">
+The two information are present in the header but are also present in the prefetch filename stored on the disk (<b>ExecutableName</b>.<b>EXE-Hash</b>).pf. The hash is use to differentiate multiple execution of the same executable.
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+Now that we have the header information, we can extract other artifacts from the file information sections.
+</p>
+<p class="mbr-text mbr-fonts-style display-7">
+For each different file version, the prefetch file information are not located at the same offset. Here is the interesting information we can find about the executable:
+</p>
+<ul class="mbr-text mbr-fonts-style display-7">
+  <li><b>Section A, B, C, and D offset and entries information</b> – Usefull to locate our artifacts</li>
+  <li><b>Last Execution</b> - Latest execution time of the executable.</li>
+  <li><b>Execution Counter</b> – How many times the executable was run.</li>
+</ul>
+<p class="mbr-text mbr-fonts-style display-7">
+Each of those information are located at different offsets. Depending on the file version, those offsets are not the same. You can find for each version the associated offsets <a href="https://github.com/libyal/libscca/blob/main/documentation/Windows%20Prefetch%20File%20(PF)%20format.asciidoc">here</a>
+</p>
+
+<u><h4 class="mbr-section-subtitle mbr-fonts-style mb-3">The MAM signature:</h4></u>
+<p class="mbr-text mbr-fonts-style display-7">
+SCCA signature indicates that the file information is stored in plain text whereas the MAM signature indicates a compressed prefetch file. MAM Signature are present in Windows 10 and 11 prefetch files only and needs to be decompressed before it can be read. The compression method used is called XPRESS Huffman which is a Microsoft compression algorithm. We’ll see later the python3 implementation of this algorithm used for the volatility3 plugin.
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+If you are doing forensic on a hard drive, you probably know the
+<a href="https://github.com/EricZimmerman/Prefetch/tree/master/Prefetch">
+  Windows Prefetch Parser
+</a> tool by Eric Zimmermann.
+However, there is no tool extracting prefetch file artifacts from memory. To this end, we are now going to see the extraction and parsing of prefetch files with <a href="https://github.com/volatilityfoundation/volatility3/">volatility3</a>.
+
+
+<h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Volatility3 Prefetch plugin
+</h4>
+
+<p class="mbr-text mbr-fonts-style display-7">
+  To be able to extract the prefetch file and parse them from a memory dump, we need to go through theses major steps:
+  <ul class="mbr-text mbr-fonts-style display-7">
+    <li>Scan for prefetch files using the “filescan” plugin;</li>
+    <li>Dump each prefetch file in a bytearray;</li>
+    <li>Identify each Prefetch signature and decompress it if necessary (MAM signature);</li>
+    <li>Parse the Prefetch and extract the interesting artifacts;</li>
+    <li>Render the result.</li>
+  </ul>
+
+</p>
+<p class="mbr-text mbr-fonts-style display-7">
+  When developing the plugin, I had to implement the <b>Microsoft's XPRESS Huffman decompression algorithm</b> in python3 to be able to read Windows 1.X prefetch files.
+  I have used the provided Microsoft pseudo code of the algorithm available <a href="https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-XCA/%5bMS-XCA%5d.pdf"></a>.
+  The python3 implementation of the algorithm itself is available on the forensicxlab's github : <a href="https://github.com/forensicxlab/Xpress_LZ77Huffman">https://github.com/forensicxlab/Xpress_LZ77Huffman</a>
+  The volatility plugin is using a derived version of this algorithm, which will return the file even if the PF is incomplete so we can extract information.
+</p>
+
+
+
+</div>
+
+<h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-5">Conclusion</h4>
+<p class="mbr-text mbr-fonts-style display-7">
+  The plugin was tested on Windows 7, Windows 8.1 and Windows 10 vmem memory dumps.
+  The plugin code can be found on the <a href="https://github.com/forensicxlab/">forensicxlab's github</a>
+  and will be submitted to the volatility3 for integration to the framework.
+  You should Identify each steps described before in the source code comments. Do not hesitate to reach me at <a href="felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a>, or make a pull-request on the repository to enhance this plugin or this article.
+  <br>Happy Hunting!
+
+</p>
+      </div>
+        </div>
+    </div>
+</section>
+<section data-bs-version="5.1" class="footer7 cid-t6Fuq9n1au" once="footers" id="footer7-20">
+    <div class="container">
+        <div class="media-container-row align-center mbr-white">
+            <div class="col-12">
+                <p class="mbr-text mb-0 mbr-fonts-style display-7">
+                    © Copyright 2022 forensicxlab - All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
