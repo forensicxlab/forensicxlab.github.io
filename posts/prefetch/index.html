@@ -255,6 +255,7 @@ Windows Prefetch file format</p>
 <li>Render the result.</li>
 </ul>
 <p>When developing the plugin, I had to implement the Microsoft&rsquo;s XPRESS Huffman decompression algorithm in python3 to be able to read Windows 1.X prefetch files. I have used the provided Microsoft pseudo code of the algorithm available . The python3 implementation of the algorithm itself is available on the forensicxlab&rsquo;s github : <a href="https://github.com/forensicxlab/Xpress_LZ77Huffman">https://github.com/forensicxlab/Xpress_LZ77Huffman</a> The volatility plugin is using a derived version of this algorithm, which will return the file even if the PF is incomplete so we can extract information.</p>
+<p><img src="/images/prefetch/results.png" alt="alt text" title="Prefetch header"></p>
 <h1 id="conclusion">
   Conclusion
   <a class="heading-link" href="#conclusion">
