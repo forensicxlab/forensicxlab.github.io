@@ -185,17 +185,23 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>Windows prefetch files are temporary files stored in the <strong><code>%SystemRoot%\System\Prefetch</code></strong> folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.
-Windows Prefetch file format</p>
+<p>Windows prefetch files are temporary files stored in the <strong><code>%SystemRoot%\System\Prefetch</code></strong> folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.</p>
+<h1 id="windows-prefetch-file-format">
+  Windows Prefetch file format
+  <a class="heading-link" href="#windows-prefetch-file-format">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
 <p>Windows prefetch files are constructed with one file header and multiple sections. In each sections different information can be found in which there can be some interesting valuable forensic artifacts. With the evolution of the Windows versions, prefetch files format changed we will see later those changes and the differences between them. Integers are stored in little-endian order, Strings in UTF-16 little-endian and Timestamp in Windows FILETIME UTC. You can see bellow a representation of a prefetch file header and how the information is stored:</p>
 <p><img src="/images/prefetch/screenshot.png" alt="alt text" title="Prefetch header"></p>
-<h1 id="format-version">
+<h2 id="format-version">
   Format version:
   <a class="heading-link" href="#format-version">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h1>
+</h2>
 <p>For the different windows versions, the prefetch format version is different:</p>
 <ul>
 <li>17 (0x11) - Windows XP, Windows 2003</li>
@@ -203,24 +209,24 @@ Windows Prefetch file format</p>
 <li>26 (0x1a) - Windows 8.1</li>
 <li>30 (0x1e) - Windows 10</li>
 </ul>
-<h1 id="signature">
+<h2 id="signature">
   Signature:
   <a class="heading-link" href="#signature">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h1>
+</h2>
 <ul>
 <li>SCCA - Windows XP to Windows 8.1</li>
 <li>MAM – Windows 10/11</li>
 </ul>
-<h1 id="original-executable-name-and-hash">
+<h2 id="original-executable-name-and-hash">
   Original executable name and hash:
   <a class="heading-link" href="#original-executable-name-and-hash">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h1>
+</h2>
 <p>The two information are present in the header but are also present in the prefetch filename stored on the disk (ExecutableName.EXE-Hash).pf. The hash is use to differentiate multiple execution of the same executable.</p>
 <p>Now that we have the header information, we can extract other artifacts from the file information sections.</p>
 <p>For each different file version, the prefetch file information are not located at the same offset. Here is the interesting information we can find about the executable:</p>
@@ -230,13 +236,13 @@ Windows Prefetch file format</p>
 <li>Execution Counter – How many times the executable was run.</li>
 </ul>
 <p>Each of those information are located at different offsets. Depending on the file version, those offsets are not the same. You can find for each version the associated offsets <a href="https://github.com/libyal/libscca/blob/main/documentation/Windows%20Prefetch%20File%20(PF)%20format.asciidoc">here</a></p>
-<h1 id="the-mam-signature">
+<h2 id="the-mam-signature">
   The MAM signature:
   <a class="heading-link" href="#the-mam-signature">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h1>
+</h2>
 <p>SCCA signature indicates that the file information is stored in plain text whereas the MAM signature indicates a compressed prefetch file. MAM Signature are present in Windows 10 and 11 prefetch files only and needs to be decompressed before it can be read. The compression method used is called XPRESS Huffman which is a Microsoft compression algorithm. We’ll see later the python3 implementation of this algorithm used for the volatility3 plugin.</p>
 <p>If you are doing forensic on a hard drive, you probably know the Windows Prefetch Parser tool by Eric Zimmermann. However, there is no tool extracting prefetch file artifacts from memory. To this end, we are now going to see the extraction and parsing of prefetch files with volatility3.</p>
 <h1 id="volatility3-prefetch-plugin">
