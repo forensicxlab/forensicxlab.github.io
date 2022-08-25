@@ -2,59 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.example.com/posts/prefetch/</loc>
+    <loc>http://www.forensicxlab.com/posts/prefetch/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/categories/</loc>
+    <loc>http://www.forensicxlab.com/categories/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/dfir/</loc>
+    <loc>http://www.forensicxlab.com/tags/dfir/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/</loc>
+    <loc>http://www.forensicxlab.com/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/memory-forensics/</loc>
+    <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/categories/memory-forensics/</loc>
+    <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/</loc>
+    <loc>http://www.forensicxlab.com/posts/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/prefetch/</loc>
+    <loc>http://www.forensicxlab.com/tags/prefetch/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/</loc>
+    <loc>http://www.forensicxlab.com/tags/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/windows/</loc>
+    <loc>http://www.forensicxlab.com/tags/windows/</loc>
     <lastmod>2022-07-27T17:24:15+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/cyberdefenders/</loc>
+    <loc>http://www.forensicxlab.com/tags/cyberdefenders/</loc>
     <lastmod>2022-07-11T17:17:55+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/cyberdefenders_brave/</loc>
+    <loc>http://www.forensicxlab.com/posts/cyberdefenders_brave/</loc>
     <lastmod>2022-07-11T17:17:55+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/vol_as_lib/</loc>
+    <loc>http://www.forensicxlab.com/posts/vol_as_lib/</loc>
     <lastmod>2022-05-30T16:42:40+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/volatility/</loc>
+    <loc>http://www.forensicxlab.com/tags/volatility/</loc>
     <lastmod>2022-05-30T16:42:40+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/macos_isf/</loc>
+    <loc>http://www.forensicxlab.com/posts/macos_isf/</loc>
     <lastmod>2022-03-22T16:14:01+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/macos/</loc>
+    <loc>http://www.forensicxlab.com/tags/macos/</loc>
     <lastmod>2022-03-22T16:14:01+02:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/about/</loc>
+    <loc>http://www.forensicxlab.com/about/</loc>
     <lastmod>2022-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/contact/</loc>
+    <loc>http://www.forensicxlab.com/contact/</loc>
   </url><url>
-    <loc>http://www.example.com/toolshed/</loc>
+    <loc>http://www.forensicxlab.com/toolshed/</loc>
   </url>
 </urlset>

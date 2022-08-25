@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MacOs on ForensicXlab</title>
-    <link>http://www.example.com/tags/macos/</link>
+    <link>http://www.forensicxlab.com/tags/macos/</link>
     <description>Recent content in MacOs on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 22 Mar 2022 16:14:01 +0200</lastBuildDate><atom:link href="http://www.example.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Mar 2022 16:14:01 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>📄 Volatility3 - ISF for MacOs</title>
-      <link>http://www.example.com/posts/macos_isf/</link>
+      <link>http://www.forensicxlab.com/posts/macos_isf/</link>
       <pubDate>Tue, 22 Mar 2022 16:14:01 +0200</pubDate>
       
-      <guid>http://www.example.com/posts/macos_isf/</guid>
+      <guid>http://www.forensicxlab.com/posts/macos_isf/</guid>
       <description>Abstract Link to heading Being interested in memory forensic for a while now I have learned a lot about the Volatility framework. This article will introduce volatility3 core components and focus on kernel symbols. Next, I will explain the steps I took to generate a lot of MacOs SymbolTables. Finally you will be able to retrieve those SymbolsTables directly from github. The final goal is to create a public repository like windows to automatically identify mac os system version and directly download the associated SymbolTables.</description>
     </item>
     

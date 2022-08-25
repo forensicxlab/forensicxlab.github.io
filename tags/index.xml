@@ -2,71 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on ForensicXlab</title>
-    <link>http://www.example.com/tags/</link>
+    <link>http://www.forensicxlab.com/tags/</link>
     <description>Recent content in Tags on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 27 Jul 2022 17:24:15 +0200</lastBuildDate><atom:link href="http://www.example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jul 2022 17:24:15 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DFIR</title>
-      <link>http://www.example.com/tags/dfir/</link>
+      <link>http://www.forensicxlab.com/tags/dfir/</link>
       <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/dfir/</guid>
+      <guid>http://www.forensicxlab.com/tags/dfir/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Memory Forensics</title>
-      <link>http://www.example.com/tags/memory-forensics/</link>
+      <link>http://www.forensicxlab.com/tags/memory-forensics/</link>
       <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/memory-forensics/</guid>
+      <guid>http://www.forensicxlab.com/tags/memory-forensics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Prefetch</title>
-      <link>http://www.example.com/tags/prefetch/</link>
+      <link>http://www.forensicxlab.com/tags/prefetch/</link>
       <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/prefetch/</guid>
+      <guid>http://www.forensicxlab.com/tags/prefetch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Windows</title>
-      <link>http://www.example.com/tags/windows/</link>
+      <link>http://www.forensicxlab.com/tags/windows/</link>
       <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/windows/</guid>
+      <guid>http://www.forensicxlab.com/tags/windows/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Cyberdefenders</title>
-      <link>http://www.example.com/tags/cyberdefenders/</link>
+      <link>http://www.forensicxlab.com/tags/cyberdefenders/</link>
       <pubDate>Mon, 11 Jul 2022 17:17:55 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/cyberdefenders/</guid>
+      <guid>http://www.forensicxlab.com/tags/cyberdefenders/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Volatility</title>
-      <link>http://www.example.com/tags/volatility/</link>
+      <link>http://www.forensicxlab.com/tags/volatility/</link>
       <pubDate>Mon, 30 May 2022 16:42:40 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/volatility/</guid>
+      <guid>http://www.forensicxlab.com/tags/volatility/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MacOs</title>
-      <link>http://www.example.com/tags/macos/</link>
+      <link>http://www.forensicxlab.com/tags/macos/</link>
       <pubDate>Tue, 22 Mar 2022 16:14:01 +0200</pubDate>
       
-      <guid>http://www.example.com/tags/macos/</guid>
+      <guid>http://www.forensicxlab.com/tags/macos/</guid>
       <description></description>
     </item>
     
