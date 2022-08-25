@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on ForensicXlab</title>
+    <link>http://www.example.com/categories/</link>
+    <description>Recent content in Categories on ForensicXlab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 27 Jul 2022 17:24:15 +0200</lastBuildDate><atom:link href="http://www.example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Memory Forensics</title>
+      <link>http://www.example.com/categories/memory-forensics/</link>
+      <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
+      
+      <guid>http://www.example.com/categories/memory-forensics/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

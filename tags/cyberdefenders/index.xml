@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cyberdefenders on ForensicXlab</title>
+    <link>http://www.example.com/tags/cyberdefenders/</link>
+    <description>Recent content in Cyberdefenders on ForensicXlab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Jul 2022 17:17:55 +0200</lastBuildDate><atom:link href="http://www.example.com/tags/cyberdefenders/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🖋 Cyberdefenders - Writeup : Brave</title>
+      <link>http://www.example.com/posts/cyberdefenders_brave/</link>
+      <pubDate>Mon, 11 Jul 2022 17:17:55 +0200</pubDate>
+      
+      <guid>http://www.example.com/posts/cyberdefenders_brave/</guid>
+      <description>This writeup is covering the cyberdefenders.org challenge named &amp;ldquo;Brave&amp;rdquo;. Today we are going to solve this challenge using the VolWeb memory analysis platform.
+Scenario Link to heading A memory image was taken from a seized Windows machine. Analyze the image and answer the provided questions.
+Analysis creation Link to heading After firing up your instance of VolWeb, login to the platform, create a new Windows investigation and upload the challenge memory image.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📦 Volatility3 Windows Plugin : Prefetch · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading Windows prefetch files are temporary files stored in the %SystemRoot%\System\Prefetch folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📦 Volatility3 Windows Plugin : Prefetch"/>
+<meta name="twitter:description" content="Abstract Link to heading Windows prefetch files are temporary files stored in the %SystemRoot%\System\Prefetch folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin."/>
+
+<meta property="og:title" content="📦 Volatility3 Windows Plugin : Prefetch" />
+<meta property="og:description" content="Abstract Link to heading Windows prefetch files are temporary files stored in the %SystemRoot%\System\Prefetch folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/prefetch/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-27T17:24:15+02:00" />
+<meta property="article:modified_time" content="2022-07-27T17:24:15+02:00" />
+
+
+
+
+
+<link rel="canonical" href="http://www.example.com/posts/prefetch/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.example.com/posts/prefetch/">
+              📦 Volatility3 Windows Plugin : Prefetch
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-07-27T17:24:15&#43;02:00">
+                July 27, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              4-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/f%C3%A9lix-guyard/">Félix Guyard</a></div>
+
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/prefetch/">Prefetch</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/windows/">Windows</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Windows prefetch files are temporary files stored in the <strong><code>%SystemRoot%\System\Prefetch</code></strong> folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.
+Windows Prefetch file format</p>
+<p>Windows prefetch files are constructed with one file header and multiple sections. In each sections different information can be found in which there can be some interesting valuable forensic artifacts. With the evolution of the Windows versions, prefetch files format changed we will see later those changes and the differences between them. Integers are stored in little-endian order, Strings in UTF-16 little-endian and Timestamp in Windows FILETIME UTC. You can see bellow a representation of a prefetch file header and how the information is stored:</p>
+<p><img src="/images/prefetch/screenshot.png" alt="alt text" title="Prefetch header"></p>
+<h1 id="format-version">
+  Format version:
+  <a class="heading-link" href="#format-version">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>For the different windows versions, the prefetch format version is different:</p>
+<ul>
+<li>17 (0x11) - Windows XP, Windows 2003</li>
+<li>23 (0x17) - Windows Vista, Windows 7</li>
+<li>26 (0x1a) - Windows 8.1</li>
+<li>30 (0x1e) - Windows 10</li>
+</ul>
+<h1 id="signature">
+  Signature:
+  <a class="heading-link" href="#signature">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ul>
+<li>SCCA - Windows XP to Windows 8.1</li>
+<li>MAM – Windows 10/11</li>
+</ul>
+<h1 id="original-executable-name-and-hash">
+  Original executable name and hash:
+  <a class="heading-link" href="#original-executable-name-and-hash">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The two information are present in the header but are also present in the prefetch filename stored on the disk (ExecutableName.EXE-Hash).pf. The hash is use to differentiate multiple execution of the same executable.</p>
+<p>Now that we have the header information, we can extract other artifacts from the file information sections.</p>
+<p>For each different file version, the prefetch file information are not located at the same offset. Here is the interesting information we can find about the executable:</p>
+<ul>
+<li>Section A, B, C, and D offset and entries information – Useful to locate our artifacts</li>
+<li>Last Execution - Latest execution time of the executable.</li>
+<li>Execution Counter – How many times the executable was run.</li>
+</ul>
+<p>Each of those information are located at different offsets. Depending on the file version, those offsets are not the same. You can find for each version the associated offsets <a href="https://github.com/libyal/libscca/blob/main/documentation/Windows%20Prefetch%20File%20(PF)%20format.asciidoc">here</a></p>
+<h1 id="the-mam-signature">
+  The MAM signature:
+  <a class="heading-link" href="#the-mam-signature">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>SCCA signature indicates that the file information is stored in plain text whereas the MAM signature indicates a compressed prefetch file. MAM Signature are present in Windows 10 and 11 prefetch files only and needs to be decompressed before it can be read. The compression method used is called XPRESS Huffman which is a Microsoft compression algorithm. We’ll see later the python3 implementation of this algorithm used for the volatility3 plugin.</p>
+<p>If you are doing forensic on a hard drive, you probably know the Windows Prefetch Parser tool by Eric Zimmermann. However, there is no tool extracting prefetch file artifacts from memory. To this end, we are now going to see the extraction and parsing of prefetch files with volatility3.</p>
+<h1 id="volatility3-prefetch-plugin">
+  Volatility3 Prefetch plugin
+  <a class="heading-link" href="#volatility3-prefetch-plugin">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>To be able to extract the prefetch file and parse them from a memory dump, we need to go through theses major steps:</p>
+<ul>
+<li>Scan for prefetch files using the “filescan” plugin;</li>
+<li>Dump each prefetch file in a bytearray;</li>
+<li>Identify each Prefetch signature and decompress it if necessary (MAM signature);</li>
+<li>Parse the Prefetch and extract the interesting artifacts;</li>
+<li>Render the result.</li>
+</ul>
+<p>When developing the plugin, I had to implement the Microsoft&rsquo;s XPRESS Huffman decompression algorithm in python3 to be able to read Windows 1.X prefetch files. I have used the provided Microsoft pseudo code of the algorithm available . The python3 implementation of the algorithm itself is available on the forensicxlab&rsquo;s github : <a href="https://github.com/forensicxlab/Xpress_LZ77Huffman">https://github.com/forensicxlab/Xpress_LZ77Huffman</a> The volatility plugin is using a derived version of this algorithm, which will return the file even if the PF is incomplete so we can extract information.</p>
+<h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The plugin was tested on Windows 7, Windows 8.1 and Windows 10 vmem memory dumps. The plugin code can be found on the forensicxlab&rsquo;s github and will be submitted to the volatility3 for integration to the framework. You should Identify each steps described before in the source code comments. Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a>, or make a pull-request on the repository to enhance this plugin or this article.
+Happy Hunting!</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2022
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Memory Forensics on ForensicXlab</title>
+    <link>http://www.example.com/tags/memory-forensics/</link>
+    <description>Recent content in Memory Forensics on ForensicXlab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 27 Jul 2022 17:24:15 +0200</lastBuildDate><atom:link href="http://www.example.com/tags/memory-forensics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>📦 Volatility3 Windows Plugin : Prefetch</title>
+      <link>http://www.example.com/posts/prefetch/</link>
+      <pubDate>Wed, 27 Jul 2022 17:24:15 +0200</pubDate>
+      
+      <guid>http://www.example.com/posts/prefetch/</guid>
+      <description>Abstract Link to heading Windows prefetch files are temporary files stored in the %SystemRoot%\System\Prefetch folder. This memory management feature is keeping track of the frequently running applications on a given system. We can extract some data from those files in order to get useful information for a digital forensic investigation. In this blog article, I will explain how we can use memory forensic to extract prefetch files, parse them and create in the end a volatility3 plugin.</description>
+    </item>
+    
+    <item>
+      <title>🖋 Cyberdefenders - Writeup : Brave</title>
+      <link>http://www.example.com/posts/cyberdefenders_brave/</link>
+      <pubDate>Mon, 11 Jul 2022 17:17:55 +0200</pubDate>
+      
+      <guid>http://www.example.com/posts/cyberdefenders_brave/</guid>
+      <description>This writeup is covering the cyberdefenders.org challenge named &amp;ldquo;Brave&amp;rdquo;. Today we are going to solve this challenge using the VolWeb memory analysis platform.
+Scenario Link to heading A memory image was taken from a seized Windows machine. Analyze the image and answer the provided questions.
+Analysis creation Link to heading After firing up your instance of VolWeb, login to the platform, create a new Windows investigation and upload the challenge memory image.</description>
+    </item>
+    
+    <item>
+      <title>📘 Using Volatility3 as a library</title>
+      <link>http://www.example.com/posts/vol_as_lib/</link>
+      <pubDate>Mon, 30 May 2022 16:42:40 +0200</pubDate>
+      
+      <guid>http://www.example.com/posts/vol_as_lib/</guid>
+      <description>Abstract Link to heading Being interested in memory forensic for a while now, I have learned a lot about the volatility3 framework. In this article, we will go through how you can use the framework&amp;rsquo;s libraries to automate your memory analysis tasks and directly exploit the results. I will assume in this article that the reader has a basic understanding of how volatility3 is exploiting memory to extract evidence. If you want to learn more about volatility3, you can check the links in the &amp;ldquo;References&amp;rdquo; section.</description>
+    </item>
+    
+    <item>
+      <title>📄 Volatility3 - ISF for MacOs</title>
+      <link>http://www.example.com/posts/macos_isf/</link>
+      <pubDate>Tue, 22 Mar 2022 16:14:01 +0200</pubDate>
+      
+      <guid>http://www.example.com/posts/macos_isf/</guid>
+      <description>Abstract Link to heading Being interested in memory forensic for a while now I have learned a lot about the Volatility framework. This article will introduce volatility3 core components and focus on kernel symbols. Next, I will explain the steps I took to generate a lot of MacOs SymbolTables. Finally you will be able to retrieve those SymbolsTables directly from github. The final goal is to create a public repository like windows to automatically identify mac os system version and directly download the associated SymbolTables.</description>
+    </item>
+    
+  </channel>
+</rss>
