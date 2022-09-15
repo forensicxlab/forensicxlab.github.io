@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Inodes on ForensicXlab</title>
+    <link>http://www.forensicxlab.com/tags/inodes/</link>
+    <description>Recent content in Inodes on ForensicXlab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 14 Sep 2022 21:11:58 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/inodes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>📦 Volatility3 Linux Plugin : inodes</title>
+      <link>http://www.forensicxlab.com/posts/inodes/</link>
+      <pubDate>Wed, 14 Sep 2022 21:11:58 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/posts/inodes/</guid>
+      <description>Abstract Link to heading The filesystem is one of the most basic and important concepts in UNIX/Linux. This concept is working around the idea that “everything is a file”, meaning that the hardware, regular files, directories, sockets, kernel data structures, process communications etc are represented as files with their own types. On a filesystem, a file (whatever its type) is assigned with a number called an &amp;ldquo;inode&amp;rdquo;. An inode is an interface between the blocks on the filesystem and the file.</description>
+    </item>
+    
+  </channel>
+</rss>
