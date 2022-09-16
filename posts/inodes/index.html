@@ -205,7 +205,7 @@
 <li>Work with the framework to identify and extract structures from memory and get your artifacts.</li>
 </ul>
 <p>You can learn more about theses steps here : <a href="https://volatility3.readthedocs.io/en/latest/symbol-tables.html">https://volatility3.readthedocs.io/en/latest/symbol-tables.html</a></p>
-<p>This process is easier for Windows and Mac because there is &ldquo;one distribution&rdquo; peer OS. However, the fact that a lot of distributions for Linux exists makes this task more difficult.</p>
+<p>This process is easier for Windows and Mac because there is &ldquo;one distribution&rdquo; per OS. However, the fact that a lot of distributions for Linux exists makes this task more difficult.</p>
 <p><img src="/images/inodes/KDS.png" alt="alt text" title="Kernel Debugging Symbols"></p>
 <h1 id="inode-forensics-value-in-memory">
   Inode forensics value in memory
@@ -232,7 +232,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>To be able to extract inode metadata from memory I we can identify those major steps:</p>
+<p>To be able to extract inode metadata from memory we can identify those major steps:</p>
 <ul>
 <li>Go through each process using the <strong>pslist</strong> plugin.</li>
 <li>For each process, extract the list of file descriptors using code from the <strong>lsof</strong> plugin.</li>
@@ -284,7 +284,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>To conclude, this plugin is a good way to an in depth understanding of how a Linux kernel is storing files in memory and what are the information you can extract from a Linux memory acquisitions.  This plugin was tested on a Debian 5.10.0.18-amd64. The. plugin is available on the forensicxlab’s repository: <a href="https://github.com/forensicxlab/volatility3_plugins">https://github.com/forensicxlab/volatility3_plugins</a>.</p>
+<p>To conclude, this plugin is a good way to an in depth understanding of how a Linux kernel is storing files in memory and what are the information you can extract from a Linux memory acquisitions.  This plugin was tested on a Debian with kernel version <strong>5.10.0.18-amd64</strong>. The plugin is available on the forensicxlab github repository: <a href="https://github.com/forensicxlab/volatility3_plugins">https://github.com/forensicxlab/volatility3_plugins</a>.</p>
 <p>You should identify each steps described before in the source code comments. Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to make this article better, or to make a pull-request on the repository to enhance this plugin. Happy Hunting!</p>
 <h1 id="references">
   References
@@ -293,11 +293,11 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p><a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html">https://www.kernel.org/doc/html/latest/filesystems/vfs.html</a>
-<a href="http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html">http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html</a>
-<a href="http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec6.html">http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec6.html</a>
-<a href="https://github.com/torvalds/linux">https://github.com/torvalds/linux</a>
-<a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a></p>
+<p><a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html">https://www.kernel.org/doc/html/latest/filesystems/vfs.html</a></p>
+<p><a href="http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html">http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html</a></p>
+<p><a href="http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec6.html">http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec6.html</a></p>
+<p><a href="https://github.com/torvalds/linux">https://github.com/torvalds/linux</a></p>
+<p><a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a></p>
 
       </div>
 
