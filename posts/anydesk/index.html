@@ -15,15 +15,15 @@
 
 
 <meta name="author" content="ForensicXlab">
-<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
+<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
 <meta name="keywords" content="blog, DFIR">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="📦 Volatility3 Windows Plugin : Anydesk"/>
-<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
+<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
 
 <meta property="og:title" content="📦 Volatility3 Windows Plugin : Anydesk" />
-<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
+<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.forensicxlab.com/posts/anydesk/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-30T16:06:00+02:00" />
@@ -185,8 +185,8 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel.
-Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors.
+<p>When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel.
+Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors.
 As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</p>
 <p><em><strong>Conti AnyDesk installation tutorial</strong></em></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
@@ -216,7 +216,7 @@ As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    AnyDesk
 </span></span></code></pre></div><p>In this blog post, we will discover what are the useful files linked to anydesk and how valuable they can be for an investigation.
-Finally, in case the adversary is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to to retrieve those information that might still reside in memory.</p>
+Finally, in case the adversary is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to retrieve those information that might still reside in memory.</p>
 <h1 id="anydesk-trace-files">
   Anydesk trace files
   <a class="heading-link" href="#anydesk-trace-files">
@@ -230,7 +230,7 @@ Finally, in case the adversary is deleting those files using an anti-forensics t
 <li>ad_svc.trace</li>
 </ul>
 <p>On a windows 10 machine, you can respectively find those files in the <code>%APPDATA%\AnyDesk\</code> and <code>%SYSTEMROOT%\ProgramData\AnyDesk\</code>.
-Here is an example of data you could fin inside :</p>
+Here is an example of data you could find inside :</p>
 <p><em><strong>ad.trace content example</strong></em></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                       desk_rt.encoder - 2 segments.
@@ -276,11 +276,11 @@ Here is an example of data you could fin inside :</p>
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.272       gsvc   9068   5920   19                  fiber.scheduler - Spawning root fiber 21.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19                        handshake - Using protocol version 1.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19            anynet.connection_mgr - [192.168.164.130:49152] Direct connection.
-</span></span></code></pre></div><p>We can se that we can extract useful artifacts, here is a non-exhaustive list :</p>
+</span></span></code></pre></div><p>We can see that it is possible to extract useful artifacts, here is a non-exhaustive list:</p>
 <ul>
 <li>Anydesk version</li>
 <li>The IP address of the Anydesk relay used when initiating a connection</li>
-<li>Timestamps of each actions</li>
+<li>Timestamps of each action</li>
 <li>Listening port</li>
 <li>Incoming connection IP address</li>
 <li>Involved PIDs</li>
@@ -294,7 +294,7 @@ Here is an example of data you could fin inside :</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>If the adversary is aware of those artifacts, he might delete those files. However there is still a chance to retreive those cached files in memory!
+<p>If the adversary is aware of those artifacts, he might delete those files. However there is still a chance to retrieve those cached files in memory!
 In this example, our is setup is 2 windows 10 virtual machine (<strong>A</strong> and <strong>B</strong>). <strong>A</strong> (attacker) is initiating a remote anydesk connection to <strong>B</strong> (victim).
 After a while the session is disconnected and A deleted the ad.trace and ad_scv.trace files.
 Next, a memory dump of machine <strong>B</strong> is performed, ready to be analyzed.</p>
