@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>
-  📦 Volatility3 Windows Plugin : Anydesk · ForensicXlab
+  📦 Volatility3 Windows Plugin : AnyDesk · ForensicXlab
 </title>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +15,15 @@
 
 
 <meta name="author" content="ForensicXlab">
-<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
+<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
 <meta name="keywords" content="blog, DFIR">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="📦 Volatility3 Windows Plugin : Anydesk"/>
-<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
+<meta name="twitter:title" content="📦 Volatility3 Windows Plugin : AnyDesk"/>
+<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
 
-<meta property="og:title" content="📦 Volatility3 Windows Plugin : Anydesk" />
-<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
+<meta property="og:title" content="📦 Volatility3 Windows Plugin : AnyDesk" />
+<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.forensicxlab.com/posts/anydesk/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-30T16:06:00+02:00" />
@@ -133,7 +133,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="http://www.forensicxlab.com/posts/anydesk/">
-              📦 Volatility3 Windows Plugin : Anydesk
+              📦 Volatility3 Windows Plugin : AnyDesk
             </a>
           </h1>
         </div>
@@ -186,7 +186,7 @@
   </a>
 </h1>
 <p>When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel.
-Anydesk is one of those software. It has been used a lot in the wild in the past years by known threat actors.
+AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors.
 As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</p>
 <p><em><strong>Conti AnyDesk installation tutorial</strong></em></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
@@ -218,7 +218,7 @@ As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We
 </span></span></code></pre></div><p>In this blog post, we will discover what are the useful files linked to anydesk and how valuable they can be for an investigation.
 Finally, in case the adversary is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to retrieve those information that might still reside in memory.</p>
 <h1 id="anydesk-trace-files">
-  Anydesk trace files
+  AnyDesk trace files
   <a class="heading-link" href="#anydesk-trace-files">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
@@ -278,8 +278,8 @@ Here is an example of data you could find inside :</p>
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19            anynet.connection_mgr - [192.168.164.130:49152] Direct connection.
 </span></span></code></pre></div><p>We can see that it is possible to extract useful artifacts, here is a non-exhaustive list:</p>
 <ul>
-<li>Anydesk version</li>
-<li>The IP address of the Anydesk relay used when initiating a connection</li>
+<li>AnyDesk version</li>
+<li>The IP address of the AnyDesk relay used when initiating a connection</li>
 <li>Timestamps of each action</li>
 <li>Listening port</li>
 <li>Incoming connection IP address</li>
