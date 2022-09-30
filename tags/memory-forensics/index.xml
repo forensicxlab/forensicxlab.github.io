@@ -6,7 +6,16 @@
     <description>Recent content in Memory Forensics on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Sep 2022 21:11:58 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/memory-forensics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Sep 2022 16:06:00 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/memory-forensics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>📦 Volatility3 Windows Plugin : Anydesk</title>
+      <link>http://www.forensicxlab.com/posts/anydesk/</link>
+      <pubDate>Fri, 30 Sep 2022 16:06:00 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/posts/anydesk/</guid>
+      <description>Abstract Link to heading When performing incident response, the adversary often use legitimate remote access software as an interactive command and control channel. Anydesk is one of those software. It as been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&amp;rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</description>
+    </item>
+    
     <item>
       <title>📦 Volatility3 Linux Plugin : Inodes</title>
       <link>http://www.forensicxlab.com/posts/inodes/</link>
