@@ -296,7 +296,7 @@ Here is an example of data you could find inside :</p>
 </h1>
 <p>If the adversary is aware of those artifacts, he might delete those files. However there is still a chance to retrieve those cached files in memory!
 In this example, our is setup is 2 windows 10 virtual machine (<strong>A</strong> and <strong>B</strong>). <strong>A</strong> (attacker) is initiating a remote anydesk connection to <strong>B</strong> (victim).
-After a while the session is disconnected and A deleted the ad.trace and ad_scv.trace files.
+After a while the session is disconnected and A deleted the ad.trace and ad_svc.trace files.
 Next, a memory dump of machine <strong>B</strong> is performed, ready to be analyzed.</p>
 <p><img src="/images/anydesk/scenario.png" alt="alt text" title="Investigation scenario"></p>
 <h2 id="writing-a-volatility3-plugin">
@@ -308,7 +308,7 @@ Next, a memory dump of machine <strong>B</strong> is performed, ready to be anal
 </h2>
 <p>Using volatility3 we can write a plugin which will perform the following steps :</p>
 <ul>
-<li>Look for ad.trace and ad_scv.trace using the filescan plugin.</li>
+<li>Look for ad.trace and ad_svc.trace using the filescan plugin.</li>
 <li>Try to dump the files if found.</li>
 <li>Parse the files and render the data to the investigator.</li>
 </ul>
