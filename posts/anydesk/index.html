@@ -15,15 +15,18 @@
 
 
 <meta name="author" content="ForensicXlab">
-<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.">
+<meta name="description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk1 is one of those software being extensively used as a sublayer of persistence by threat actors or access other servers in the environment via RDP2.
+The latter has been often encountered in the wild in the past years as a preferred tool leveraged by known threat actors.">
 <meta name="keywords" content="blog, DFIR">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="📦 Volatility3 Windows Plugin : AnyDesk"/>
-<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell."/>
+<meta name="twitter:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk1 is one of those software being extensively used as a sublayer of persistence by threat actors or access other servers in the environment via RDP2.
+The latter has been often encountered in the wild in the past years as a preferred tool leveraged by known threat actors."/>
 
 <meta property="og:title" content="📦 Volatility3 Windows Plugin : AnyDesk" />
-<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell." />
+<meta property="og:description" content="Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk1 is one of those software being extensively used as a sublayer of persistence by threat actors or access other servers in the environment via RDP2.
+The latter has been often encountered in the wild in the past years as a preferred tool leveraged by known threat actors." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.forensicxlab.com/posts/anydesk/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-30T16:06:00+02:00" />
@@ -147,7 +150,7 @@
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              8-minute read
+              9-minute read
             </span>
           </div>
           
@@ -186,9 +189,12 @@
   </a>
 </h1>
 <p>When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel.
-AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors.
-As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</p>
-<p><em><strong>Conti AnyDesk installation tutorial</strong></em></p>
+AnyDesk<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is one of those software being extensively used as a sublayer of persistence by threat actors or access other servers in the environment via RDP<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.<br>
+The latter has been often encountered in the wild in the past years as a preferred tool leveraged by known threat actors.</p>
+<p>As such, Anydesk should be closely monitored as threat actors could easily alter or delete data after a successful attack; sometimes it is not possible to restore those altered logs. Defending against malicious actions with such remote software can be even more intricate for organizations having approved its legitimate usage.
+Here we propose to leverage memory forensics to retrieve and analyze artefacts thanks to a custom Volatility plugin that I made available as a free open-source tool for improving digital investigations.</p>
+<p><em><strong>Conti AnyDesk installation tutorial</strong></em>
+A striking example came out the last year upon leaked manuals of Conti’s ransomware-as-a-service operators dedicated to its affiliates with pentesting skills<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.  From this case we can learn how the tool was installed by the attacker using PowerShell.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
 </span></span><span style="display:flex;"><span> Function AnyDesk {
 </span></span><span style="display:flex;"><span>
@@ -215,8 +221,7 @@ As an example, it was mentioned in the last year leaked Conti&rsquo;s manual. We
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    AnyDesk
-</span></span></code></pre></div><p>In this blog post, we will discover what are the useful files linked to anydesk and how valuable they can be for an investigation.
-Finally, in case the adversary is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to retrieve those information that might still reside in memory.</p>
+</span></span></code></pre></div><p>In this blog post, we will cover which files linked to anydesk are useful and how valuable it can be upon an investigation. Eventually, in the case where an intrusion set is deleting those files using an anti-forensics technique, a volatility3 plugin will be proposed to retrieve that information, which might still reside in memory.</p>
 <h1 id="anydesk-trace-files">
   AnyDesk trace files
   <a class="heading-link" href="#anydesk-trace-files">
@@ -224,13 +229,13 @@ Finally, in case the adversary is deleting those files using an anti-forensics t
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>When using anydesk, specific files are written to trace the activity of the application. There is two interesting files :</p>
+<p>When using Anydesk, specific files<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> are written to trace the activity of the application. There are two files of particular interest:</p>
 <ul>
 <li>ad.trace</li>
-<li>ad_svc.trace</li>
+<li>ad_svc.trace (only at installed version)</li>
 </ul>
 <p>On a windows 10 machine, you can respectively find those files in the <code>%APPDATA%\AnyDesk\</code> and <code>%SYSTEMROOT%\ProgramData\AnyDesk\</code>.
-Here is an example of data you could find inside :</p>
+Here is an example of data you could find within the log file:</p>
 <p><em><strong>ad.trace content example</strong></em></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                       desk_rt.encoder - 2 segments.
@@ -276,7 +281,8 @@ Here is an example of data you could find inside :</p>
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.272       gsvc   9068   5920   19                  fiber.scheduler - Spawning root fiber 21.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19                        handshake - Using protocol version 1.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:31:31.287       gsvc   9068   5920   19            anynet.connection_mgr - [192.168.164.130:49152] Direct connection.
-</span></span></code></pre></div><p>We can see that it is possible to extract useful artifacts, here is a non-exhaustive list:</p>
+</span></span></code></pre></div><p>We can see that it is possible to extract useful artifacts.
+Hereby is a non-exhaustive list:</p>
 <ul>
 <li>AnyDesk version</li>
 <li>The IP address of the AnyDesk relay used when initiating a connection</li>
@@ -294,7 +300,7 @@ Here is an example of data you could find inside :</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>If the adversary is aware of those artifacts, he might delete those files. However there is still a chance to retrieve those cached files in memory!
+<p>If the adversary is aware of those artifacts, he might delete those files. However, there is still a chance to retrieve those cached files in memory!
 In this example, our is setup is 2 windows 10 virtual machine (<strong>A</strong> and <strong>B</strong>). <strong>A</strong> (attacker) is initiating a remote anydesk connection to <strong>B</strong> (victim).
 After a while the session is disconnected and A deleted the ad.trace and ad_svc.trace files.
 Next, a memory dump of machine <strong>B</strong> is performed, ready to be analyzed.</p>
@@ -306,15 +312,15 @@ Next, a memory dump of machine <strong>B</strong> is performed, ready to be anal
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>Using volatility3 we can write a plugin which will perform the following steps :</p>
+<p>Using volatility3<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> we can write a custom plugin which will perform the following steps :</p>
 <ul>
-<li>Look for ad.trace and ad_svc.trace using the filescan plugin.</li>
-<li>Try to dump the files if found.</li>
+<li>Look for ad.trace and ad_svc.trace using the filescan plugin;</li>
+<li>Try to dump the files if found;</li>
 <li>Parse the files and render the data to the investigator.</li>
 </ul>
-<p>Indeed, we could just dump the file and analyse it offline. However, writing a dedicated plugin is useful to :</p>
+<p>Indeed, we could just dump the file and analyze it offline. However, writing a dedicated plugin is useful to:</p>
 <ul>
-<li>Interface with the Timeliner plugin and make timestamps correlation with other artifacts.</li>
+<li>Interface with the Timeliner plugin and make timestamps correlation with other artifacts;</li>
 <li>Interface with any other tools that are exploiting the other volatility3 output capabilities (json, csv, &hellip;).</li>
 </ul>
 <p><em><strong>Plugin output example</strong></em></p>
@@ -372,21 +378,34 @@ Next, a memory dump of machine <strong>B</strong> is performed, ready to be anal
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>This plugin was tested on Windows 10 memory dumps and the code can be found here : <a href="https://github.com/forensicxlab/volatility3_plugins">https://github.com/forensicxlab/volatility3_plugins</a>.
-I would like to thank @DebugPrivilege for the tweet he made about the subject that gave me the idea to write this plugin.
+<p>This plugin was tested on Windows 10 memory dumps and the code can be found on the forensicxlab github : <a href="https://github.com/forensicxlab/volatility3_plugins">https://github.com/forensicxlab/volatility3_plugins</a>.
+I would like to thank @DebugPrivilege for the tweet<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> he made about the subject that gave me the idea to write this plugin.
 It will be submitted to the volatility3 foundation for integration to the framework. You should Identify each steps described before in the source code comments.
 Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a>, or to make a pull-request on the repository to enhance this plugin or this article.</p>
 <p>Happy Hunting!</p>
-<h1 id="references">
-  References
-  <a class="heading-link" href="#references">
-    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
-    <span class="sr-only">Link to heading</span>
-  </a>
-</h1>
-<p><a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a></p>
-<p><a href="https://support.anydesk.com/knowledge/trace-files">https://support.anydesk.com/knowledge/trace-files</a></p>
-<p><a href="https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ">https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ</a></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://anydesk.com/en">https://anydesk.com/en</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://thedfirreport.com/2021/10/04/bazarloader-and-the-conti-leaks/">https://thedfirreport.com/2021/10/04/bazarloader-and-the-conti-leaks/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://michaelkoczwara.medium.com/conti-ransomware-group-cobalt-strike-c2-analysis-rdp-persistence-cc535d35eaba">https://michaelkoczwara.medium.com/conti-ransomware-group-cobalt-strike-c2-analysis-rdp-persistence-cc535d35eaba</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://support.anydesk.com/knowledge/trace-files">https://support.anydesk.com/knowledge/trace-files</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p><a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p><a href="https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ">https://twitter.com/debugprivilege/status/1574435608713658368?s=21&amp;t=PWI9kJEpzECxhbyNFR8YUQ</a>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
       </div>
 

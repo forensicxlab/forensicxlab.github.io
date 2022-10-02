@@ -13,7 +13,8 @@
       <pubDate>Fri, 30 Sep 2022 16:06:00 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/posts/anydesk/</guid>
-      <description>Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk is one of those software. It has been used a lot in the wild in the past years by known threat actors. As an example, it was mentioned in the last year leaked Conti&amp;rsquo;s manual. We can witness how was the tool installed by the attacker using powershell.</description>
+      <description>Abstract Link to heading When performing incident response, the adversary often uses legitimate remote access software as an interactive command and control channel. AnyDesk1 is one of those software being extensively used as a sublayer of persistence by threat actors or access other servers in the environment via RDP2.
+The latter has been often encountered in the wild in the past years as a preferred tool leveraged by known threat actors.</description>
     </item>
     
   </channel>
