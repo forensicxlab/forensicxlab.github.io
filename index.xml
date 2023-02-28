@@ -6,7 +6,16 @@
     <description>Recent content on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Sep 2022 16:06:00 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Feb 2023 00:56:04 +0100</lastBuildDate><atom:link href="http://www.forensicxlab.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🧬 Malware Analysis with VISION-ProcMon</title>
+      <link>http://www.forensicxlab.com/posts/vision-procmon/</link>
+      <pubDate>Mon, 27 Feb 2023 00:56:04 +0100</pubDate>
+      
+      <guid>http://www.forensicxlab.com/posts/vision-procmon/</guid>
+      <description>Abstract Link to heading Malware analysis is very useful when performing a digital investigation. Indeed, identifying how a malware works and determining its behavior is very useful to detect future attacks, other compromised equipment, make critical choices and discover new TTPs. In this blog article, we will dive into the behavioral analysis of the latest QBOT campaign using malicious OneNote documents as an initial vector to compromise a host and deploy stealers.</description>
+    </item>
+    
     <item>
       <title>📦 Volatility3 Windows Plugin : AnyDesk</title>
       <link>http://www.forensicxlab.com/posts/anydesk/</link>
@@ -89,7 +98,9 @@ Analysis creation Link to heading After firing up your instance of VolWeb, login
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://www.forensicxlab.com/toolshed/</guid>
-      <description>VolWeb Link to heading VolWeb is a platform that present itself as a web interface to Volatility 3 built using the Django framework. The objectives for the project are to improve investigator efficiency, centralize collaborative analysis, and make memory analysis more &amp;ldquo;human&amp;rdquo; friendly. VolWeb also allows investigators to manage memory analysis investigations and search for string-based indicators of compromise. The project can be found here. This project is aimed at incident responders that often needs to work fast and gain time to quickly identify threats and indicator of compromise and produce quick technical reports.</description>
+      <description>VISION-ProcMon Link to heading VISION-ProcMon is a cross-platform visualisation tool from the VISION toolsuite. Dedicated to Malware analyst, this tool is using graph theory combined rust to parse procmon CSV exports, providing an unique, fast and better insight about malware activities.
+Project link : GitHub
+VolWeb Link to heading VolWeb is an opensource web platform interfaced with the volatility3 framework in order to provide centralisation, visualization tools and cooperations between investigators when performing memory forensics.</description>
     </item>
     
   </channel>
