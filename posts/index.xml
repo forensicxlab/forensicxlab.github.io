@@ -6,7 +6,16 @@
     <description>Recent content in Posts on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 27 Feb 2023 00:56:04 +0100</lastBuildDate><atom:link href="http://www.forensicxlab.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 May 2023 19:51:30 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🔦 Debunking the Expert Witness Compression Format (EWF)</title>
+      <link>http://www.forensicxlab.com/posts/ewf/</link>
+      <pubDate>Thu, 11 May 2023 19:51:30 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/posts/ewf/</guid>
+      <description>Abstract Link to heading As a digital forensic expert, proving the authenticity and reliability of a forensic image in court is essential. Indeed, the integrity of the data needs to be maintained during the imaging process, preventing any accidental or intentional modification of the data. The Expert Witness Compression Format (EWF) provides a way to store metadata about the image, such as the source device, imaging tool, checksums, signatures, and other relevant information about the acquired media.</description>
+    </item>
+    
     <item>
       <title>🧬 Malware Analysis with VISION-ProcMon</title>
       <link>http://www.forensicxlab.com/posts/vision-procmon/</link>
