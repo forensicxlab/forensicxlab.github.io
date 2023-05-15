@@ -202,7 +202,7 @@ The exploitation system is supplying the abstraction of those human friendly con
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>The Expert Witness Compression Format (EWF) is a forensic image output format created by the ASRDATA company. It can be used to create a bit-by-bit copy of a digital device. It includes both data and metadata, such as the partition table and other information about the device. EWF is designed to maintain the integrity of the original data and can be compressed to reduce storage requirements. It is widely used to preserve evidence for analysis and investigation both by law enforcement, digital forensics and incident response companies. This format is not so easy to understand because it is a proprietary file format, thus the purpose of this blog article. Luckily, the opensource community provide a C library and a nice documentation about this file format <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Let’s try to have a nice mental representation of the component of an EWF image.</p>
+<p>The Expert Witness Compression Format (EWF) is a forensic image output format created by the ASRDATA company. It can be used to create a bit-by-bit copy of a digital device. It includes both data and metadata, such as the partition table and other information about the device. EWF is designed to maintain the integrity of the original data and can be compressed to reduce storage requirements. It is widely used to preserve evidence for analysis and investigation both by law enforcement, digital forensics and incident response companies. This format is not so easy to understand because it is a proprietary file format, thus the purpose of this blog article. Luckily, the opensource community provide a C library and a nice documentation about this file format <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Let’s try to have a nice mental representation of the components of an EWF image.</p>
 <h2 id="the-segments">
   The segments
   <a class="heading-link" href="#the-segments">
@@ -210,7 +210,7 @@ The exploitation system is supplying the abstraction of those human friendly con
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>An EWF image can be divided into multiple Segments (it can also be a unique segment). Those segments are files that possesses a consecutive extension system: Starting from “E01” to “E99”, then in alphabetical order from “EAA” to “ZZZ”. Dividing a large sized media evidence source into multiple segments is a great way to prevent a large and unique raw output file that can sometime create problems on some filesystem. Each segment file is composed of a <strong>Header</strong> and multiple <strong>Sections</strong>.</p>
+<p>An EWF image can be divided into multiple segment files (there can also be a unique segment file). Those segments files have a consecutive extension system: Starting from “E01” to “E99”, then in alphabetical order from “EAA” to “ZZZ”. Dividing a large sized media evidence source into multiple segments is a great way to prevent a large and unique raw output file that can sometime creates problems on some filesystem. Each segment file is composed of a <strong>Header</strong> and multiple <strong>Sections</strong>.</p>
 <h3 id="the-ewf-file-header-and-sections">
   The EWF file Header and Sections
   <a class="heading-link" href="#the-ewf-file-header-and-sections">
@@ -218,7 +218,7 @@ The exploitation system is supplying the abstraction of those human friendly con
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>Let’s now dive into the components a EWF segment file.</p>
+<p>Let’s now dive into the components of a EWF segment file.</p>
 <p><img src="/images/ewf/3.png" alt="alt text" title="EWF structure"></p>
 <p>The EWF is storing the source evidence image’s sectors inside <strong>chunks</strong>. A chunk is just a group of sectors. There is a finite number of chunks per segments. Therefore, the information about the sectors and chunks needs to be known if we want to read them.</p>
 <h3 id="the-segment-file-header">
@@ -228,7 +228,7 @@ The exploitation system is supplying the abstraction of those human friendly con
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>Each segment file has a <strong>Header</strong> (do not confuse the segment file header with the section header described later). The Header contains a signature (or a magic number) with a size of 8 bytes that attest of its format:</p>
+<p>Each segment file has a <strong>Header</strong> (do not confuse the <strong>segment file header</strong> with the <strong>section header</strong> described later). The file header contains a signature (or a magic number) of 8 bytes that attest of its format:</p>
 <p><img src="/images/ewf/4.png" alt="alt text" title="Header"></p>
 <p>In this example, the signature is: “EVF\0x09\0x0d\0x0a\0xff\0x00”</p>
 <p>The file header also contains the information about the <strong>first section offset</strong> and the segment number.</p>
@@ -247,7 +247,7 @@ The exploitation system is supplying the abstraction of those human friendly con
 </ul>
 <p>Here is what important information you can extract from each section:</p>
 <ul>
-<li><strong>The header section -</strong> Not to be confused with the file header described earlier, it contains information about the acquired media (case number, Evidence Number, Examiner name, etc.). Each acquisition tools have their own way of describing what information reside in this section.</li>
+<li><strong>The header section -</strong> Not to be confused with the segment file header described earlier, it contains information about the acquired media (case number, Evidence Number, Examiner name, etc.). Each acquisition tools have their own way of describing what information reside in this section.</li>
 <li><strong>The “volume” or “disk” section –</strong> It contains critical information about the sectors and the chunks of the acquired media that will help the investigator to parse the EWF file like the chunk count, the size of a chunk, the size of a sector, the number of sectors per chunk.</li>
 <li><strong>The sector section –</strong> It contains the actual chunks of the acquired evidence. Now, the main advantage about EWF is that some of the chunks can be compressed to gain space on the destination storage using the zlib compression algorithm. Therefore, we need to know what the offsets of each chunk are and if it is compressed chunk or not.</li>
 <li><strong>The table section –</strong> This section is like a table of pointers that will tell the investigator where to find each chunk and if it is compressed. The most significant bit (MSB) of each pointer indicates if the chunk is compressed (1) or uncompressed (0).</li>

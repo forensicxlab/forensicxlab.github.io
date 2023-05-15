@@ -107,7 +107,7 @@ Analysis creation Link to heading After firing up your instance of VolWeb, login
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://www.forensicxlab.com/toolshed/</guid>
-      <description>VISION-ProcMon Link to heading VISION-ProcMon is a cross-platform visualisation tool from the VISION toolsuite. Dedicated to Malware analyst, this tool is using graph theory combined rust to parse procmon CSV exports, providing an unique, fast and better insight about malware activities.
+      <description>VISION-ProcMon Link to heading VISION-ProcMon is a cross-platform visualization tool. Dedicated to Malware analyst, this tool is usign sigmaJS combined with Rust in order to parse procmon CSV exports, providing an unique, fast and better analysis about malware activities.
 Project link : GitHub
 VolWeb Link to heading VolWeb is an opensource web platform interfaced with the volatility3 framework in order to provide centralisation, visualization tools and cooperations between investigators when performing memory forensics.</description>
     </item>
