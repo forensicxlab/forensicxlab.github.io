@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://www.forensicxlab.com/posts/keepass/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/categories/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/dfir/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/keepass/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/posts/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/windows/</loc>
+    <lastmod>2023-05-19T21:03:28+02:00</lastmod>
+  </url><url>
     <loc>http://www.forensicxlab.com/posts/ewf/</loc>
     <lastmod>2023-05-11T19:51:30+02:00</lastmod>
   </url><url>
@@ -10,18 +40,6 @@
   </url><url>
     <loc>http://www.forensicxlab.com/tags/ewf/</loc>
     <lastmod>2023-05-11T19:51:30+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/</loc>
-    <lastmod>2023-05-11T19:51:30+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/posts/</loc>
-    <lastmod>2023-05-11T19:51:30+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/</loc>
-    <lastmod>2023-05-11T19:51:30+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/categories/</loc>
-    <lastmod>2023-02-27T00:56:04+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/malware-analysis/</loc>
     <lastmod>2023-02-27T00:56:04+01:00</lastmod>
@@ -35,9 +53,6 @@
     <loc>http://www.forensicxlab.com/tags/qbot/</loc>
     <lastmod>2023-02-27T00:56:04+01:00</lastmod>
   </url><url>
-    <loc>http://www.forensicxlab.com/tags/windows/</loc>
-    <lastmod>2023-02-27T00:56:04+01:00</lastmod>
-  </url><url>
     <loc>http://www.forensicxlab.com/categories/windows/</loc>
     <lastmod>2023-02-27T00:56:04+01:00</lastmod>
   </url><url>
@@ -48,15 +63,6 @@
     <lastmod>2022-09-30T16:06:00+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/anydesk/</loc>
-    <lastmod>2022-09-30T16:06:00+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/dfir/</loc>
-    <lastmod>2022-09-30T16:06:00+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
-    <lastmod>2022-09-30T16:06:00+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
     <lastmod>2022-09-30T16:06:00+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/posts/inodes/</loc>
