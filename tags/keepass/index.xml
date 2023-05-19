@@ -13,7 +13,7 @@
       <pubDate>Fri, 19 May 2023 21:03:28 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/posts/keepass/</guid>
-      <description>Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about an issue found on KeePass 2.X 2 were he was able to reconstruct the master password. A POC 3 was later released by the researcher in dotnet, and another in python3 4. Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.
+      <description>Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about an issue found on KeePass 2.X 2 where he was able to reconstruct the master password. A POC 3 was later released by the researcher in dotnet, and another in python3 4. Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.
 Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) reside in the basic KeePass version 2.</description>
     </item>
     
