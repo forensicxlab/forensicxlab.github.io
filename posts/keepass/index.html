@@ -15,18 +15,18 @@
 
 
 <meta name="author" content="ForensicXlab">
-<meta name="description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about an issue found on KeePass 2.X 2 where he was able to reconstruct the master password. A POC 3 was later released by the researcher in dotnet, and another in python3 4. Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.
-Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) reside in the basic KeePass version 2.">
+<meta name="description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory.">
 <meta name="keywords" content="blog, DFIR">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="📦 Volatility3 Windows Plugin : KeePass"/>
-<meta name="twitter:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about an issue found on KeePass 2.X 2 where he was able to reconstruct the master password. A POC 3 was later released by the researcher in dotnet, and another in python3 4. Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.
-Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) reside in the basic KeePass version 2."/>
+<meta name="twitter:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory."/>
 
 <meta property="og:title" content="📦 Volatility3 Windows Plugin : KeePass" />
-<meta property="og:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about an issue found on KeePass 2.X 2 where he was able to reconstruct the master password. A POC 3 was later released by the researcher in dotnet, and another in python3 4. Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.
-Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) reside in the basic KeePass version 2." />
+<meta property="og:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.forensicxlab.com/posts/keepass/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-05-19T21:03:28+02:00" />
@@ -150,7 +150,7 @@ Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) r
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              4-minute read
+              5-minute read
             </span>
           </div>
           
@@ -188,8 +188,9 @@ Vulnerability description Link to heading The vulnerability (CVE-2023-32784 5) r
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>On May 1st, 2023, vdhoney<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> raised concerns about an issue found on KeePass 2.X <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> where he was able to reconstruct the master password. A POC <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> was later released by the researcher in dotnet, and another in python3 <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.
-Today we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators retrieve passwords.</p>
+<p>On May 1st, 2023, vdhoney<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> raised concerns about a flaw he found impacting KeePass 2.X.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Vdhoney claimed to be able to reconstruct the master password from memory. A  was later released by the researcher in dotnet, and another in python3.
+A POC <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> was later released by the researcher not only in dotnet but also in python3<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+<p>Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory.</p>
 <h1 id="vulnerability-description">
   Vulnerability description
   <a class="heading-link" href="#vulnerability-description">
@@ -197,7 +198,8 @@ Today we will describe the vulnerability and see how we can create a volatility3
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>The vulnerability (CVE-2023-32784 <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>) reside in the basic KeePass version 2.X written in .NET. Indeed, this version utilizes its own custom-made text box named SecureTextBoxEx, not only when entering in the master password but also in other parts of the program such as password edit boxes. Consequently, a method was employed to recover the content from these areas. This text box produces left over strings when a password is entered. For example, when &ldquo;Hello&rdquo; is typed, the additional strings it creates are “•e, ••l, •••l, ••••o”. Those strings can be found inside a memory dump containing left over information about KeePass execution. You can find more details about this vulnerability on vdhoney’s github <sup id="fnref1:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>The vulnerability (CVE-2023-32784 <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>) resides in the basic KeePass version 2.X written in .NET. This version utilizes its own custom-made text box named SecureTextBoxEx, not only for the master password entry dialog but also in other parts of the program such as password edit boxes. Though this use case is not likely to be used by users as it is a bad practice, it should be noted that the flaw does not cover the scenario where the master password was copied from a clipboard.
+From this observation, Vdohney built up a method to recover that scattered information from memory. Indeed, this text box produces left over strings when a password is entered. For example, when “Hello” is typed, the following strings remain present in memory “•e, ••l, •••l, ••••o”. One can find more details about this vulnerability on vdhoney’s github <sup id="fnref1:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
 <h1 id="the-keepass-volatility3-plugin">
   The KeePass volatility3 plugin
   <a class="heading-link" href="#the-keepass-volatility3-plugin">
@@ -205,7 +207,7 @@ Today we will describe the vulnerability and see how we can create a volatility3
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>As a forensics investigator, you might have current (or old) cases where KeePass 2.X process activities were retrieved. Using volatility3, it is possible to list the running processes using the “pslist” or “psscan” plugin.</p>
+<p>As a forensics investigator, you might have actual (or past) cases where KeePass 2.X process activities were retrieved. Using volatility3, it is possible to list the running processes using the “pslist” or “psscan” plugin.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.pslist                                                                                                                     k1nd0ne@MacBook-Pro-de-Felix
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.4.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
@@ -220,7 +222,7 @@ Today we will describe the vulnerability and see how we can create a volatility3
 </span></span><span style="display:flex;"><span>700	628	services.exe	0x9908db894080	7	-	0	False	2023-05-19 14:20:32.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>740	620	winlogon.exe	0x9908db8a4080	3	-	1	False	2023-05-19 14:20:32.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>796	628	lsass.exe	0x9908db8c8080	6	-	0	False	2023-05-19 14:20:32.000000 	N/A	Disabled
-</span></span><span style="display:flex;"><span>912	700	svchost.exe	0x9908db936240	13	-	0	False	2023-05-19 14:20:32.000000 	N/A	Disabledd
+</span></span><span style="display:flex;"><span>912	700	svchost.exe	0x9908db936240	13	-	0	False	2023-05-19 14:20:32.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>1716	912	dllhost.exe	0x9908de764080	5	-	1	False	2023-05-19 14:23:07.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>4888	700	SgrmBroker.exe	0x9908df512080	7	-	0	False	2023-05-19 14:23:08.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>7820	912	WmiPrvSE.exe	0x9908da4f7080	4	-	0	False	2023-05-19 14:23:26.000000 	N/A	Disabled
@@ -231,7 +233,9 @@ Today we will describe the vulnerability and see how we can create a volatility3
 </span></span><span style="display:flex;"><span>752	4528	KeePass.exe	0x9908da51b300	4	-	1	False	2023-05-19 14:25:34.000000 	N/A	Disabled
 </span></span><span style="display:flex;"><span>6344	700	svchost.exe	0x9908dd88a080	5	-	0	False	2023-05-19 14:25:49.000000 	N/A	Disabled
 </span></span></code></pre></div><p>In this example we can see that the KeePass process was running on the host machine. The PID retrieved is “752”.
-Using volatility3, we can dump this process layer and retrieve all the sections linked to the virtual address spaces. Once this is done, we can map virtual pages to physical pages and extract the residing data. Next, we can parse the data to isolate the interesting patterns (in this case “●”) to reconstruct a potential KeePass password. By passing the PID of the process to the volatility3 KeePass plugin, we can try to reconstruct passwords:</p>
+Using volatility3, one can dump this process layer and retrieve all the sections linked to the virtual address spaces. Once completed, one can map virtual pages to physical pages and extract the residing data.</p>
+<p>A custom plugin allows to parse the data to isolate the relevant patterns (in this case “●”) seeking to further attempt the reconstruction of the master KeePass password entered by a user. The plugin can be found here: <a href="https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py">https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py</a></p>
+<p>By passing the PID of the process to the volatility3 KeePass plugin, one can try to reconstruct the master password:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.keepass --pid 752                                                                                                          k1nd0ne@MacBook-Pro-de-Felix
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.4.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
@@ -262,8 +266,7 @@ Using volatility3, we can dump this process layer and retrieve all the sections 
 </span></span><span style="display:flex;"><span>0xc58000400000	0x200000	{u,&amp;,o}perMasterPassword
 </span></span><span style="display:flex;"><span>0xf80564600000	0x1200000	{u,&amp;,,,J}perMasterPassword
 </span></span><span style="display:flex;"><span>0xf805737d3000	0x1f000	{u,&amp;,,,o, }perMasterPassword
-</span></span></code></pre></div><p>Even if the first character of the password cannot be found, it can be easily bruteforced.
-The plugin can be found here : <a href="https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py">https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py</a></p>
+</span></span></code></pre></div><p>Even if the first character of the password is not store in memory, the latter can be however easily brute forced.</p>
 <h1 id="conclusion">
   Conclusion
   <a class="heading-link" href="#conclusion">
@@ -271,7 +274,10 @@ The plugin can be found here : <a href="https://github.com/forensicxlab/volatili
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>To conclude this article, we were able to use the volatility3 framework to quickly implement the proof of concept. The discovery of new memory extraction techniques is helping the field of digital forensics and specially law enforcement agencies that are now able to access memory from devices in a more efficient and non-destructive way. This type of evidence could be valuable in solving cases, including older ones that may have been difficult to investigate. I have tested this plugin on a Win10 22H2 memory image. Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article.</p>
+<p>To conclude this article, we demonstrated that the reconstruction of a master password of Keepass can be implemented into volatility3 framework via a custom plugin. The discovery of new memory extraction techniques is helping the field of digital forensics and specially law enforcement agencies that are now able to access memory from devices in a more efficient and non-destructive way. This methodology could be valuable in solving actual incident cases, including past ones where the memory was retrieved and stored and keepass master password remained unbroke.</p>
+<blockquote>
+<p>This plugin was tested on a Win10 22H2 memory image. Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article.</p>
+</blockquote>
 <h1 id="references">
   References
   <a class="heading-link" href="#references">
