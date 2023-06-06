@@ -15,17 +15,17 @@
 
 
 <meta name="author" content="ForensicXlab">
-<meta name="description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+<meta name="description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A POC 3 was later released by the researcher not only in dotnet but also in python34.
 Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory.">
 <meta name="keywords" content="blog, DFIR">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="📦 Volatility3 Windows Plugin : KeePass"/>
-<meta name="twitter:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+<meta name="twitter:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A POC 3 was later released by the researcher not only in dotnet but also in python34.
 Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory."/>
 
 <meta property="og:title" content="📦 Volatility3 Windows Plugin : KeePass" />
-<meta property="og:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A was later released by the researcher in dotnet, and another in python3. A POC 3 was later released by the researcher not only in dotnet but also in python34.
+<meta property="og:description" content="Abstract Link to heading On May 1st, 2023, vdhoney1 raised concerns about a flaw he found impacting KeePass 2.X.2. Vdhoney claimed to be able to reconstruct the master password from memory. A POC 3 was later released by the researcher not only in dotnet but also in python34.
 Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.forensicxlab.com/posts/keepass/" /><meta property="article:section" content="posts" />
@@ -188,7 +188,7 @@ Today in this blog post we will describe the vulnerability and see how we can cr
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>On May 1st, 2023, vdhoney<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> raised concerns about a flaw he found impacting KeePass 2.X.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Vdhoney claimed to be able to reconstruct the master password from memory. A  was later released by the researcher in dotnet, and another in python3.
+<p>On May 1st, 2023, vdhoney<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> raised concerns about a flaw he found impacting KeePass 2.X.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Vdhoney claimed to be able to reconstruct the master password from memory.
 A POC <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> was later released by the researcher not only in dotnet but also in python3<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
 <p>Today in this blog post we will describe the vulnerability and see how we can create a volatility3 plugin to help forensics investigators to retrieve passwords from memory.</p>
 <h1 id="vulnerability-description">
