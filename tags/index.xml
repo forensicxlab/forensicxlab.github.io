@@ -6,13 +6,58 @@
     <description>Recent content in Tags on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 19 May 2023 21:03:28 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jul 2023 18:03:28 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DFIR</title>
       <link>http://www.forensicxlab.com/tags/dfir/</link>
-      <pubDate>Fri, 19 May 2023 21:03:28 +0200</pubDate>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/dfir/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://www.forensicxlab.com/tags/linux/</link>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mac</title>
+      <link>http://www.forensicxlab.com/tags/mac/</link>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/mac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Steam</title>
+      <link>http://www.forensicxlab.com/tags/steam/</link>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/steam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Video Games</title>
+      <link>http://www.forensicxlab.com/tags/video-games/</link>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/video-games/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>http://www.forensicxlab.com/tags/windows/</link>
+      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/windows/</guid>
       <description></description>
     </item>
     
@@ -31,15 +76,6 @@
       <pubDate>Fri, 19 May 2023 21:03:28 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/memory-forensics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Windows</title>
-      <link>http://www.forensicxlab.com/tags/windows/</link>
-      <pubDate>Fri, 19 May 2023 21:03:28 +0200</pubDate>
-      
-      <guid>http://www.forensicxlab.com/tags/windows/</guid>
       <description></description>
     </item>
     
@@ -103,15 +139,6 @@
       <pubDate>Wed, 14 Sep 2022 21:11:58 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/inodes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>http://www.forensicxlab.com/tags/linux/</link>
-      <pubDate>Wed, 14 Sep 2022 21:11:58 +0200</pubDate>
-      
-      <guid>http://www.forensicxlab.com/tags/linux/</guid>
       <description></description>
     </item>
     
