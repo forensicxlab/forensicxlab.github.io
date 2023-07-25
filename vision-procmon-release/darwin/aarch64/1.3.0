@@ -1,11 +1,7 @@
 {
-  "version": "v1.4.0",
-  "notes": "Test Updater",
-  "pub_date": "2023-07-26T19:25:57Z",
-  "platforms": {
-    "darwin-aarch64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSd2tBTGxMdG1yRHdiQS9jc05qTVkraW1yTklGbThPcy9ZaXBBblM4NjRlVTViYVRla3FoY2FBa1B6OGZhWE5acTlOYUVFTGZ5NUZ3UURhcWdZb1dMNUZ0S2h2dnQySlFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkwMzA0MTkyCWZpbGU6VklTSU9OLVByb2NNb24uYXBwLnRhci5negpHWEhGS0s4VXpIQzd6TVRJMHl1cVlYeW1zU3ZjUVBYejhGblg2dlU2dXNzRHIzUW1BUm9acUM1RVIzWXQ1Q0tnUFBVSm44eHBJN2ZJOXRCL21jNUJEUT09Cg==",
-      "url": "https://github.com/forensicxlab/VISION-ProcMon/releases/download/untagged-efcbc8f2ec03fdf0fa12/VISION-ProcMon.app.tar.gz"
-    },
-  }
+  "version": "1.5.0",
+  "pub_date": "2023-07-18T12:29:53+01:00",
+  "url": "https://github.com/forensicxlab/VISION-ProcMon/releases/download/untagged-efcbc8f2ec03fdf0fa12/VISION-ProcMon.app.tar.gz",
+  "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSd2tBTGxMdG1yRHdiQS9jc05qTVkraW1yTklGbThPcy9ZaXBBblM4NjRlVTViYVRla3FoY2FBa1B6OGZhWE5acTlOYUVFTGZ5NUZ3UURhcWdZb1dMNUZ0S2h2dnQySlFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkwMzA0MTkyCWZpbGU6VklTSU9OLVByb2NNb24uYXBwLnRhci5negpHWEhGS0s4VXpIQzd6TVRJMHl1cVlYeW1zU3ZjUVBYejhGblg2dlU2dXNzRHIzUW1BUm9acUM1RVIzWXQ1Q0tnUFBVSm44eHBJN2ZJOXRCL21jNUJEUT09Cg==",
+  "notes": "These are some release notes"
 }
