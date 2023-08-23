@@ -212,9 +212,9 @@ It is crucial to have the capability of examining memory images on storage platf
 Each layer in volatility3 focuses on a particular aspect of memory forensics, such as parsing specific data structures, analyzing various kinds of artifacts, or understanding specific evidence formats. The layers can be seen as individual building blocks that can be stacked on top of each other in a specific order to build the right context before extracting data for analysis. As an example, a memory image with the &ldquo;vmem&rdquo; format will induce the stacking of the &ldquo;VmwareLayer&rdquo; to be able to read such file format and extract data.</p>
 <p>One of the layer is called the &ldquo;FileLayer&rdquo; or &ldquo;physical&rdquo;. One of the usage of this layer by the framework is to know how to locate, open, read and overall access resources of the evidence provided by the investigator. The FileLayer is using what is called a &ldquo;ResourceAccessor&rdquo; to interface with the physical evidence.</p>
 <p><img src="/images/vols3/1.png" alt="alt text" title="Arch 1"></p>
-<h2 id="adding-buckers3-support-to-the-filelayer">
-  Adding buckerS3 support to the FileLayer
-  <a class="heading-link" href="#adding-buckers3-support-to-the-filelayer">
+<h2 id="adding-buckets3-support-to-the-filelayer">
+  Adding bucketS3 support to the FileLayer
+  <a class="heading-link" href="#adding-buckets3-support-to-the-filelayer">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
