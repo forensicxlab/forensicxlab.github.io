@@ -6,7 +6,17 @@
     <description>Recent content in Memory Forensics on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 19 May 2023 21:03:28 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/memory-forensics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 23 Aug 2023 16:05:01 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/memory-forensics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>📘 Volatility3 : Remote analysis on cloud object-storage.</title>
+      <link>http://www.forensicxlab.com/posts/vols3/</link>
+      <pubDate>Wed, 23 Aug 2023 16:05:01 +0200</pubDate>
+      
+      <guid>http://www.forensicxlab.com/posts/vols3/</guid>
+      <description>Abstract Link to heading Memory forensics is a huge help when performing an investigation and during incident response. Collecting memory images and analyzing them at scale is a challenge.
+It is crucial to have the capability of examining memory images on storage platforms other than traditional file systems. With the emergence of cloud technologies, new forms of storage known as object storage have emerged. Enabling memory analysis on object storage provides exciting opportunities for innovation and advancement.</description>
+    </item>
+    
     <item>
       <title>📦 Volatility3 Windows Plugin : KeePass</title>
       <link>http://www.forensicxlab.com/posts/keepass/</link>

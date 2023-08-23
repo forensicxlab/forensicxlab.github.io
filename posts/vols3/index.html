@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📘 Volatility3 : Remote analysis on cloud object-storage. · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading Memory forensics is a huge help when performing an investigation and during incident response. Collecting memory images and analyzing them at scale is a challenge.
+It is crucial to have the capability of examining memory images on storage platforms other than traditional file systems. With the emergence of cloud technologies, new forms of storage known as object storage have emerged. Enabling memory analysis on object storage provides exciting opportunities for innovation and advancement.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📘 Volatility3 : Remote analysis on cloud object-storage."/>
+<meta name="twitter:description" content="Abstract Link to heading Memory forensics is a huge help when performing an investigation and during incident response. Collecting memory images and analyzing them at scale is a challenge.
+It is crucial to have the capability of examining memory images on storage platforms other than traditional file systems. With the emergence of cloud technologies, new forms of storage known as object storage have emerged. Enabling memory analysis on object storage provides exciting opportunities for innovation and advancement."/>
+
+<meta property="og:title" content="📘 Volatility3 : Remote analysis on cloud object-storage." />
+<meta property="og:description" content="Abstract Link to heading Memory forensics is a huge help when performing an investigation and during incident response. Collecting memory images and analyzing them at scale is a challenge.
+It is crucial to have the capability of examining memory images on storage platforms other than traditional file systems. With the emergence of cloud technologies, new forms of storage known as object storage have emerged. Enabling memory analysis on object storage provides exciting opportunities for innovation and advancement." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.forensicxlab.com/posts/vols3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-23T16:05:01+02:00" />
+<meta property="article:modified_time" content="2023-08-23T16:05:01+02:00" />
+
+
+
+
+
+<link rel="canonical" href="http://www.forensicxlab.com/posts/vols3/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.106.0">
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.forensicxlab.com/posts/vols3/">
+              📘 Volatility3 : Remote analysis on cloud object-storage.
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-08-23T16:05:01&#43;02:00">
+                August 23, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              8-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/volatility/">Volatility</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Memory forensics is a huge help when performing an investigation and during incident response. Collecting memory images and analyzing them at scale is a challenge.</p>
+<p>It is crucial to have the capability of examining memory images on storage platforms other than traditional file systems. With the emergence of cloud technologies, new forms of storage known as object storage have emerged. Enabling memory analysis on object storage provides exciting opportunities for innovation and advancement.</p>
+<p>In this article, we will go through the journey of making the volatility3 framework compatible with s3 object-storage to perform memory analysis over the network. Also, the reader will discover how this new capability can and will be applied to the VolWeb 2.0 project which is still in developpement.</p>
+<blockquote>
+<p><strong>Disclaimer :</strong> All of the information about the volatility3 framework given in this blogpost are from my own understanding of the framework and of the project documentation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Feel free to contact me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to correct any mistake made in the explanations.</p>
+</blockquote>
+<h1 id="object-storage">
+  Object-storage
+  <a class="heading-link" href="#object-storage">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Object storage is a type of data storage architecture that manages data as objects, rather than as blocks or files like traditional storage systems. In object storage, a unique identifier is assigned to each piece of data and stored in a flat address space. These objects can contain not only the data itself, but also metadata and other attributes that provide additional information about the object. One of the key features of object storage is its scalability and it is ideal for storing big data sets like digital forensics evidence for example.</p>
+<h1 id="support-of-object-storage-in-volatility3">
+  Support of object-storage in volatility3
+  <a class="heading-link" href="#support-of-object-storage-in-volatility3">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<h2 id="volatility3-state-of-the-art">
+  Volatility3 state of the art
+  <a class="heading-link" href="#volatility3-state-of-the-art">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The native volatility3 framework currently provides one method for accessing data when performing the contextualization on a memory image which is direct access on a traditionnal filesystem.</p>
+<p>When an analyst is using volatility3 to extract data using a plugin, the framework is building the context &ldquo;behind the scene&rdquo;, which is the most critical step in the memory forensics workflow aside from the aquisition and analysis steps. This step is too often overlooked/forgoten by some investigators.</p>
+<p>In the framework, the data contextualisation is made via &ldquo;layering&rdquo; and &ldquo;stacking&rdquo;.
+Each layer in volatility3 focuses on a particular aspect of memory forensics, such as parsing specific data structures, analyzing various kinds of artifacts, or understanding specific evidence formats. The layers can be seen as individual building blocks that can be stacked on top of each other in a specific order to build the right context before extracting data for analysis. As an example, a memory image with the &ldquo;vmem&rdquo; format will induce the stacking of the &ldquo;VmwareLayer&rdquo; to be able to read such file format and extract data.</p>
+<p>One of the layer is called the &ldquo;FileLayer&rdquo; or &ldquo;physical&rdquo;. One of the usage of this layer by the framework is to know how to locate, open, read and overall access resources of the evidence provided by the investigator. The FileLayer is using what is called a &ldquo;ResourceAccessor&rdquo; to interface with the physical evidence.</p>
+<p><img src="/images/vols3/1.png" alt="alt text" title="Arch 1"></p>
+<h2 id="adding-buckers3-support-to-the-filelayer">
+  Adding buckerS3 support to the FileLayer
+  <a class="heading-link" href="#adding-buckers3-support-to-the-filelayer">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The FileLayer currently support one type of resource accessor which is the <strong>file://</strong> and <strong>http(s)://</strong> url patterns. They are used to read the evidence and remote pdb files by using the urllib python3 library.</p>
+<p>By giving the possibility to the analyst to indicate that the evidence as to be read from remote object storage we can pass this information to the context and create an other resource accessor.</p>
+<p><img src="/images/vols3/2.png" alt="alt text" title="Arch 2"></p>
+<p>Here is what was done to make this possible :</p>
+<p>Adding new mutually exclusive argument group to the framework CLI : &ldquo;-s3/&ndash;amazon-bucket&rdquo;/&quot;-gs/&ndash;google-bucket&quot;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>group <span style="font-weight:bold">=</span> parser<span style="font-weight:bold">.</span>add_mutually_exclusive_group()   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>group<span style="font-weight:bold">.</span>add_argument(
+</span></span><span style="display:flex;"><span>	<span style="color:#b84">&#34;-s3&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#b84">&#34;--amazon-bucket&#34;</span>,
+</span></span><span style="display:flex;"><span>	action<span style="font-weight:bold">=</span><span style="color:#b84">&#39;store_true&#39;</span>,
+</span></span><span style="display:flex;"><span>	help<span style="font-weight:bold">=</span><span style="color:#b84">&#34;The file provided will come from an amazon bucket&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>group<span style="font-weight:bold">.</span>add_argument(
+</span></span><span style="display:flex;"><span>	<span style="color:#b84">&#34;-gs&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#b84">&#34;--google-bucket&#34;</span>,
+</span></span><span style="display:flex;"><span>	action<span style="font-weight:bold">=</span><span style="color:#b84">&#39;store_true&#39;</span>,
+</span></span><span style="display:flex;"><span>	help<span style="font-weight:bold">=</span><span style="color:#b84">&#34;The file provided will come from a google bucket&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Next the CLI will check that the required environment variables are present to reach the bucket requested. Here is an example for Amazon S3/Minio.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> args<span style="font-weight:bold">.</span>amazon_bucket:
+</span></span><span style="display:flex;"><span>            <span style="color:#998;font-style:italic"># First check if the global variables are set and set the cloud location</span>
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">try</span>:
+</span></span><span style="display:flex;"><span>                aws_access_key_id <span style="font-weight:bold">=</span>  os<span style="font-weight:bold">.</span>getenv(<span style="color:#b84">&#34;AWS_ACCESS_KEY_ID&#34;</span>)
+</span></span><span style="display:flex;"><span>                aws_secret_access_key <span style="font-weight:bold">=</span> os<span style="font-weight:bold">.</span>getenv(<span style="color:#b84">&#34;AWS_SECRET_ACCESS_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>                endpoint_url <span style="font-weight:bold">=</span> os<span style="font-weight:bold">.</span>getenv(<span style="color:#b84">&#34;AWS_ENDPOINT_URL&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> aws_access_key_id <span style="font-weight:bold">is</span> <span style="font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">raise</span> <span style="color:#900;font-weight:bold">ValueError</span>(<span style="color:#b84">&#34;AWS_ACCESS_KEY_ID environment variable is not set&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> aws_secret_access_key <span style="font-weight:bold">is</span> <span style="font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">raise</span> <span style="color:#900;font-weight:bold">ValueError</span>(<span style="color:#b84">&#34;AWS_SECRET_ACCESS_KEY environment variable is not set&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> endpoint_url <span style="font-weight:bold">is</span> <span style="font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">raise</span> <span style="color:#900;font-weight:bold">ValueError</span>(<span style="color:#b84">&#34;AWS_ENDPOINT_URL environment variable is not set&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">except</span> <span style="color:#900;font-weight:bold">ValueError</span> <span style="font-weight:bold">as</span> excp:
+</span></span><span style="display:flex;"><span>                parser<span style="font-weight:bold">.</span>error(<span style="color:#999">str</span>(excp))
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">except</span> <span style="color:#900;font-weight:bold">KeyError</span> <span style="font-weight:bold">as</span> excp:
+</span></span><span style="display:flex;"><span>                parser<span style="font-weight:bold">.</span>error(<span style="color:#999">str</span>(excp) <span style="font-weight:bold">+</span> <span style="color:#b84">&#34; environment variable is not set&#34;</span>)
+</span></span><span style="display:flex;"><span>            ctx<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#34;Cloud.AWS&#34;</span>] <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;True&#34;</span>
+</span></span></code></pre></div><p>When stacking the various layers and attaching them to a specific requirement, the FileLayer is stacked :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>physical_layer = physical.FileLayer(
+</span></span><span style="display:flex;"><span>	new_context, current_config_path, current_layer_name
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>new_context.add_layer(physical_layer)
+</span></span></code></pre></div><p>Notice that the FileLayer object is created. We need to enhance the FileLayer object in order for it to determine the right resource accessor by looking at the context configuration:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">class</span> <span style="color:#458;font-weight:bold">FileLayer</span>(interfaces<span style="font-weight:bold">.</span>layers<span style="font-weight:bold">.</span>DataLayerInterface):
+</span></span><span style="display:flex;"><span>    <span style="color:#b84">&#34;&#34;&#34;a DataLayer backed by a file on the filesystem.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> __init__(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        context: interfaces<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>ContextInterface,
+</span></span><span style="display:flex;"><span>        config_path: <span style="color:#999">str</span>,
+</span></span><span style="display:flex;"><span>        name: <span style="color:#999">str</span>,
+</span></span><span style="display:flex;"><span>        metadata: Optional[Dict[<span style="color:#999">str</span>, Any]] <span style="font-weight:bold">=</span> <span style="font-weight:bold">None</span>,
+</span></span><span style="display:flex;"><span>    ) <span style="font-weight:bold">-&gt;</span> <span style="font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#999">super</span>()<span style="font-weight:bold">.</span>__init__(
+</span></span><span style="display:flex;"><span>            context<span style="font-weight:bold">=</span>context, config_path<span style="font-weight:bold">=</span>config_path, name<span style="font-weight:bold">=</span>name, metadata<span style="font-weight:bold">=</span>metadata
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> <span style="color:#b84">&#34;Cloud.AWS&#34;</span> <span style="font-weight:bold">in</span> self<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>config <span style="font-weight:bold">and</span> <span style="font-weight:bold">not</span> <span style="color:#b84">&#34;pdbreader.FileLayer.location&#34;</span> <span style="font-weight:bold">in</span> self<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>config:
+</span></span><span style="display:flex;"><span>            self<span style="font-weight:bold">.</span>_accessor <span style="font-weight:bold">=</span> resources<span style="font-weight:bold">.</span>S3ResourceAccessor()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">elif</span> <span style="color:#b84">&#34;Cloud.Google&#34;</span> <span style="font-weight:bold">in</span> self<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>config <span style="font-weight:bold">and</span> <span style="font-weight:bold">not</span> <span style="color:#b84">&#34;pdbreader.FileLayer.location&#34;</span> <span style="font-weight:bold">in</span> self<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>config:
+</span></span><span style="display:flex;"><span>            self<span style="font-weight:bold">.</span>_accessor <span style="font-weight:bold">=</span> resources<span style="font-weight:bold">.</span>GCResourceAccessor(self<span style="font-weight:bold">.</span>context)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            self<span style="font-weight:bold">.</span>_accessor <span style="font-weight:bold">=</span> resources<span style="font-weight:bold">.</span>ResourceAccessor()
+</span></span><span style="display:flex;"><span>[<span style="font-weight:bold">...</span>]
+</span></span></code></pre></div><p>Then, we define our custom resource accessors, the current accessors added are supporting AWS/Minio and Google Cloud buckets. Notice the use of s3fs<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> and gcsfs<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> libraries.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[<span style="font-weight:bold">...</span>]
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">s3fs</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">gcsfs</span>
+</span></span><span style="display:flex;"><span>[<span style="font-weight:bold">...</span>]
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">class</span> <span style="color:#458;font-weight:bold">S3ResourceAccessor</span>(<span style="color:#999">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> __init__(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        self<span style="font-weight:bold">.</span>s3 <span style="font-weight:bold">=</span> s3fs<span style="font-weight:bold">.</span>S3FileSystem()
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">open</span>(self, url: <span style="color:#999">str</span>, mode: <span style="color:#999">str</span> <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;rb&#34;</span>) <span style="font-weight:bold">-&gt;</span> Any:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> self<span style="font-weight:bold">.</span>s3<span style="font-weight:bold">.</span>open(url, mode)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">class</span> <span style="color:#458;font-weight:bold">GCResourceAccessor</span>(<span style="color:#999">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> __init__(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        context: interfaces<span style="font-weight:bold">.</span>context<span style="font-weight:bold">.</span>ContextInterface,
+</span></span><span style="display:flex;"><span>    ):  
+</span></span><span style="display:flex;"><span>        self<span style="font-weight:bold">.</span>s3 <span style="font-weight:bold">=</span> gcsfs<span style="font-weight:bold">.</span>GCSFileSystem(project<span style="font-weight:bold">=</span>context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;Cloud.Google.project_id&#39;</span>], token<span style="font-weight:bold">=</span>context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;Cloud.Google.application_credentials&#39;</span>])
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">open</span>(self, url: <span style="color:#999">str</span>, mode: <span style="color:#999">str</span> <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;rb&#34;</span>) <span style="font-weight:bold">-&gt;</span> Any:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> self<span style="font-weight:bold">.</span>s3<span style="font-weight:bold">.</span>open(url, mode)
+</span></span></code></pre></div><h2 id="testing">
+  Testing
+  <a class="heading-link" href="#testing">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>It is now time to test the modified framework. Memory images between 1 and 8 gb were used for those tests.</p>
+<h3 id="on-premise-minio">
+  On-Premise MIN.IO
+  <a class="heading-link" href="#on-premise-minio">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_ENDPOINT_URL</span><span style="font-weight:bold">=</span>http://127.0.0.1:9000
+</span></span><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_ACCESS_KEY_ID</span><span style="font-weight:bold">=</span>user
+</span></span><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_SECRET_ACCESS_KEY</span><span style="font-weight:bold">=</span>password
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>~» vol -s3 -f s3://20acf5e8-ab93-42ff-b87a-15065da1016c/Snapshot6.vmem windows.pslist --dump --pid <span style="color:#099">244</span>
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.4.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>PID	PPID	ImageFileName	Offset<span style="font-weight:bold">(</span>V<span style="font-weight:bold">)</span>	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>244	4	smss.exe	0xfa8002c33b30	2	29	N/A	False	2020-12-27 06:18:43.000000 	N/A	pid.244.0x48080000.dmp
+</span></span></code></pre></div><h3 id="aws-remote-s3-bucket-using-volshell">
+  AWS remote s3 bucket using volshell
+  <a class="heading-link" href="#aws-remote-s3-bucket-using-volshell">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_ENDPOINT_URL</span><span style="font-weight:bold">=</span><span style="color:#b84">&#34;&#34;</span> <span style="color:#998;font-style:italic"># no endpoint url will point to aws by default</span>
+</span></span><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_ACCESS_KEY_ID</span><span style="font-weight:bold">=</span>REDACTED
+</span></span><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">AWS_SECRET_ACCESS_KEY</span><span style="font-weight:bold">=</span>REDACTED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>~» volshell -s3 -f s3://20acf5e8-ab93-42ff-b87a-15065da1016c/Snapshot6.vmem -w
+</span></span><span style="display:flex;"><span>Volshell <span style="font-weight:bold">(</span>Volatility <span style="color:#099">3</span> Framework<span style="font-weight:bold">)</span> 2.5.0
+</span></span><span style="display:flex;"><span>Readline imported successfully	PDB scanning finished
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Call help<span style="font-weight:bold">()</span> to see available functions
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Volshell mode        : Windows
+</span></span><span style="display:flex;"><span>    Current Layer        : layer_name
+</span></span><span style="display:flex;"><span>    Current Symbol Table : symbol_table_name1
+</span></span><span style="display:flex;"><span>    Current Kernel Name  : kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">(</span>layer_name<span style="font-weight:bold">)</span> &gt;&gt;&gt; from volatility3.plugins.windows import pslist
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">(</span>layer_name<span style="font-weight:bold">)</span> &gt;&gt;&gt; pslist.PsList.get_requirements<span style="font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">(</span>layer_name<span style="font-weight:bold">)</span> &gt;&gt;&gt; display_plugin_output<span style="font-weight:bold">(</span>pslist.PsList, <span style="color:#008080">kernel</span> <span style="font-weight:bold">=</span> self.config<span style="font-weight:bold">[</span><span style="color:#b84">&#39;kernel&#39;</span><span style="font-weight:bold">])</span>
+</span></span><span style="display:flex;"><span>ID	PPID	ImageFileName	Offset<span style="font-weight:bold">(</span>V<span style="font-weight:bold">)</span>	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
+</span></span><span style="display:flex;"><span>4	0	System	0xfa80024b3890	83	519	N/A	False	2020-12-27 06:18:43.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>244	4	smss.exe	0xfa8002c33b30	2	29	N/A	False	2020-12-27 06:18:43.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>332	324	csrss.exe	0xfa8002e79b30	9	562	0	False	2020-12-27 06:18:49.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>384	376	csrss.exe	0xfa8003a0f8a0	10	171	1	False	2020-12-27 06:18:50.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>392	324	wininit.exe	0xfa8003a12060	5	80	0	False	2020-12-27 06:18:50.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>428	376	winlogon.exe	0xfa8003a31060	5	120	1	False	2020-12-27 06:18:50.000000 	N/A	Disabled
+</span></span></code></pre></div><h3 id="google-cloud-bucket">
+  Google cloud bucket
+  <a class="heading-link" href="#google-cloud-bucket">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">GOOGLE_PROJECT_ID</span><span style="font-weight:bold">=</span>REDACTED
+</span></span><span style="display:flex;"><span>~» <span style="color:#999">export</span> <span style="color:#008080">GOOGLE_APPLICATION_CREDENTIALS</span><span style="font-weight:bold">=</span>/PATH/gcreds.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>~ » vol -gs -f gs://volweb/Snapshot6.vmem windows.dlllist             
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.4.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>PID	Process	Base	Size	Name	Path	LoadTime	File output
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>244	smss.exe	0x48080000	0x20000	smss.exe	<span style="color:#b84">\S</span>ystemRoot<span style="color:#b84">\S</span>ystem32<span style="color:#b84">\s</span>mss.exe	N/A	Disabled
+</span></span><span style="display:flex;"><span>244	smss.exe	0x777e0000	0x1a9000	ntdll.dll	C:<span style="color:#b84">\W</span>indows<span style="color:#b84">\S</span>YSTEM32<span style="color:#b84">\n</span>tdll.dll	N/A	Disabled
+</span></span><span style="display:flex;"><span>332	csrss.exe	0x49b80000	0x6000	csrss.exe	C:<span style="color:#b84">\W</span>indows<span style="color:#b84">\s</span>ystem32<span style="color:#b84">\c</span>srss.exe	N/A	Disabled
+</span></span><span style="display:flex;"><span>332	csrss.exe	0x777e0000	0x1a9000	ntdll.dll	C:<span style="color:#b84">\W</span>indows<span style="color:#b84">\S</span>YSTEM32<span style="color:#b84">\n</span>tdll.dll	N/A	Disabled
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">[</span>...<span style="font-weight:bold">]</span>
+</span></span></code></pre></div><h1 id="applications">
+  Applications
+  <a class="heading-link" href="#applications">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>One can ask what are the potential applications after these new additions to the framework.</p>
+<ul>
+<li>
+<p>Remote investigation: Memory forensics can be performed on object storage without requiring physical access to the device hosting the storage. This allows for remote investigations, making it more convenient and efficient.</p>
+</li>
+<li>
+<p>Scalability: Object storage over the network offers scalability, allowing the storage capacity to be expanded easily when dealing with large data volumes. This is particularly useful when performing memory forensics on extensive datasets.</p>
+</li>
+<li>
+<p>Improved Collaboration: By conducting memory forensics on object storage accessible over the network, multiple IT specialists and forensic experts can collaborate on the investigation simultaneously. This promotes knowledge sharing and enhances the chances of identifying critical evidence.</p>
+</li>
+<li>
+<p>Memory Acquisition at scale : One can script memory aquisition and deploy evidence collection on multiple system by storing the result into an On-Premise solution like Minio or in a cloud solution like AWS.</p>
+</li>
+<li>
+<p>No third party installation : Some people don&rsquo;t like to have &ldquo;agent-base&rdquo; solutions installed on their assets to perform memory forensics. Once the evidence are acquired, memory forensics will be performed on a dedicated environment.</p>
+</li>
+</ul>
+<p><img src="/images/vols3/3.png" alt="alt text" title="Arch 3"></p>
+<h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>To conclude, the goal of this addition to the volatility3 framework is to give more capabilities to digital investigators and incident responders when performing memory forensics. The fork of the project implementing this feature is available for you to review the code : <a href="https://github.com/forensicxlab/volatility3/tree/feature/bucket-s3">https://github.com/forensicxlab/volatility3/tree/feature/bucket-s3</a> .</p>
+<p>Like all solutions, there are downsides to remote memory forensics. Indeed performing remote memory forensics will have an impact on performances and the investigator need to choose wisely about the solution used. However with cloud-computing network performances, network memory forensics can be very efficient. In a futur blogpost, a concrete application of remote memory forensics will be demonstrated by introducing VolWeb 2.0 which is still in development at the time of writing of this article.</p>
+<blockquote>
+<p>Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article or to comment on the integration to the volatility framework.</p>
+</blockquote>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://volatility3.readthedocs.io/en/latest/index.html">https://volatility3.readthedocs.io/en/latest/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/fsspec/s3fs/">https://github.com/fsspec/s3fs/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://gcsfs.readthedocs.io/en/latest/#">https://gcsfs.readthedocs.io/en/latest/#</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2023
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
