@@ -269,7 +269,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “<strong>layerwriter</strong>” plugin to create a raw memory image and then analyze it with the framework&rsquo;s plugins. Indeed the decompression of a compression set takes times and most of the plugins need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances.</p>
+<p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “layerwriter” plugin to create a raw memory image and then analyze it with the windows plugins. Indeed, the decompression of a set takes time and most of the plugin need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances.</p>
 <p>The generation of the raw memory file was performed on 2 hibernations files from different versions of Windows:</p>
 <table>
 <thead>
