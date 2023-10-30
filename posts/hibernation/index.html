@@ -303,7 +303,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </tbody>
 </table>
 <blockquote>
-<p><strong>Note :</strong> On Windows 1809, only in the boot section and none in the kernel section. The compressed data were either using the Xpress LZ77 compression or were not compressed. On Windows22H2, most of the pages are located inside the kernel section using both plain LZ77 and LZ77+Huffman compression. It is not clear how Microsoft decides which compression algorithm is used and if both sections are used to store the pages.</p>
+<p><strong>Note :</strong> On Windows 1809, we found that pages were located only in the boot section and none in the kernel section. The compressed data were either using the Xpress LZ77 compression or were not compressed but the Huffman variant was not identified. On Windows 22H2, most of the pages are located inside the kernel section using both plain LZ77 and LZ77+Huffman compression. It is not clear how Microsoft decides which compression algorithm is used and if both sections are used to store the pages.</p>
 </blockquote>
 <h3 id="usage--conversion">
   Usage : Conversion
