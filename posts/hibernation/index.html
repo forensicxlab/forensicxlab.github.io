@@ -210,12 +210,12 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 <p>The hibernation files start with a header called PO_MEMORY_IMAGE. The structure of this header may differ slightly depending on the operating system version, but its definition is publicly available in the kernel&rsquo;s debugging symbols, which is very nice. The vergiliusproject<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> gives us a nice description of this structure for each Windows version. Below is an example of the structure of the header.</p>
 <p><img src="/images/hibernation/2.png" alt="alt text" title="Header"></p>
 <p>The signature of the file for an exploitable hibernation file is ‘<em>HIBR</em>’. The ‘<em>RSTR</em>’ signature indicates that the system is resuming from the file, making it apparently useless when this is the case.</p>
-<p>Notice the “FirstBootRestorePage” and “FirstKernelRestorePage” attributes. Those values are storing the page number of the first restoration sets. Windows currently divide the storage of the memory pages in 2 locationsin the hibernation file:</p>
+<p>Notice the “FirstBootRestorePage” and “FirstKernelRestorePage” attributes. Those values are storing the page number of the first restoration sets. Windows currently divide the storage of the memory pages in 2 locations :</p>
 <ul>
-<li>The boot pages.</li>
-<li>The kernel pages.</li>
+<li>The boot section.</li>
+<li>The kernel section.</li>
 </ul>
-<p>You might notice the “SecureRestorePage”, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. Might be used in the future thought to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
+<p>You might notice the “SecureRestorePage” section, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. Might be used in the future thought to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
 <p>Other valuable forensics artifacts are available like the system time when it was put into the hibernation state.</p>
 <h2 id="the-compression-sets">
   The compression sets.
