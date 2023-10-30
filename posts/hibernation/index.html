@@ -182,8 +182,8 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
   </a>
 </h1>
 <p>In the Digital Forensics ecosystem, the field of memory forensics can help uncover artifacts that can’t be found anywhere else. That can include deleted files, network connections, running processes, rootkits, code injection, fileless malware and many more.</p>
-<p>Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil.sys before shutting down located in the root of the filesystem drive. When the computer is turned on again, the system restores the volatile state from the saved file. Hibernation files are valuable for digital forensic professionals as they store temporary data from RAM to non-volatile storage, eliminating the requirement for specialized tools on the target device.</p>
-<p>The Hibernation file structure as evolved in time. In this blog post, we will dive into the structure of the modern Windows hibernation file and propose a new translation layer for the volatility3 framework to create a raw memory image from a hibernation file.</p>
+<p>Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil.sys before shutting down inside the root folder of the filesystem drive. When the computer is turned on again, the system restores the volatile state from the saved file. Hibernation files are valuable for digital forensic professionals as they store temporary data from RAM to non-volatile storage, eliminating the requirement for specialized tools on the target device.</p>
+<p>The Hibernation file structure has evolved in time. In this blog post, we will dive into the structure of the modern Windows hibernation file and propose a new translation layer for the volatility3 framework to create a raw memory image from a hibernation file.</p>
 <h1 id="the-structure-of-a-modern-hibernation-file">
   The structure of a modern hibernation file
   <a class="heading-link" href="#the-structure-of-a-modern-hibernation-file">
@@ -198,7 +198,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </ul>
 <p>The following image represent the modern structure.</p>
 <p><img src="/images/hibernation/1.png" alt="alt text" title="Structure"></p>
-<p>In this blog post we will focus on the modern hibernation structure<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, thougth you’ll notice that the underlying principle remains the same which is to compress and store the physical memory pages of the hibernated system in specific data structures called “restoration sets”.
+<p>In this blog post we will focus on the modern hibernation structure<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, though you’ll notice that the underlying principle remains the same which is to compress and store the physical memory pages of the hibernated system in specific data structures called “restoration sets”.
  </p>
 <h2 id="the-file-header">
   The file header
@@ -215,7 +215,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 <li>The boot section.</li>
 <li>The kernel section.</li>
 </ul>
-<p>You might notice the “SecureRestorePage” section, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. Might be used in the future thought to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
+<p>You might notice the “SecureRestorePage” section, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. It might be used in the future though to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
 <p>Other valuable forensics artifacts are available like the system time when it was put into the hibernation state.</p>
 <h2 id="the-compression-sets">
   The compression sets.
