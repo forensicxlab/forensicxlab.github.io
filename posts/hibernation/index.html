@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📘 Volatility3: Modern Windows Hibernation file analysis · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading In the Digital Forensics ecosystem, the field of memory forensics can help uncover artifacts that can’t be found anywhere else. That can include deleted files, network connections, running processes, rootkits, code injection, fileless malware and many more.
+Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📘 Volatility3: Modern Windows Hibernation file analysis"/>
+<meta name="twitter:description" content="Abstract Link to heading In the Digital Forensics ecosystem, the field of memory forensics can help uncover artifacts that can’t be found anywhere else. That can include deleted files, network connections, running processes, rootkits, code injection, fileless malware and many more.
+Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil."/>
+
+<meta property="og:title" content="📘 Volatility3: Modern Windows Hibernation file analysis" />
+<meta property="og:description" content="Abstract Link to heading In the Digital Forensics ecosystem, the field of memory forensics can help uncover artifacts that can’t be found anywhere else. That can include deleted files, network connections, running processes, rootkits, code injection, fileless malware and many more.
+Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.forensicxlab.com/posts/hibernation/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-27T16:20:44+02:00" />
+<meta property="article:modified_time" content="2023-10-27T16:20:44+02:00" />
+
+
+
+
+<link rel="canonical" href="http://www.forensicxlab.com/posts/hibernation/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.117.0">
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.forensicxlab.com/posts/hibernation/">
+              📘 Volatility3: Modern Windows Hibernation file analysis
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-10-27T16:20:44&#43;02:00">
+                October 27, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              9-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/volatility/">Volatility</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/hibernation/">Hibernation</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>In the Digital Forensics ecosystem, the field of memory forensics can help uncover artifacts that can’t be found anywhere else. That can include deleted files, network connections, running processes, rootkits, code injection, fileless malware and many more.</p>
+<p>Microsoft introduced the hibernation feature in Windows 2000, allowing systems to be powered down while preserving their volatile state. This is achieved by saving RAM contents and processor context to a file called hiberfil.sys before shutting down located in the root of the filesystem drive. When the computer is turned on again, the system restores the volatile state from the saved file. Hibernation files are valuable for digital forensic professionals as they store temporary data from RAM to non-volatile storage, eliminating the requirement for specialized tools on the target device.</p>
+<p>The Hibernation file structure as evolved in time. In this blog post, we will dive into the structure of the modern Windows hibernation file and propose a new translation layer for the volatility3 framework to create a raw memory image from a hibernation file.</p>
+<h1 id="the-structure-of-a-modern-hibernation-file">
+  The structure of a modern hibernation file
+  <a class="heading-link" href="#the-structure-of-a-modern-hibernation-file">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The structure of the hibernation file evolved in time. There are 2 major variations:</p>
+<ul>
+<li>From Windows XP to Windows 7 (old)</li>
+<li>From Windows 8 to Windows 11 (modern)</li>
+</ul>
+<p>The following image represent the modern structure.</p>
+<p><img src="/images/hibernation/1.png" alt="alt text" title="Structure"></p>
+<p>In this blog post we will focus on the modern hibernation structure<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, thougth you’ll notice that the underlying principle remains the same which is to compress and store the physical memory pages of the hibernated system in specific data structures called “restoration sets”.
+ </p>
+<h2 id="the-file-header">
+  The file header
+  <a class="heading-link" href="#the-file-header">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The hibernation files start with a header called PO_MEMORY_IMAGE. The structure of this header may differ slightly depending on the operating system version, but its definition is publicly available in the kernel&rsquo;s debugging symbols. Which is very nice, the vergiliusproject<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> gives us a nice description of this structure for each Windows version. Below is an example of the structure of the header.</p>
+<p><img src="/images/hibernation/2.png" alt="alt text" title="Header"></p>
+<p>The signature of the file for an exploitable hibernation file is ‘<em>HIBR</em>’. The ‘<em>RSTR</em>’ signature indicates that the system is resuming from the file, making it apparently useless when this is the case.</p>
+<p>Notice the “FirstBootRestorePage” and “FirstKernelRestorePage” attributes. Those values are storing the page number of the first restoration sets. Windows currently divide the storage of the memory pages in 2 locationsin the hibernation file:</p>
+<ul>
+<li>The boot pages.</li>
+<li>The kernel pages.</li>
+</ul>
+<p>You might notice the “SecureRestorePage”, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. Might be used in the future thought to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
+<p>Other valuable forensics artifacts are available like the system time when it was put into the hibernation state.</p>
+<h2 id="the-compression-sets">
+  The compression sets.
+  <a class="heading-link" href="#the-compression-sets">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>A restoration set contains multiple <strong>compression sets</strong>. Each compression set contains a header structure giving information about how many page descriptors it contains, the compression algorithm used and the size of the compressed concatenated pages of the set.</p>
+<p>The compression algorithm used can be one the following:</p>
+<ul>
+<li>None: the pages are stored uncompressed</li>
+<li>Xpress: The pages are stored using the Microsoft Xpress LZ77 Algorithm <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></li>
+<li>HuffmanXpress: The pages are stored using the Microsoft Xpress LZ77+Huffman Algorithm <sup id="fnref1:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></li>
+</ul>
+<p>All the page descriptors are located after the header and are describing where the pages reside in the decompressed data.</p>
+<p><img src="/images/hibernation/3.png" alt="alt text" title="Structure"></p>
+<h1 id="creating-a-volatility3-translation-layers">
+  Creating a volatility3 translation layers
+  <a class="heading-link" href="#creating-a-volatility3-translation-layers">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>To be able to read multiple memory image formats, the volatility3 framework is usinig what’s called “Translation Layers”.  Each layer in volatility3 focuses on a particular aspect of memory forensics, such as parsing specific data structures, analyzing various kinds of artifacts, or understanding specific evidence formats. The layers can be seen as individual building blocks that can be stacked on top of each other in a specific order to build the right context before extracting data for analysis. As an example, a memory image with the &ldquo;vmem&rdquo; format will induce the stacking of the &ldquo;VmwareLayer&rdquo; to be able to read such file format and extract memory pages.</p>
+<p>In our case, when the framework is requesting several bytes at a specific physical address, it need to understand the structure of the hibernation file and how to extract the right pages. For this, we need to indicate to the framework for a given memory “segment”, the corresponding set of pages.</p>
+<p>The Hibernation layer role is to provide the volatility framework with the following informations :</p>
+<ul>
+<li>Check the file header to see if the layer needs to be stacked (check the signature to verify it is a hibernation file)</li>
+<li>Build a list of segments: A segment is here to translates a given physical address to an offset inside of the uncompressed data of the relevant compression set.</li>
+<li>Provide the decompression method for a given segment: Our layer needs to be able to decompress a given compression set and returns the number of bytes requested by the upper layer.</li>
+</ul>
+<p><img src="/images/hibernation/4.png" alt="alt text" title="Structure"></p>
+<h2 id="implementation-of-the-different-compression-algorithms">
+  Implementation of the different compression algorithms
+  <a class="heading-link" href="#implementation-of-the-different-compression-algorithms">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Windows is using two proprietary compression algorithms to compress the pages:</p>
+<ul>
+<li>Xpress: The Microsoft Xpress LZ77 Decompression Algorithm <sup id="fnref2:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></li>
+<li>HuffmanXpress: Microsoft Xpress LZ77+Huffman Decompression Algorithm <sup id="fnref3:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> <sup id="fnref1:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></li>
+</ul>
+<p>Those two algorithms were implemented and added to the volatility3 framework codecs without the needs of using the Windows API via cstruct (making this layer OS independant). Those algorithm are well documented but python3 is not really the best programming language to perform bitwise operations. Thus the developpement of those two algorithm takes time to make sure that the decompressed page using our implementation is giving the same result as the native API <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
+<h2 id="proof-of-concept">
+  Proof Of Concept
+  <a class="heading-link" href="#proof-of-concept">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “<strong>layerwriter</strong>” plugin to create a raw memory image and then analyze it with the framework&rsquo;s plugins. Indeed the decompression of a compression set takes times and most of the plugins need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances.</p>
+<p>The generation of the raw memory file was performed on 2 hibernations files from different versions of Windows:</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th style="text-align:center">hiberfile size</th>
+<th style="text-align:center">Conversion time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 1809 x64</td>
+<td style="text-align:center">2GB</td>
+<td style="text-align:center">~5 minutes</td>
+</tr>
+<tr>
+<td>Windows 1809 x64</td>
+<td style="text-align:center">4GB</td>
+<td style="text-align:center">~10 minutes</td>
+</tr>
+<tr>
+<td>Windows 22H02 x64</td>
+<td style="text-align:center">8GB</td>
+<td style="text-align:center">~60 minutes</td>
+</tr>
+<tr>
+<td>Windows 22H02 x64</td>
+<td style="text-align:center">16GB</td>
+<td style="text-align:center">~100 minutes</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note :</strong> On Windows 1809, only in the boot section and none in the kernel section. The compressed data were either using the Xpress LZ77 compression or were not compressed. On Windows22H2, most of the pages are located inside the kernel section using both plain LZ77 and LZ77+Huffman compression. It is not clear how Microsoft decides which compression algorithm is used and if both sections are used to store the pages.</p>
+</blockquote>
+<h3 id="usage--conversion">
+  Usage : Conversion
+  <a class="heading-link" href="#usage--conversion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f ../MemoryAnalysis/Hibernation/hiberfil.sys layerwriter
+</span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>Status
+</span></span><span style="display:flex;"><span>Progress:   99.92		Writing layer memory_layer
+</span></span><span style="display:flex;"><span>Layer has been written to memory_layer.raw
+</span></span></code></pre></div><h3 id="example-pslist">
+  Example: pslist
+  <a class="heading-link" href="#example-pslist">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f memory_layer.raw windows.pslist
+</span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>4	0	System	0xe5072e280300	182	-	N/A	False	2023-09-30 14:52:10.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>136	4	Registry	0xe5072e2ee040	4	-	N/A	False	2023-09-30 14:52:09.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>400	4	smss.exe	0xe507322aa0c0	3	-	N/A	False	2023-09-30 14:52:10.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>532	484	csrss.exe	0xe50732242140	13	-	0	False	2023-09-30 14:52:11.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>628	484	wininit.exe	0xe50734c6a080	5	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>636	620	csrss.exe	0xe50734c6f140	13	-	1	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>700	628	services.exe	0xe50734cf0100	17	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>708	628	lsass.exe	0xe50734d25080	9	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>840	700	svchost.exe	0xe50734d8e280	29	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>868	628	fontdrvhost.ex	0xe50734db9180	5	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>932	700	svchost.exe	0xe50734b25540	13	-	0	False	2023-09-30 14:52:12.000000 	N/A	Disabled
+</span></span><span style="display:flex;"><span>[TRUNCATED]
+</span></span></code></pre></div><h3 id="example--netscan">
+  Example : netscan
+  <a class="heading-link" href="#example--netscan">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f memory_layer.raw windows.netscan
+</span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
+</span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
+</span></span><span style="display:flex;"><span>Offset	Proto	LocalAddr	LocalPort	ForeignAddr	ForeignPort	State	PID	Owner	Created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0xe507320e1b00	TCPv4	127.0.0.1	49743	127.0.0.1	49742	ESTABLISHED	6660	RiotClientServ	2023-09-30 14:52:33.000000
+</span></span><span style="display:flex;"><span>0xe50733c5ba60	TCPv4	192.168.122.74	49883	8.247.201.124	443	ESTABLISHED	6660	RiotClientServ	2023-09-30 14:52:38.000000
+</span></span><span style="display:flex;"><span>0xe50734ab2d00	TCPv4	0.0.0.0	135	0.0.0.0	0	LISTENING	932	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734ab2d00	TCPv6	::	135	::	0	LISTENING	932	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734ab2e50	TCPv4	0.0.0.0	49664	0.0.0.0	0	LISTENING	628	wininit.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734ab2e50	TCPv6	::	49664	::	0	LISTENING	628	wininit.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734ab34e0	TCPv4	0.0.0.0	49664	0.0.0.0	0	LISTENING	628	wininit.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734ab38d0	TCPv4	0.0.0.0	135	0.0.0.0	0	LISTENING	932	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe50734d624e0	TCPv4	192.168.122.74	49687	20.223.46.67	443	ESTABLISHED	2552	MsMpEng.exe	2023-09-30 14:52:17.000000
+</span></span><span style="display:flex;"><span>0xe5073540a990	TCPv4	192.168.122.74	139	0.0.0.0	0	LISTENING	4	System	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540b410	TCPv4	0.0.0.0	49665	0.0.0.0	0	LISTENING	952	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540b800	TCPv4	0.0.0.0	49666	0.0.0.0	0	LISTENING	1416	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540c130	TCPv4	0.0.0.0	49666	0.0.0.0	0	LISTENING	1416	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540c130	TCPv6	::	49666	::	0	LISTENING	1416	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540c3d0	TCPv4	0.0.0.0	49665	0.0.0.0	0	LISTENING	952	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>0xe5073540c3d0	TCPv6	::	49665	::	0	LISTENING	952	svchost.exe	2023-09-30 14:52:12.000000
+</span></span><span style="display:flex;"><span>[TRUNCATED]
+</span></span></code></pre></div><h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>For all tested files, the framework was able to extract and decompress all of the pages in each restoration sets. The Hibernation Layer currently only support Windows 10 x64 hibernation files. The Windows 8, 11 and Servers where not tested, but hopping the forensics community will and give feedback to improve this layer. You can find the feature here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer">https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer</a> little things are to be enhanced to fully cover x64 Windows8 to Windows11</p>
+<p>Hoping this article will bring back the interess of the Digital Forensics community to hibernation files which are very valuable when available.</p>
+<p>Special thanks to Chad Tilbury @chadtilbury that gave me the motivation to dive into this project and the team of researchers behind the Hibernation file structure analysis (Joe T. Sylve, Vico Marziale, Golden G. Richard III).</p>
+<blockquote>
+<p>Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article or to comment on the integration to the volatility framework.</p>
+</blockquote>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.cct.lsu.edu/~golden/Papers/sylvehiber.pdf">https://www.cct.lsu.edu/~golden/Papers/sylvehiber.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://www.vergiliusproject.com/kernels/x64/Windows%2011/Insider%20Preview%20(Jun%202021)/PO_MEMORY_IMAGE">https://www.vergiliusproject.com/kernels/x64/Windows%2011/Insider%20Preview%20(Jun%202021)/PO_MEMORY_IMAGE</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-xca/a8b7cb0a-92a6-4187-a23b-5e14273b96f8">https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-xca/a8b7cb0a-92a6-4187-a23b-5e14273b96f8</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://raw.githubusercontent.com/Velocidex/go-prefetch/master/lzxpress.go">https://raw.githubusercontent.com/Velocidex/go-prefetch/master/lzxpress.go</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/cmpapi/using-the-compression-api">https://learn.microsoft.com/en-us/windows/win32/cmpapi/using-the-compression-api</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2023
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

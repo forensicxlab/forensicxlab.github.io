@@ -35,7 +35,6 @@ It is crucial to have the capability of examining memory images on storage platf
 
 
 
-
 <link rel="canonical" href="http://www.forensicxlab.com/posts/vols3/">
 
 
@@ -70,7 +69,7 @@ It is crucial to have the capability of examining memory images on storage platf
 
 
 
-<meta name="generator" content="Hugo 0.106.0">
+<meta name="generator" content="Hugo 0.117.0">
 
 
 
@@ -207,7 +206,7 @@ It is crucial to have the capability of examining memory images on storage platf
   </a>
 </h2>
 <p>The native volatility3 framework currently provides one method for accessing data when performing the contextualization on a memory image which is direct access on a traditionnal filesystem.</p>
-<p>When an analyst is using volatility3 to extract data using a plugin, the framework is building the context &ldquo;behind the scene&rdquo;, which is the most critical step in the memory forensics workflow aside from the aquisition and analysis steps. This step is too often overlooked/forgoten by some investigators.</p>
+<p>When an analyst is using volatility3 to extract data using a plugin, the framework is building the context &ldquo;behind the scenes&rdquo;, which is the most critical step in the memory forensics workflow aside from the aquisition and analysis steps. This step is too often overlooked/forgotten by some investigators.</p>
 <p>In the framework, the data contextualisation is made via &ldquo;layering&rdquo; and &ldquo;stacking&rdquo;.
 Each layer in volatility3 focuses on a particular aspect of memory forensics, such as parsing specific data structures, analyzing various kinds of artifacts, or understanding specific evidence formats. The layers can be seen as individual building blocks that can be stacked on top of each other in a specific order to build the right context before extracting data for analysis. As an example, a memory image with the &ldquo;vmem&rdquo; format will induce the stacking of the &ldquo;VmwareLayer&rdquo; to be able to read such file format and extract data.</p>
 <p>One of the layer is called the &ldquo;FileLayer&rdquo; or &ldquo;physical&rdquo;. One of the usage of this layer by the framework is to know how to locate, open, read and overall access resources of the evidence provided by the investigator. The FileLayer is using what is called a &ldquo;ResourceAccessor&rdquo; to interface with the physical evidence.</p>
@@ -402,7 +401,7 @@ Each layer in volatility3 focuses on a particular aspect of memory forensics, su
 <p>Improved Collaboration: By conducting memory forensics on object storage accessible over the network, multiple IT specialists and forensic experts can collaborate on the investigation simultaneously. This promotes knowledge sharing and enhances the chances of identifying critical evidence.</p>
 </li>
 <li>
-<p>Memory Acquisition at scale : One can script memory aquisition and deploy evidence collection on multiple system by storing the result into an On-Premise solution like Minio or in a cloud solution like AWS.</p>
+<p>Memory Acquisition at scale : One can script memory acquisition and deploy evidence collection on multiple system by storing the result into an On-Premise solution like Minio or in a cloud solution like AWS.</p>
 </li>
 <li>
 <p>No third party installation : Some people don&rsquo;t like to have &ldquo;agent-base&rdquo; solutions installed on their assets to perform memory forensics. Once the evidence are acquired, memory forensics will be performed on a dedicated environment.</p>
