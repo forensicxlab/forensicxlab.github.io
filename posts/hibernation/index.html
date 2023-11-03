@@ -209,14 +209,53 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </h2>
 <p>The hibernation files start with a header called PO_MEMORY_IMAGE. The structure of this header may differ slightly depending on the operating system version, but its definition is publicly available in the kernel&rsquo;s debugging symbols, which is very nice. The vergiliusproject<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> gives us a nice description of this structure for each Windows version. Below is an example of the structure of the header.</p>
 <p><img src="/images/hibernation/2.png" alt="alt text" title="Header"></p>
-<p>The signature of the file for an exploitable hibernation file is ‘<em>HIBR</em>’. The ‘<em>RSTR</em>’ signature indicates that the system is resuming from the file, making it apparently useless when this is the case.</p>
-<p>Notice the “FirstBootRestorePage” and “FirstKernelRestorePage” attributes. Those values are storing the page number of the first restoration sets. Windows currently divide the storage of the memory pages in 2 locations :</p>
+<p>The signature of the file for an exploitable hibernation file is ‘<em>HIBR</em>’. The ‘<em>RSTR</em>’ signature indicates that the system is resuming from the file, making it apparently useless when this is the case. Valuable forensics artifacts are available like the system time when it was put into the hibernation state.</p>
+<p>Notice the “<strong>FirstBootRestorePage</strong>” and “<strong>FirstKernelRestorePage</strong>” attributes. Those values are storing the page number of the first restoration sets. Mutiplying those values by the size of a Windows x64 page (4096) we get the offset of the sections.</p>
+<p>Windows currently divide the storage of the memory pages in 2 locations :</p>
 <ul>
 <li>The boot section.</li>
 <li>The kernel section.</li>
 </ul>
+<blockquote>
 <p>You might notice the “SecureRestorePage” section, however this value seems to be always 0 and there is no publicly available explanation on what those pages are used for. It might be used in the future though to encrypt memory pages so only the host machine can decrypt them via its TPM?</p>
-<p>Other valuable forensics artifacts are available like the system time when it was put into the hibernation state.</p>
+</blockquote>
+<p>To know how many pages are stored for each sections the information can be retrieved from specific attributes:</p>
+<ul>
+<li>&ldquo;<strong>NumPagesForLoader</strong>»: The number of pages in the &ldquo;Boot&rdquo; section</li>
+<li>&ldquo;<strong>PerfInfo-&gt;KernelPagesProcessed</strong>»: The number of pages in the &ldquo;Kernel&rdquo; section</li>
+</ul>
+<p>Unfortunately for us, the attribute storing the location and number of pages for the Kernel section did change with the Windows OS updates. Below is a table tracking those changes.</p>
+<table>
+<thead>
+<tr>
+<th>Windows Versions</th>
+<th style="text-align:center">FirstKernelRestorePage  offset</th>
+<th style="text-align:center">KernelPagesProcessed offset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 8/8.1</td>
+<td style="text-align:center">0x68</td>
+<td style="text-align:center">0x1C8</td>
+</tr>
+<tr>
+<td>Windows 10 2016 1507-1511</td>
+<td style="text-align:center">0x70</td>
+<td style="text-align:center">0x218</td>
+</tr>
+<tr>
+<td>Windows 10 2016 1607</td>
+<td style="text-align:center">0x70</td>
+<td style="text-align:center">0x220</td>
+</tr>
+<tr>
+<td>Windows 10 2016 1703 - Windows 11 23H2</td>
+<td style="text-align:center">0x70</td>
+<td style="text-align:center">0x230</td>
+</tr>
+</tbody>
+</table>
 <h2 id="the-compression-sets">
   The compression sets.
   <a class="heading-link" href="#the-compression-sets">
@@ -383,7 +422,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>For all tested files, the framework was able to extract and decompress all of the pages in each restoration sets. The Hibernation Layer currently only support Windows 10 x64 hibernation files. The Windows 8, 11 and Servers where not tested, but hopping the forensics community will and give feedback to improve this layer. You can find the feature here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer">https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer</a> little things are to be enhanced in the future to fully cover hibernation file conversion from the different version of Windows (8 to 11).</p>
+<p>For all tested files, the framework was able to extract and decompress all of the pages in each restoration sets. The Hibernation Layer <strong>currently only support Windows 10 x64 2016 1703 up to Windows 11 23H2 hibernation files</strong>. The implementation to support the hibernation from Windows 8/8.1 to Windows 10 2016 1607 will come in time. Hopping the forensics community will also test the feature and give feedback to improve this layer. You can find the feature here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer">https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer</a> little things are to be enhanced in the future to fully cover hibernation file conversion from the different version of Windows (8 to 11).</p>
 <p>Hoping this article will bring back the interests of the Digital Forensics community to hibernation files which are very valuable when available.</p>
 <p>Special thanks to Chad Tilbury @chadtilbury who gave me the motivation to dive into this project and the team of researchers behind the Hibernation file structure analysis (Joe T. Sylve, Vico Marziale, Golden G. Richard III).</p>
 <blockquote>
