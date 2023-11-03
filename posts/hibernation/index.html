@@ -308,7 +308,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “layerwriter” plugin to create a raw memory image and then analyze it with the windows plugins. Indeed, the decompression of a set takes time and most of the plugin need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances. To this end, 2 new plugin were added to the volatility3 framework :</p>
+<p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “layerwriter” plugin to create a raw memory image and then analyze it with the windows plugins. Indeed, the decompression of a set takes time and most of the plugin need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances. To this end, 2 new plugins were added to the volatility3 framework:</p>
 <ul>
 <li><strong>windows.hibernation.Info</strong> : Display the basic information about the hibernation file and if it seems exploitable.</li>
 <li><strong>windows.hibernation.Dump</strong> : Convert the hibernation file into a raw memory dump (based on the layerwriter plugin)</li>
