@@ -371,7 +371,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
   </a>
 </h3>
 <p>Firstly, we check if the hibernation file seems exploitable :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f /Volumes/Forensics/hiberfil_Win10_1507.sys windows.hibernation.Info
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3» ./vol.py -f hiberfil_Win10_1507.sys windows.hibernation.Info
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
 </span></span><span style="display:flex;"><span>Progress:  100.00               PDB scanning finished                         
 </span></span><span style="display:flex;"><span>Variable        Value
@@ -382,7 +382,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </span></span><span style="display:flex;"><span>FirstBootRestorePage    0x23
 </span></span><span style="display:flex;"><span>NumPagesForLoader       32199
 </span></span></code></pre></div><p>Next, we can try to convert the hibernation file to a raw file:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f /Volumes/Forensics/hiberfil_Win10_1507.sys windows.hibernation.Dump -h
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3» ./vol.py -f hiberfil_Win10_1507.sys windows.hibernation.Dump -h
 </span></span><span style="display:flex;"><span>usage: volatility windows.hibernation.Dump [-h] --version VERSION
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>optional arguments:
@@ -392,7 +392,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </span></span><span style="display:flex;"><span>        1=&gt;[Windows 8/8.1] 
 </span></span><span style="display:flex;"><span>        2=&gt;[Windows 10 1507 to 1511] 
 </span></span><span style="display:flex;"><span>        3=&gt;[Windows 10 1607]
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f /Volumes/Forensics/hiberfil_Win10_1507.sys windows.hibernation.Dump --version 2
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3» ./vol.py -f hiberfil_Win10_1507.sys windows.hibernation.Dump --version 2
 </span></span><span style="display:flex;"><span>Status
 </span></span><span style="display:flex;"><span>Progress:   99.99               Writing layer memory_layer                    
 </span></span><span style="display:flex;"><span>The hibernation file was converted to memory_layer.raw
@@ -403,7 +403,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f memory_layer.raw windows.pslist
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3» ./vol.py -f memory_layer.raw windows.pslist
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
 </span></span><span style="display:flex;"><span>PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
@@ -427,7 +427,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3 (feature/hibernation-layer*) » ./vol.py -f memory_layer.raw windows.netscan
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/volatility3» ./vol.py -f memory_layer.raw windows.netscan
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.5.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
 </span></span><span style="display:flex;"><span>Offset	Proto	LocalAddr	LocalPort	ForeignAddr	ForeignPort	State	PID	Owner	Created
@@ -456,7 +456,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>For all tested files, the framework was able to extract and decompress all of the pages in each restoration sets. The Hibernation Layer <strong>currently only support Windows 10 x64 2016 1703 up to Windows 11 23H2 hibernation files</strong>. The implementation to support the hibernation from Windows 8/8.1 to Windows 10 2016 1607 will come in time. Hopping the forensics community will also test the feature and give feedback to improve this layer. You can find the feature here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer">https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer</a>.</p>
+<p>For all tested files, the framework was able to extract and decompress all of the pages in each restoration sets. The hibernation layer <strong>currently only support Windows 8 x64 to Windows 11 23H2 x64 hibernation files</strong>. Windows server hibernation analysis was not tested yet but it will come in time. Hopping the forensics community will also test this new addition and give some feedback to improve this layer. You can find the feature here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer">https://github.com/forensicxlab/volatility3/tree/feature/hibernation-layer</a>.</p>
 <p>Hoping this article will bring back the interests of the Digital Forensics community to hibernation files which are very valuable when available.</p>
 <p>Special thanks to Chad Tilbury @chadtilbury who gave me the motivation to dive into this project and the team of researchers behind the Hibernation file structure analysis (Joe T. Sylve, Vico Marziale, Golden G. Richard III).</p>
 <blockquote>
