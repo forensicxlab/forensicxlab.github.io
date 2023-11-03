@@ -270,7 +270,7 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
   </a>
 </h2>
 <p>After implementing this new translation layer, it was time to test it against multiple hibernation files. Knowing that we need to do a lot of decompressions operations, the hibernation layer is meant to be combine with the “layerwriter” plugin to create a raw memory image and then analyze it with the windows plugins. Indeed, the decompression of a set takes time and most of the plugin need to scan the entire memory dump pages making a lot of decompression operations thus slowing the framework. Creating a raw memory dump first is the best approach here for performances.</p>
-<p>The generation of the raw memory file was performed on 2 hibernations files from different versions of Windows:</p>
+<p>The generation of the raw memory file was performed on 4 hibernations files from different versions of Windows:</p>
 <table>
 <thead>
 <tr>
@@ -281,23 +281,28 @@ Microsoft introduced the hibernation feature in Windows 2000, allowing systems t
 </thead>
 <tbody>
 <tr>
-<td>Windows 1809 x64</td>
+<td>Windows 10 1809 x64</td>
 <td style="text-align:center">2GB</td>
 <td style="text-align:center">~5 minutes</td>
 </tr>
 <tr>
-<td>Windows 1809 x64</td>
+<td>Windows 10 1809 x64</td>
 <td style="text-align:center">4GB</td>
 <td style="text-align:center">~10 minutes</td>
 </tr>
 <tr>
-<td>Windows 22H02 x64</td>
+<td>Windows 10 22H02 x64</td>
 <td style="text-align:center">8GB</td>
 <td style="text-align:center">~60 minutes</td>
 </tr>
 <tr>
-<td>Windows 22H02 x64</td>
+<td>Windows 10 22H02 x64</td>
 <td style="text-align:center">16GB</td>
+<td style="text-align:center">~100 minutes</td>
+</tr>
+<tr>
+<td>Windows 11 23H02 x64</td>
+<td style="text-align:center">8GB</td>
 <td style="text-align:center">~100 minutes</td>
 </tr>
 </tbody>
