@@ -2,34 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://www.forensicxlab.com/posts/volads/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/categories/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/dfir/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/posts/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/volatility/</loc>
+    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+  </url><url>
     <loc>http://www.forensicxlab.com/posts/hibernation/</loc>
     <lastmod>2023-10-27T16:20:44+02:00</lastmod>
   </url><url>
-    <loc>http://www.forensicxlab.com/categories/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/dfir/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
     <loc>http://www.forensicxlab.com/tags/hibernation/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/posts/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/</loc>
-    <lastmod>2023-10-27T16:20:44+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/volatility/</loc>
     <lastmod>2023-10-27T16:20:44+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/posts/vols3/</loc>

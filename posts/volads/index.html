@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📦 Volatility3 : Alternate Data Stream Scan · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading The Master File Table (MFT) is the core metadata structure for the New Technology File System (NTFS). This table can be seen as a database that contains every information needed to describe all the files. The MFT itself is stored on the disk, usually in a reserved area at the beginning of the partition. When accessing a file on an NTFS volume, the operating system looks up the file&rsquo;s MFT entry to retrieve the necessary information.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📦 Volatility3 : Alternate Data Stream Scan"/>
+<meta name="twitter:description" content="Abstract Link to heading The Master File Table (MFT) is the core metadata structure for the New Technology File System (NTFS). This table can be seen as a database that contains every information needed to describe all the files. The MFT itself is stored on the disk, usually in a reserved area at the beginning of the partition. When accessing a file on an NTFS volume, the operating system looks up the file&rsquo;s MFT entry to retrieve the necessary information."/>
+
+<meta property="og:title" content="📦 Volatility3 : Alternate Data Stream Scan" />
+<meta property="og:description" content="Abstract Link to heading The Master File Table (MFT) is the core metadata structure for the New Technology File System (NTFS). This table can be seen as a database that contains every information needed to describe all the files. The MFT itself is stored on the disk, usually in a reserved area at the beginning of the partition. When accessing a file on an NTFS volume, the operating system looks up the file&rsquo;s MFT entry to retrieve the necessary information." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.forensicxlab.com/posts/volads/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-18T16:05:01+02:00" />
+<meta property="article:modified_time" content="2023-11-18T16:05:01+02:00" />
+
+
+
+
+<link rel="canonical" href="http://www.forensicxlab.com/posts/volads/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.117.0">
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.forensicxlab.com/posts/volads/">
+              📦 Volatility3 : Alternate Data Stream Scan
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-11-18T16:05:01&#43;02:00">
+                November 18, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              7-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/volatility/">Volatility</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The Master File Table (MFT) is the core metadata structure for the New Technology File System (NTFS). This table can be seen as a database that contains every information needed to describe all the files. The MFT itself is stored on the disk, usually in a reserved area at the beginning of the partition. When accessing a file on an NTFS volume, the operating system looks up the file&rsquo;s MFT entry to retrieve the necessary information. However, during normal operation, the operating system may cache MFT entries in memory for faster access. This resulted into a volatility3 plugin called &ldquo;mftscan&rdquo;.</p>
+<p>NTFS is providing a feature called <strong>alternate data streams</strong> (ADS). Used by Windows, it consists of another stream of data that can be attached to a file without changing its size or content. This feature can be abuse by attackers to hide information like code or malicious content. It can also be a great digital forensics artifact to identify the origin of some files.</p>
+<p>In this blogpost, we will dive into the possibility of creating a volatility3 plugin to scan for alternate data streams.</p>
+<h1 id="the-master-file-table">
+  The Master File Table
+  <a class="heading-link" href="#the-master-file-table">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Forensic analysts utilize the MFT extensively as it provides a wealth of information during investigations. Every file or directory in an NTFS volume holds an entry in the MFT. Each MFT entry, also known as a record. By examining the MFT, one can acquire valuable insights into a system&rsquo;s file activity, including deleted files or folders, timestamps, and access permissions. This information can be used to determine which files were created, accessed, modified, or deleted, and when these actions occurred for example.</p>
+<h2 id="the-mft-records">
+  The MFT records
+  <a class="heading-link" href="#the-mft-records">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>MFT entries or records are typically 1,024 bytes in size and are divided into several fields. Here is a very nice representation by Jaked Atinkson of an MFT record.</p>
+<p><img src="/images/volads/mftfilerecord.png" alt="alt text" title="MFT Record"></p>
+<ul>
+<li>
+<p><strong>Header:</strong> Holds information about the record itself, such as its address and links to other records.</p>
+</li>
+<li>
+<p><strong>File Attributes:</strong> Reveal crucial details about the file or directory, including its name, timestamp, size, and permissions. File attributes may either be resident, meaning they are stored directly within the MFT record, or non-resident, indicating that they are stored elsewhere on the disk with only a reference in the MFT entry.</p>
+</li>
+</ul>
+<p>The <strong>$DATA</strong> attribute typically contains the actual contents of the file, the data can be <strong>resident</strong> or <strong>non-resident</strong>.</p>
+<p>A resident $DATA attribute means that the data is stored directly within the MFT record. This is usually the case for small files, where the data can fit within the record. The data will be stored directly in the MFT entry along with the metadata. Whereas a non-resident $DATA attribute is present when the file is too large for the record and therefore will contain a pointer to the location on the disk where the data is actually stored.</p>
+<h2 id="alternate-data-streams-ads">
+  Alternate Data Streams (ADS)
+  <a class="heading-link" href="#alternate-data-streams-ads">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>NTFS is providing a feature called <strong>alternate data stream</strong> (ADS). Used by Windows, it consists of another stream of data that can be attached to a file without changing its size or content.</p>
+<p><img src="/images/volads/ads.gif" alt="alt text" title="ADS"></p>
+<p>One example of usage of this feature by Microsoft is the <strong>Zone.Identifier</strong> ADS. It is employed by Internet Explorer and other Windows applications to identify where a file was downloaded from and from a potentially unsafe zone (like the Internet). This artifact is known to be very useful for forensics investigators. But it was also seen in the wild that some threat actors are abusing the ADS to hide malicious payloads. The ADS can be detected by the fact that a given record is holding multiple $DATA attributes.</p>
+<h1 id="creating-a-volatility3-plugin">
+  Creating a volatility3 plugin
+  <a class="heading-link" href="#creating-a-volatility3-plugin">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<h2 id="the-mftscan-plugin">
+  The MFTScan plugin
+  <a class="heading-link" href="#the-mftscan-plugin">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Even if the MFT entries are stored on disk, they are also cached in memory, which resulted into the creation of the “MFTScan” volatility3 plugin. This plugin is scanning for $STANDARD_INFORMATION and $FILE_NAME attributes providing a view of the files that were present in the volatile memory of the target system.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>~» ./vol.py -r pretty  -f Triage-Memory.mem  windows.mftscan.MFTScan                                                                                                                                    
+</span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                  
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
+</span></span><span style="display:flex;"><span>   |         Offset | Record Type | Record Number | Link Count |  MFT Type |         Permissions |       Attribute Type |                     Created | ...|  Filename
+</span></span><span style="display:flex;"><span>*  | 0xf88004477450 |        FILE |        <span style="color:#099">146309</span> |          <span style="color:#099">2</span> | Directory |                 N/A | STANDARD_INFORMATION | 2019-03-21 15:47:00.000000  | ...| N/A
+</span></span><span style="display:flex;"><span>** | 0xf880044774b0 |        FILE |        <span style="color:#099">146309</span> |          <span style="color:#099">2</span> | Directory |                 0x0 |            FILE_NAME | 2019-03-21 15:47:00.000000  | ...| AM1080~1.175
+</span></span><span style="display:flex;"><span>*  | 0xf88004477850 |        FILE |        <span style="color:#099">146310</span> |          <span style="color:#099">2</span> |      File |                 N/A | STANDARD_INFORMATION | 2019-03-21 15:47:00.000000  | ...| N/A
+</span></span><span style="display:flex;"><span>** | 0xf880044778b0 |        FILE |        <span style="color:#099">146310</span> |          <span style="color:#099">2</span> |      File |             Archive |            FILE_NAME | 2019-03-21 15:47:00.000000  | ...| cfgmgr32.dll
+</span></span><span style="display:flex;"><span>** | 0xf88004477928 |        FILE |        <span style="color:#099">146310</span> |          <span style="color:#099">2</span> |      File |             Archive |            FILE_NAME | 2019-03-21 15:47:00.000000  | ...| cfgmgr32.dll
+</span></span><span style="display:flex;"><span>*  | 0xf88004477c50 |        FILE |        <span style="color:#099">146311</span> |          <span style="color:#099">2</span> | Directory |                 N/A | STANDARD_INFORMATION | 2019-03-21 15:47:00.000000  | ...| N/A
+</span></span><span style="display:flex;"><span>** | 0xf88004477cb0 |        FILE |        <span style="color:#099">146311</span> |          <span style="color:#099">2</span> | Directory |                 0x0 |            FILE_NAME | 2019-03-21 15:47:00.000000  | ...| AMEA70~1.175
+</span></span></code></pre></div><h2 id="the-ads-plugin">
+  The ADS plugin
+  <a class="heading-link" href="#the-ads-plugin">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>A new addition the capabilities of the MFT analysis in memory would be to scan for ADS inside the records looking for others $DATA attributes that are resident. The ADS plugin was therefore created to detect ADS and extract the resident data to present it to the analyst. The output shows the file associated with the ADS found as well as a Hexdump and disassembled view to potentially identify malicious code.</p>
+<h3 id="proof-of-concept">
+  Proof Of Concept
+  <a class="heading-link" href="#proof-of-concept">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The bellow example is showing the output of the plugin. We can see that the “putty-64bit-0.70-installer.msi” for example was downloaded from the internet (ZoneID=3).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>~» ./vol.py -r pretty  -f Triage-Memory.mem  windows.mftscan.ADS                                                                                                                                    
+</span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                  
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
+</span></span><span style="display:flex;"><span>  |         Offset | Record Type | Record Number | MFT Type |                      Filename |    ADS Filename |                          Hexdump |                                          Disasm
+</span></span><span style="display:flex;"><span>* | 0xf98001423650 |        FILE |         <span style="color:#099">78477</span> |     DATA | putty-64bit-0.70-installer.msi | Zone.Identifier |                                  |                                                
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 5b 5a 6f 6e <span style="color:#099">65</span> <span style="color:#099">54</span> <span style="color:#099">72</span> <span style="color:#099">61</span> <span style="font-weight:bold">[</span>ZoneTra |                             0x0:    pop     rbx
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 6e <span style="color:#099">73</span> <span style="color:#099">66</span> <span style="color:#099">65</span> <span style="color:#099">72</span> 5d 0d 0a nsfer<span style="font-weight:bold">]</span>.. |                             0x1:    pop     rdx
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 5a 6f 6e <span style="color:#099">65</span> <span style="color:#099">49</span> <span style="color:#099">64</span> 3d <span style="color:#099">33</span> <span style="color:#008080">ZoneId</span><span style="font-weight:bold">=</span><span style="color:#099">3</span> |             0x2:    outsd   dx, dword ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |              0x3:    outsb   dx, byte ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                             0x4:    push    rsp
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0x6:    jb      0x69
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |              0x8:    outsb   dx, byte ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0x9:    jae     0x71
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0xb:    jb      0x6b
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                 0xe:    or      eax, 0x6e6f5a0a
+</span></span><span style="display:flex;"><span>* | 0xf98001432e40 |        FILE |         <span style="color:#099">78539</span> |     DATA | PackageManagement_x64.msi     | Zone.Identifier |                                  |                                                
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 5b 5a 6f 6e <span style="color:#099">65</span> <span style="color:#099">54</span> <span style="color:#099">72</span> <span style="color:#099">61</span> <span style="font-weight:bold">[</span>ZoneTra |                             0x0:    pop     rbx
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 6e <span style="color:#099">73</span> <span style="color:#099">66</span> <span style="color:#099">65</span> <span style="color:#099">72</span> 5d 0d 0a nsfer<span style="font-weight:bold">]</span>.. |                             0x1:    pop     rdx
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 | 5a 6f 6e <span style="color:#099">65</span> <span style="color:#099">49</span> <span style="color:#099">64</span> 3d <span style="color:#099">33</span> <span style="color:#008080">ZoneId</span><span style="font-weight:bold">=</span><span style="color:#099">3</span> |             0x2:    outsd   dx, dword ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |              0x3:    outsb   dx, byte ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                             0x4:    push    rsp
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0x6:    jb      0x69
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |              0x8:    outsb   dx, byte ptr <span style="font-weight:bold">[</span>rsi<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0x9:    jae     0x71
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                            0xb:    jb      0x6b
+</span></span><span style="display:flex;"><span>  |                |             |               |          |                               |                 |                                  |                 0xe:    or      eax, 0x6e6f5a0a
+</span></span></code></pre></div><h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The ability to scan for Alternate Data Stream is a good way to identify files downloaded from the internet and malicious hidden data to better understand what happend during an investigation.
+The plugin can be found and tested here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/ADS">https://github.com/forensicxlab/volatility3/tree/feature/ADS</a>, a pull request will be made to the volatility3 foundation for a potential integration to the framework.</p>
+<blockquote>
+<p>Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article or to comment on the integration to the volatility framework.</p>
+</blockquote>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2023
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
