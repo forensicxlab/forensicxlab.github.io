@@ -175,7 +175,7 @@
   </a>
 </h1>
 <p>The Master File Table (MFT) is the core metadata structure for the New Technology File System (NTFS). This table can be seen as a database that contains every information needed to describe all the files. The MFT itself is stored on the disk, usually in a reserved area at the beginning of the partition. When accessing a file on an NTFS volume, the operating system looks up the file&rsquo;s MFT entry to retrieve the necessary information. However, during normal operation, the operating system may cache MFT entries in memory for faster access. This resulted into a volatility3 plugin called &ldquo;mftscan&rdquo;.</p>
-<p>NTFS is providing a feature called <strong>alternate data streams</strong> (ADS). Used by Windows, it consists of another stream of data that can be attached to a file without changing its size or content. This feature can be abuse by attackers to hide information like code or malicious content. It can also be a great digital forensics artifact to identify the origin of some files.</p>
+<p>NTFS is providing a feature called <strong>alternate data streams</strong> (ADS). Used by Windows, it consists of another stream of data that can be attached to a file without changing its size or content. This feature can be abused by attackers to hide information like code or malicious content. It can also be a great digital forensics artefact to identify the origin of some files.</p>
 <p>In this blogpost, we will dive into the possibility of creating a volatility3 plugin to scan for alternate data streams.</p>
 <h1 id="the-master-file-table">
   The Master File Table
@@ -199,7 +199,7 @@
 <p><strong>Header:</strong> Holds information about the record itself, such as its address and links to other records.</p>
 </li>
 <li>
-<p><strong>File Attributes:</strong> Reveal crucial details about the file or directory, including its name, timestamp, size, and permissions. File attributes may either be resident, meaning they are stored directly within the MFT record, or non-resident, indicating that they are stored elsewhere on the disk with only a reference in the MFT entry.</p>
+<p><strong>File Attributes:</strong> Reveal crucial details about the file or directory, including its name, timestamp, size, and permission. File attributes may either be resident, meaning they are stored directly within the MFT record, or non-resident, indicating that they are stored elsewhere on the disk with only a reference in the MFT entry.</p>
 </li>
 </ul>
 <p>The <strong>$DATA</strong> attribute typically contains the actual contents of the file, the data can be <strong>resident</strong> or <strong>non-resident</strong>.</p>
@@ -213,7 +213,7 @@
 </h2>
 <p>NTFS is providing a feature called <strong>alternate data stream</strong> (ADS). Used by Windows, it consists of another stream of data that can be attached to a file without changing its size or content.</p>
 <p><img src="/images/volads/ads.gif" alt="alt text" title="ADS"></p>
-<p>One example of usage of this feature by Microsoft is the <strong>Zone.Identifier</strong> ADS. It is employed by Internet Explorer and other Windows applications to identify where a file was downloaded from and from a potentially unsafe zone (like the Internet). This artifact is known to be very useful for forensics investigators. But it was also seen in the wild that some threat actors are abusing the ADS to hide malicious payloads. The ADS can be detected by the fact that a given record is holding multiple $DATA attributes.</p>
+<p>One example of usage of this feature by Microsoft is the <strong>Zone.Identifier</strong> ADS. It is employed by Internet Explorer and other Windows applications to identify where a file was downloaded from and from a potentially unsafe zone (like the internet). This artefact is known to be very useful for forensics investigators. But it was also seen in the wild that some threat actors are abusing the ADS to hide malicious payloads. The ADS can be detected by the fact that a given record is holding multiple $DATA attributes.</p>
 <h1 id="creating-a-volatility3-plugin">
   Creating a volatility3 plugin
   <a class="heading-link" href="#creating-a-volatility3-plugin">
@@ -228,7 +228,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>Even if the MFT entries are stored on disk, they are also cached in memory, which resulted into the creation of the “MFTScan” volatility3 plugin. This plugin is scanning for $STANDARD_INFORMATION and $FILE_NAME attributes providing a view of the files that were present in the volatile memory of the target system.</p>
+<p>Even if the MFT entries are stored on disk, the latter also cached in memory, which motivated the creation of the “MFTScan” volatility3 plugin. This plugin is scanning for $STANDARD_INFORMATION and $FILE_NAME attributes providing a view of the files that were present in the volatile memory of the target system.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>~» ./vol.py -r pretty  -f Triage-Memory.mem  windows.mftscan.MFTScan                                                                                                                                    
 </span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                  
 </span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
@@ -247,7 +247,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>A new addition the capabilities of the MFT analysis in memory would be to scan for ADS inside the records looking for others $DATA attributes that are resident. The ADS plugin was therefore created to detect ADS and extract the resident data to present it to the analyst. The output shows the file associated with the ADS found as well as a Hexdump and disassembled view to potentially identify malicious code.</p>
+<p>A new addition the capabilities of the MFT analysis in memory would be to scan for ADS inside the records looking for others $DATA attributes that are resident. This plugin was therefore created to detect ADS and extract the resident data to present it to the analyst. The output shows the file associated with the ADS found as well as a Hexdump and disassembled view. The latter could potentially help an analyst to identify a malicious code.</p>
 <h3 id="proof-of-concept">
   Proof Of Concept
   <a class="heading-link" href="#proof-of-concept">
@@ -255,7 +255,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>The bellow example is showing the output of the plugin. We can see that the “putty-64bit-0.70-installer.msi” for example was downloaded from the internet (ZoneID=3).</p>
+<p>The  example below is showing the output of the plugin. We can see that the “putty-64bit-0.70-installer.msi” for example was downloaded from the internet (see ZoneID=3 in the hexdump column).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>~» ./vol.py -r pretty  -f Triage-Memory.mem  windows.mftscan.ADS                                                                                                                                    
 </span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                  
 </span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
@@ -289,8 +289,7 @@
     <span class="sr-only">Link to heading</span>
   </a>
 </h1>
-<p>The ability to scan for Alternate Data Stream is a good way to identify files downloaded from the internet and malicious hidden data to better understand what happend during an investigation.
-The plugin can be found and tested here: <a href="https://github.com/forensicxlab/volatility3/tree/feature/ADS">https://github.com/forensicxlab/volatility3/tree/feature/ADS</a>, a pull request will be made to the volatility3 foundation for a potential integration to the framework.</p>
+<p>The ability to scan for Alternate Data Stream is a good way to identify whether a file was downloaded from the internet or not. One can also identify malicious hidden data to help analysts upon an investigation to shed light onto the attack chain. The source code of this plugin can be found on Github: <a href="https://github.com/forensicxlab/volatility3/tree/feature/ADS">https://github.com/forensicxlab/volatility3/tree/feature/ADS</a>, a pull request will be made to the volatility3 foundation for a potential integration to the framework.</p>
 <blockquote>
 <p>Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article or to comment on the integration to the volatility framework.</p>
 </blockquote>
