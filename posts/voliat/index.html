@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  📦 Volatility3 : Import Address Table · ForensicXlab
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="ForensicXlab">
+<meta name="description" content="Abstract Link to heading Windows executable analysis is a key aspect of Digital Forensics and Reverse Malware Engineering. Identifying the capabilities of a program can help to target potential malicious code and orient the later reverse code analysis phase. In this blogpost, we will dive into the structure of the Windows Portable Executable (PE) and how we can extract the imported functions in the context of memory analysis.
+Windows PE Format Link to heading A portable executable (PE) 1 is a file format used by Windows to store executable programs, libraries (DLLs) and object files.">
+<meta name="keywords" content="blog, DFIR">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="📦 Volatility3 : Import Address Table"/>
+<meta name="twitter:description" content="Abstract Link to heading Windows executable analysis is a key aspect of Digital Forensics and Reverse Malware Engineering. Identifying the capabilities of a program can help to target potential malicious code and orient the later reverse code analysis phase. In this blogpost, we will dive into the structure of the Windows Portable Executable (PE) and how we can extract the imported functions in the context of memory analysis.
+Windows PE Format Link to heading A portable executable (PE) 1 is a file format used by Windows to store executable programs, libraries (DLLs) and object files."/>
+
+<meta property="og:title" content="📦 Volatility3 : Import Address Table" />
+<meta property="og:description" content="Abstract Link to heading Windows executable analysis is a key aspect of Digital Forensics and Reverse Malware Engineering. Identifying the capabilities of a program can help to target potential malicious code and orient the later reverse code analysis phase. In this blogpost, we will dive into the structure of the Windows Portable Executable (PE) and how we can extract the imported functions in the context of memory analysis.
+Windows PE Format Link to heading A portable executable (PE) 1 is a file format used by Windows to store executable programs, libraries (DLLs) and object files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.forensicxlab.com/posts/voliat/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-16T20:14:00+01:00" />
+<meta property="article:modified_time" content="2023-12-16T20:14:00+01:00" />
+
+
+
+
+<link rel="canonical" href="http://www.forensicxlab.com/posts/voliat/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.117.0">
+
+
+
+
+
+  </head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ForensicXlab
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/toolshed/">ToolShed</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.forensicxlab.com/posts/voliat/">
+              📦 Volatility3 : Import Address Table
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-12-16T20:14:00&#43;01:00">
+                December 16, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              6-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/memory-forensics/">Memory Forensics</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/dfir/">DFIR</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/volatility/">Volatility</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/memory-forensics/">Memory Forensics</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/windows/">Windows</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="abstract">
+  Abstract
+  <a class="heading-link" href="#abstract">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Windows executable analysis is a key aspect of Digital Forensics and Reverse Malware Engineering. Identifying the capabilities of a program can help to target potential malicious code and orient the later reverse code analysis phase. In this blogpost, we will dive into the structure of the Windows Portable Executable (PE) and how we can extract the imported functions in the context of memory analysis.</p>
+<h1 id="windows-pe-format">
+  Windows PE Format
+  <a class="heading-link" href="#windows-pe-format">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>A portable executable (PE) <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is a file format used by Windows to store executable programs, libraries (DLLs) and object files. It contains all the necessary information for the operating system to load and execute the program. The program is therefore well structured. Here is a representation of the PE structure for a Windows system <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>:</p>
+<p><img src="/images/iat/1.png" alt="alt text" title="PE Structure (simplified)"></p>
+<p>The PE starts with the well-known DOS, Stub and NT headers. It is also composed of multiple sections. Each section as its own purpose, for example the .text section contains the byte codes corresponding to the instructions of the program. We will see that there are specific sections that exists which might help the analyst to identify the capabilities of an executable without starting the reverse code analysis phase. If you want to learn more about the PE format, the articles from 0xRick about the subject are very well explained <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<h2 id="interactions-with-the-memory">
+  Interactions with the memory
+  <a class="heading-link" href="#interactions-with-the-memory">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In the context of memory analysis, we need to understand what is happening when a Windows executable is loaded. The operating system will map the PE file from the disk to memory by first creating a dedicated virtual address space. Then, the headers are parsed and loaded to learn about important information about the sections (entry point, size, &hellip;). Once parsed, the memory allocation is performed to load the actual content of the sections. The PE file often depends on external libraries, the operating system resolves the imports by looking up the required functions in the corresponding DLLs and update the memory addresses accordingly. A library can be “bound” to the PE which means it is directly integrated inside the code section. This is often used for better performances.</p>
+<h2 id="the-import-address-table-iat">
+  The Import Address Table (IAT)
+  <a class="heading-link" href="#the-import-address-table-iat">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The Import Address Table is located inside the “.idata” Section <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> of a PE, it can be seen as a table of references indicating to the loader which functions are needed from the imported DLL by the program. This table is a copy of the Import Lookup Table (ILT), but once in memory, the IAT is overwritten with the actual addresses of the functions that are being imported which is interesting from the memory forensics standpoint.</p>
+<h1 id="extracting-the-iat-using-volatility3">
+  Extracting the IAT using volatility3
+  <a class="heading-link" href="#extracting-the-iat-using-volatility3">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Carving the IAT during memory forensics can be very valuable for the analyst to look for API call patterns associated with malware behavior. For example, the OpenProcess, VirtualAllocEx, CreateRemoteThread function present inside the IAT of a PE can be a good indicator for potential code injection <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. The analyst can also pivot on some of the functions to identify for example the arguments that can be passed.</p>
+<p>A volatility3 plugin can be made to extract the IAT information from the memory. Below is an example output of the created plugin named “windows.iat.IAT”. For each process, the associated PE sections are parsed in order to find the IAT. Next, all of the imported functions are displayed to the analyst as well as if the associated DLL is bounded or not to the executable.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» vol -r pretty -f Triage-Memory.mem windows.iat --pid <span style="color:#099">3496</span>
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
+</span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                        
+</span></span><span style="display:flex;"><span>  |  PID |           Name |      Library | Bound |                        Function |  Address
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            _iob | 0x80c0c8
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                _except_handler3 | 0x80c0cc
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                  __set_app_type | 0x80c0d0
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                      __p__fmode | 0x80c0d4
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__commode | 0x80c0d8
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    _adjust_fdiv | 0x80c0dc
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                __setusermatherr | 0x80c0e0
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                       _initterm | 0x80c0e4
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __getmainargs | 0x80c0e8
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p___initenv | 0x80c0ec
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     _XcptFilter | 0x80c0f0
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _exit | 0x80c0f4
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         _onexit | 0x80c0f8
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     __dllonexit | 0x80c0fc
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strrchr | 0x80c100
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         wcsncmp | 0x80c104
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _close | 0x80c108
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcslen | 0x80c10c
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcscpy | 0x80c110
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                        strerror | 0x80c114
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            modf | 0x80c118
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strspn | 0x80c11c
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         realloc | 0x80c120
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__environ | 0x80c124
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p__wenviron | 0x80c128
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _errno | 0x80c12c
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            free | 0x80c130
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncmp | 0x80c134
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strstr | 0x80c138
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncpy | 0x80c13c
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _ftol | 0x80c140
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           qsort | 0x80c144
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           fopen | 0x80c148
+</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          perror | 0x80c14c
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">[</span>TRUNCATED<span style="font-weight:bold">]</span>
+</span></span></code></pre></div><h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>The extraction of the IAT can be very useful for the analyst to identify the capabilities of a process in memory and gather context to better orient the reverse code analysis phase. When the analyst is willing to understand some of the Windows API functions, the Microsoft documentation is often explaining everything <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>. Trying to look for some of the functions in the text section and extracting the value of the arguments can be the subject of a future blogpost. The pluging is available here and a pull request is in progress <a href="https://github.com/forensicxlab/volatility3/tree/feature/IAT">https://github.com/forensicxlab/volatility3/tree/feature/IAT</a></p>
+<blockquote>
+<p>Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">felix.guyard@forensicxlab.com</a> to enhance this article or to comment on the integration to the volatility framework.</p>
+</blockquote>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format">https://learn.microsoft.com/en-us/windows/win32/debug/pe-format</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://0xrick.github.io/win-internals/pe2/#dos-header">https://0xrick.github.io/win-internals/pe2/#dos-header</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#import-address-table">https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#import-address-table</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://www.apriorit.com/dev-blog/679-windows-dll-injection-for-api-hooks">https://www.apriorit.com/dev-blog/679-windows-dll-injection-for-api-hooks</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/api/">https://learn.microsoft.com/en-us/windows/win32/api/</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2021 -
+    
+    2023
+     ForensicXlab 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

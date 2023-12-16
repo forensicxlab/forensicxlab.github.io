@@ -2,31 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.forensicxlab.com/posts/volads/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <loc>http://www.forensicxlab.com/posts/voliat/</loc>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/categories/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/dfir/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/memory-forensics/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/categories/memory-forensics/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/posts/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/</loc>
-    <lastmod>2023-11-18T16:05:01+02:00</lastmod>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/volatility/</loc>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/tags/windows/</loc>
+    <lastmod>2023-12-16T20:14:00+01:00</lastmod>
+  </url><url>
+    <loc>http://www.forensicxlab.com/posts/volads/</loc>
     <lastmod>2023-11-18T16:05:01+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/posts/hibernation/</loc>
@@ -51,9 +57,6 @@
     <lastmod>2023-07-05T18:03:28+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/tags/video-games/</loc>
-    <lastmod>2023-07-05T18:03:28+02:00</lastmod>
-  </url><url>
-    <loc>http://www.forensicxlab.com/tags/windows/</loc>
     <lastmod>2023-07-05T18:03:28+02:00</lastmod>
   </url><url>
     <loc>http://www.forensicxlab.com/posts/keepass/</loc>

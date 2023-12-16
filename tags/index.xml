@@ -6,11 +6,11 @@
     <description>Recent content in Tags on ForensicXlab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Nov 2023 16:05:01 +0200</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Dec 2023 20:14:00 +0100</lastBuildDate><atom:link href="http://www.forensicxlab.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DFIR</title>
       <link>http://www.forensicxlab.com/tags/dfir/</link>
-      <pubDate>Sat, 18 Nov 2023 16:05:01 +0200</pubDate>
+      <pubDate>Sat, 16 Dec 2023 20:14:00 +0100</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/dfir/</guid>
       <description></description>
@@ -19,7 +19,7 @@
     <item>
       <title>Memory Forensics</title>
       <link>http://www.forensicxlab.com/tags/memory-forensics/</link>
-      <pubDate>Sat, 18 Nov 2023 16:05:01 +0200</pubDate>
+      <pubDate>Sat, 16 Dec 2023 20:14:00 +0100</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/memory-forensics/</guid>
       <description></description>
@@ -28,9 +28,18 @@
     <item>
       <title>Volatility</title>
       <link>http://www.forensicxlab.com/tags/volatility/</link>
-      <pubDate>Sat, 18 Nov 2023 16:05:01 +0200</pubDate>
+      <pubDate>Sat, 16 Dec 2023 20:14:00 +0100</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/volatility/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>http://www.forensicxlab.com/tags/windows/</link>
+      <pubDate>Sat, 16 Dec 2023 20:14:00 +0100</pubDate>
+      
+      <guid>http://www.forensicxlab.com/tags/windows/</guid>
       <description></description>
     </item>
     
@@ -76,15 +85,6 @@
       <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
       
       <guid>http://www.forensicxlab.com/tags/video-games/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Windows</title>
-      <link>http://www.forensicxlab.com/tags/windows/</link>
-      <pubDate>Wed, 05 Jul 2023 18:03:28 +0200</pubDate>
-      
-      <guid>http://www.forensicxlab.com/tags/windows/</guid>
       <description></description>
     </item>
     
