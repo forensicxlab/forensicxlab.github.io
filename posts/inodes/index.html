@@ -40,7 +40,7 @@
 
   
   
-  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="/css/coder.min.e539f281d96f8d76136e7b0656c05c1cc7c2d8a1632b1af84a692b87d0e73ed7.css" integrity="sha256-5TnygdlvjXYTbnsGVsBcHMfC2KFjKxr4Smkrh9DnPtc=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -232,7 +232,7 @@
 <li>For each file descriptor, extract the cached dentries, parse the inode metadata and return the result.</li>
 </ul>
 <p>As a result, the plugin is extracting all of the inode metadata needed to help us during our investigation (we like timestamps !).</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/debian 5.10.0-18-amd64 » vol -f Debian\ XFS.vmem -s symbols linux.inodes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/debian 5.10.0-18-amd64 » vol -f Debian\ XFS.vmem -s symbols linux.inodes
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.0.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		Stacking attempts finished
 </span></span><span style="display:flex;"><span>PID	Process	Inode	Mode	File	LastChange	LastModify	LastAccessed	Size
@@ -256,7 +256,7 @@
 </span></span><span style="display:flex;"><span>2555	firefox-esr	34057204	-rw-r--r--	/home/volatility/.mozilla/firefox/k2jz4psu.default-esr/storage/permanent/chrome/idb/3870112724rsegmnoittet-es.sqlite-wal	2022-09-11 22:05:07.000000 	2022-09-11 22:05:07.000000 	2022-09-11 22:05:07.000000 	0
 </span></span><span style="display:flex;"><span>...
 </span></span></code></pre></div><p>The fact that we have extracted timestamps makes it possible to build the timeline of the events via the integration to the <strong>Timeliner</strong> plugin.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/debian 5.10.0-18-amd64 » vol -f Debian\ XFS.vmem -s symbols timeline | more                                                                                              130 ↵ k1nd0ne@MacBook-Pro-de-Felix
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/debian 5.10.0-18-amd64 » vol -f Debian\ XFS.vmem -s symbols timeline | more                                                                                              130 ↵ k1nd0ne@MacBook-Pro-de-Felix
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.0.1    Running plugin Bash...
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Plugin  Description     Created Date    Modified Date   Accessed Date   Changed Date
@@ -318,7 +318,7 @@ Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">fe
     
       2021 -
     
-    2023
+    2024
      ForensicXlab 
     ·
     

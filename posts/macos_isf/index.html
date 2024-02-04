@@ -40,7 +40,7 @@
 
   
   
-  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="/css/coder.min.e539f281d96f8d76136e7b0656c05c1cc7c2d8a1632b1af84a692b87d0e73ed7.css" integrity="sha256-5TnygdlvjXYTbnsGVsBcHMfC2KFjKxr4Smkrh9DnPtc=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -241,84 +241,84 @@
 <li>Create the IFS JSON file</li>
 </ul>
 <p>I chose to use python3 for the implementation :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">subprocess</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">argparse</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">logging</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">os</span><span style="font-weight:bold">,</span> <span style="color:#555">os.path</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">re</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> subprocess
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> os.path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">find_and_generate_kernel_symbols</span>(dir_path, kernel_version):
-</span></span><span style="display:flex;"><span>    <span style="color:#b84">&#34;&#34;&#34;Generate the ISF file for the kernel DWARF files found&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    cmd <span style="font-weight:bold">=</span> [<span style="color:#b84">&#39;./dwarf2json&#39;</span>, <span style="color:#b84">&#39;mac&#39;</span>]
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> dirpath, dirnames, files <span style="font-weight:bold">in</span> os<span style="font-weight:bold">.</span>walk(dir_path):
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> filename <span style="font-weight:bold">in</span> files:
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> <span style="color:#b84">&#34;kernel&#34;</span> <span style="font-weight:bold">==</span> filename <span style="font-weight:bold">or</span> <span style="color:#b84">&#34;mach_kernel&#34;</span> <span style="font-weight:bold">==</span> filename:
-</span></span><span style="display:flex;"><span>                todo <span style="font-weight:bold">=</span> os<span style="font-weight:bold">.</span>path<span style="font-weight:bold">.</span>join(dirpath, filename)
-</span></span><span style="display:flex;"><span>                cmd<span style="font-weight:bold">.</span>append(<span style="color:#b84">&#39;--macho-symbols&#39;</span>)
-</span></span><span style="display:flex;"><span>                cmd<span style="font-weight:bold">.</span>append(todo)
-</span></span><span style="display:flex;"><span>    logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Generating volatility ISF for </span><span style="color:#b84">{</span>kernel_version<span style="color:#b84">}</span><span style="color:#b84"> &#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">with</span> <span style="color:#999">open</span>(<span style="color:#b84">&#34;ISF/&#34;</span><span style="font-weight:bold">+</span>kernel_version[<span style="color:#099">0</span>]<span style="font-weight:bold">+</span><span style="color:#b84">&#34;.json&#34;</span>, <span style="color:#b84">&#34;a&#34;</span>) <span style="font-weight:bold">as</span> outfile:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>            subprocess<span style="font-weight:bold">.</span>run(cmd, stdout<span style="font-weight:bold">=</span>outfile)
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">except</span>:
-</span></span><span style="display:flex;"><span>            logger<span style="font-weight:bold">.</span>error(<span style="color:#b84">f</span><span style="color:#b84">&#39;Could not generate ISF for </span><span style="color:#b84">{</span>todo<span style="color:#b84">}</span><span style="color:#b84">&#39;</span>)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>        subprocess<span style="font-weight:bold">.</span>check_output([<span style="color:#b84">&#39;tar&#39;</span>, <span style="color:#b84">&#39;-cJf&#39;</span>, <span style="color:#b84">&#34;ISF/&#34;</span><span style="font-weight:bold">+</span>kernel_version[<span style="color:#099">0</span>]<span style="font-weight:bold">+</span><span style="color:#b84">&#34;.json.xz&#34;</span>, <span style="color:#b84">&#34;ISF/&#34;</span><span style="font-weight:bold">+</span>kernel_version[<span style="color:#099">0</span>]<span style="font-weight:bold">+</span><span style="color:#b84">&#34;.json&#34;</span> ])
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">except</span>:
-</span></span><span style="display:flex;"><span>        logger<span style="font-weight:bold">.</span>error(<span style="color:#b84">f</span><span style="color:#b84">&#39;Could not compress ISF into an xz archive&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_and_generate_kernel_symbols</span>(dir_path, kernel_version):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate the ISF file for the kernel DWARF files found&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    cmd <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;./dwarf2json&#39;</span>, <span style="color:#e6db74">&#39;mac&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> dirpath, dirnames, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(dir_path):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> files:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;kernel&#34;</span> <span style="color:#f92672">==</span> filename <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;mach_kernel&#34;</span> <span style="color:#f92672">==</span> filename:
+</span></span><span style="display:flex;"><span>                todo <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(dirpath, filename)
+</span></span><span style="display:flex;"><span>                cmd<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;--macho-symbols&#39;</span>)
+</span></span><span style="display:flex;"><span>                cmd<span style="color:#f92672">.</span>append(todo)
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Generating volatility ISF for </span><span style="color:#e6db74">{</span>kernel_version<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;ISF/&#34;</span><span style="color:#f92672">+</span>kernel_version[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;.json&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>) <span style="color:#66d9ef">as</span> outfile:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            subprocess<span style="color:#f92672">.</span>run(cmd, stdout<span style="color:#f92672">=</span>outfile)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>            logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Could not generate ISF for </span><span style="color:#e6db74">{</span>todo<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        subprocess<span style="color:#f92672">.</span>check_output([<span style="color:#e6db74">&#39;tar&#39;</span>, <span style="color:#e6db74">&#39;-cJf&#39;</span>, <span style="color:#e6db74">&#34;ISF/&#34;</span><span style="color:#f92672">+</span>kernel_version[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;.json.xz&#34;</span>, <span style="color:#e6db74">&#34;ISF/&#34;</span><span style="color:#f92672">+</span>kernel_version[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;.json&#34;</span> ])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Could not compress ISF into an xz archive&#39;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">dir_path</span>(string):
-</span></span><span style="display:flex;"><span>    <span style="color:#b84">&#34;&#34;&#34;Check if the directory passed is indeed a directory&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> os<span style="font-weight:bold">.</span>path<span style="font-weight:bold">.</span>isdir(string):
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> string
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">raise</span> <span style="color:#900;font-weight:bold">NotADirectoryError</span>(string)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dir_path</span>(string):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check if the directory passed is indeed a directory&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isdir(string):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> string
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotADirectoryError</span>(string)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> __name__ <span style="font-weight:bold">==</span> <span style="color:#b84">&#39;__main__&#39;</span>:
-</span></span><span style="display:flex;"><span>    parser <span style="font-weight:bold">=</span> argparse<span style="font-weight:bold">.</span>ArgumentParser(description <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;Generate all volatility symbole files for the different macOs versions&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="font-weight:bold">.</span>add_argument(<span style="color:#b84">&#39;--path&#39;</span>, <span style="color:#999">type</span><span style="font-weight:bold">=</span>dir_path)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Generate all volatility symbole files for the different macOs versions&#34;</span>)
+</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--path&#39;</span>, type<span style="color:#f92672">=</span>dir_path)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#b84">&#34;&#34;&#34;init&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    args <span style="font-weight:bold">=</span> parser<span style="font-weight:bold">.</span>parse_args()
-</span></span><span style="display:flex;"><span>    logging<span style="font-weight:bold">.</span>basicConfig(level<span style="font-weight:bold">=</span>logging<span style="font-weight:bold">.</span>INFO)
-</span></span><span style="display:flex;"><span>    logger <span style="font-weight:bold">=</span> logging<span style="font-weight:bold">.</span>getLogger(__name__)
-</span></span><span style="display:flex;"><span>    logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">&#39;Started&#39;</span>)
-</span></span><span style="display:flex;"><span>    src_dir <span style="font-weight:bold">=</span> args<span style="font-weight:bold">.</span>path
-</span></span><span style="display:flex;"><span>    reg_exp <span style="font-weight:bold">=</span> <span style="color:#b84">r</span><span style="color:#b84">&#39;[k|K]ern[e|a]l_[d|D]ebug_[K|k]it_(.*)\.dmg&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;init&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>    logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+</span></span><span style="display:flex;"><span>    logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;Started&#39;</span>)
+</span></span><span style="display:flex;"><span>    src_dir <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>path
+</span></span><span style="display:flex;"><span>    reg_exp <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;[k|K]ern[e|a]l_[d|D]ebug_[K|k]it_(.*)\.dmg&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#b84">&#34;&#34;&#34;routine&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> dmg_image <span style="font-weight:bold">in</span> os<span style="font-weight:bold">.</span>listdir(src_dir):
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> <span style="color:#b84">&#34;DS_Store&#34;</span> <span style="font-weight:bold">in</span> dmg_image:
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">continue</span>
-</span></span><span style="display:flex;"><span>        kernel_version <span style="font-weight:bold">=</span> re<span style="font-weight:bold">.</span>findall(reg_exp, dmg_image)
-</span></span><span style="display:flex;"><span>        logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#39;Kernel version : </span><span style="color:#b84">{</span>kernel_version<span style="color:#b84">}</span><span style="color:#b84"> &#39;</span>)
-</span></span><span style="display:flex;"><span>        logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#39;Extracting </span><span style="color:#b84">{</span>dmg_image<span style="color:#b84">}</span><span style="color:#b84">&#39;</span>)
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>            subprocess<span style="font-weight:bold">.</span>check_output([<span style="color:#b84">&#39;7z&#39;</span>, <span style="color:#b84">&#39;x&#39;</span>, src_dir<span style="font-weight:bold">+</span><span style="color:#b84">&#34;/&#34;</span><span style="font-weight:bold">+</span>dmg_image])
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">except</span> subprocess<span style="font-weight:bold">.</span>CalledProcessError <span style="font-weight:bold">as</span> err:
-</span></span><span style="display:flex;"><span>            logger<span style="font-weight:bold">.</span>error(<span style="color:#b84">f</span><span style="color:#b84">&#39;Could not extract pkg from : </span><span style="color:#b84">{</span>dmg_image<span style="color:#b84">}</span><span style="color:#b84"> : </span><span style="color:#b84">{</span>err<span style="color:#b84">}</span><span style="color:#b84">&#39;</span>)
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">continue</span>
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>            kernel_debug_kit_path <span style="font-weight:bold">=</span> dir_path(<span style="color:#b84">&#34;KernelDebugKit&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;routine&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> dmg_image <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(src_dir):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;DS_Store&#34;</span> <span style="color:#f92672">in</span> dmg_image:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        kernel_version <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(reg_exp, dmg_image)
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Kernel version : </span><span style="color:#e6db74">{</span>kernel_version<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#39;</span>)
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Extracting </span><span style="color:#e6db74">{</span>dmg_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            subprocess<span style="color:#f92672">.</span>check_output([<span style="color:#e6db74">&#39;7z&#39;</span>, <span style="color:#e6db74">&#39;x&#39;</span>, src_dir<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">+</span>dmg_image])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> subprocess<span style="color:#f92672">.</span>CalledProcessError <span style="color:#66d9ef">as</span> err:
+</span></span><span style="display:flex;"><span>            logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Could not extract pkg from : </span><span style="color:#e6db74">{</span>dmg_image<span style="color:#e6db74">}</span><span style="color:#e6db74"> : </span><span style="color:#e6db74">{</span>err<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            kernel_debug_kit_path <span style="color:#f92672">=</span> dir_path(<span style="color:#e6db74">&#34;KernelDebugKit&#34;</span>)
 </span></span><span style="display:flex;"><span>            find_and_generate_kernel_symbols(kernel_debug_kit_path, kernel_version)
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">except</span> <span style="color:#900;font-weight:bold">NotADirectoryError</span>:
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">pass</span>
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>                kernel_debug_kit_path <span style="font-weight:bold">=</span> dir_path(<span style="color:#b84">&#34;Kernel Debug Kit&#34;</span>)
-</span></span><span style="display:flex;"><span>                logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#39;Extracting pkg...&#39;</span>)
-</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>                    subprocess<span style="font-weight:bold">.</span>check_output([<span style="color:#b84">&#39;pkgutil&#39;</span>, <span style="color:#b84">&#39;--expand-full&#39;</span>, kernel_debug_kit_path<span style="font-weight:bold">+</span><span style="color:#b84">&#34;/KernelDebugKit.pkg&#34;</span>, <span style="color:#b84">&#34;KernelDebugKit&#34;</span>])
-</span></span><span style="display:flex;"><span>                    subprocess<span style="font-weight:bold">.</span>check_output([<span style="color:#b84">&#39;rm&#39;</span>, <span style="color:#b84">&#39;-rf&#39;</span>, kernel_debug_kit_path])
-</span></span><span style="display:flex;"><span>                    kernel_debug_kit_path <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;KernelDebugKit&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">NotADirectoryError</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                kernel_debug_kit_path <span style="color:#f92672">=</span> dir_path(<span style="color:#e6db74">&#34;Kernel Debug Kit&#34;</span>)
+</span></span><span style="display:flex;"><span>                logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Extracting pkg...&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    subprocess<span style="color:#f92672">.</span>check_output([<span style="color:#e6db74">&#39;pkgutil&#39;</span>, <span style="color:#e6db74">&#39;--expand-full&#39;</span>, kernel_debug_kit_path<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/KernelDebugKit.pkg&#34;</span>, <span style="color:#e6db74">&#34;KernelDebugKit&#34;</span>])
+</span></span><span style="display:flex;"><span>                    subprocess<span style="color:#f92672">.</span>check_output([<span style="color:#e6db74">&#39;rm&#39;</span>, <span style="color:#e6db74">&#39;-rf&#39;</span>, kernel_debug_kit_path])
+</span></span><span style="display:flex;"><span>                    kernel_debug_kit_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;KernelDebugKit&#34;</span>
 </span></span><span style="display:flex;"><span>                    find_and_generate_kernel_symbols(kernel_debug_kit_path, kernel_version)
-</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">except</span> subprocess<span style="font-weight:bold">.</span>CalledProcessError <span style="font-weight:bold">as</span> err:
-</span></span><span style="display:flex;"><span>                    logger<span style="font-weight:bold">.</span>error(<span style="color:#b84">f</span><span style="color:#b84">&#39;Could not extract pkg from : </span><span style="color:#b84">{</span>kernel_debug_kit_path<span style="color:#b84">}</span><span style="color:#b84"> : </span><span style="color:#b84">{</span>err<span style="color:#b84">}</span><span style="color:#b84">&#39;</span>)
-</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">pass</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> subprocess<span style="color:#f92672">.</span>CalledProcessError <span style="color:#66d9ef">as</span> err:
+</span></span><span style="display:flex;"><span>                    logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Could not extract pkg from : </span><span style="color:#e6db74">{</span>kernel_debug_kit_path<span style="color:#e6db74">}</span><span style="color:#e6db74"> : </span><span style="color:#e6db74">{</span>err<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">pass</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">except</span> <span style="color:#900;font-weight:bold">NotADirectoryError</span>:
-</span></span><span style="display:flex;"><span>                logger<span style="font-weight:bold">.</span>error(<span style="color:#b84">f</span><span style="color:#b84">&#39;Could not find the KernelDebugKit directory for </span><span style="color:#b84">{</span>dmg_image<span style="color:#b84">}</span><span style="color:#b84">&#39;</span>)
-</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">pass</span>
-</span></span><span style="display:flex;"><span>        os<span style="font-weight:bold">.</span>system(<span style="color:#b84">&#34;rm -rf KernelDebugKit&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">NotADirectoryError</span>:
+</span></span><span style="display:flex;"><span>                logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Could not find the KernelDebugKit directory for </span><span style="color:#e6db74">{</span>dmg_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;rm -rf KernelDebugKit&#34;</span>)
 </span></span></code></pre></div><p>This script is using the compiled version of dwarf2json located alongside the script. Once this code is executed on the directory containing all the dmg images, the ISF files are extracted from the multiple kernel debug symbols into a &ldquo;.xz&rdquo; archive.</p>
 <p>This archive type is understandable by volatility3 when building the context.</p>
 <p><img src="/images/macisf/generated.png" alt="alt text" title="Result"></p>
@@ -352,7 +352,7 @@
     
       2021 -
     
-    2023
+    2024
      ForensicXlab 
     ·
     

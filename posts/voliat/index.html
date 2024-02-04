@@ -43,7 +43,7 @@ Windows PE Format Link to heading A portable executable (PE) 1 is a file format 
 
   
   
-  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="/css/coder.min.e539f281d96f8d76136e7b0656c05c1cc7c2d8a1632b1af84a692b87d0e73ed7.css" integrity="sha256-5TnygdlvjXYTbnsGVsBcHMfC2KFjKxr4Smkrh9DnPtc=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -217,45 +217,45 @@ Windows PE Format Link to heading A portable executable (PE) 1 is a file format 
 </h1>
 <p>Carving the IAT during memory forensics can be very valuable for the analyst to look for API call patterns associated with malware behavior. For example, the OpenProcess, VirtualAllocEx, CreateRemoteThread function present inside the IAT of a PE can be a good indicator for potential code injection <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. The analyst can also pivot on some of the functions to identify for example the arguments that can be passed.</p>
 <p>A volatility3 plugin can be made to extract the IAT information from the memory. Below is an example output of the created plugin named “windows.iat.IAT”. For each process, the associated PE sections are parsed in order to find the IAT. Next, all of the imported functions are displayed to the analyst as well as if the associated DLL is bounded or not to the executable.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» vol -r pretty -f Triage-Memory.mem windows.iat --pid <span style="color:#099">3496</span>
-</span></span><span style="display:flex;"><span>Volatility <span style="color:#099">3</span> Framework 2.5.1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~» vol -r pretty -f Triage-Memory.mem windows.iat --pid <span style="color:#ae81ff">3496</span>
+</span></span><span style="display:flex;"><span>Volatility <span style="color:#ae81ff">3</span> Framework 2.5.1
 </span></span><span style="display:flex;"><span>Formatting...0.00               PDB scanning finished                        
 </span></span><span style="display:flex;"><span>  |  PID |           Name |      Library | Bound |                        Function |  Address
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            _iob | 0x80c0c8
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                _except_handler3 | 0x80c0cc
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                  __set_app_type | 0x80c0d0
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                      __p__fmode | 0x80c0d4
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__commode | 0x80c0d8
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    _adjust_fdiv | 0x80c0dc
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                __setusermatherr | 0x80c0e0
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                       _initterm | 0x80c0e4
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __getmainargs | 0x80c0e8
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p___initenv | 0x80c0ec
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     _XcptFilter | 0x80c0f0
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _exit | 0x80c0f4
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         _onexit | 0x80c0f8
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     __dllonexit | 0x80c0fc
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strrchr | 0x80c100
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         wcsncmp | 0x80c104
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _close | 0x80c108
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcslen | 0x80c10c
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcscpy | 0x80c110
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                        strerror | 0x80c114
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            modf | 0x80c118
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strspn | 0x80c11c
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         realloc | 0x80c120
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__environ | 0x80c124
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p__wenviron | 0x80c128
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _errno | 0x80c12c
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            free | 0x80c130
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncmp | 0x80c134
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strstr | 0x80c138
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncpy | 0x80c13c
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _ftol | 0x80c140
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           qsort | 0x80c144
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           fopen | 0x80c148
-</span></span><span style="display:flex;"><span>* | <span style="color:#099">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          perror | 0x80c14c
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">[</span>TRUNCATED<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            _iob | 0x80c0c8
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                _except_handler3 | 0x80c0cc
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                  __set_app_type | 0x80c0d0
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                      __p__fmode | 0x80c0d4
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__commode | 0x80c0d8
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    _adjust_fdiv | 0x80c0dc
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                __setusermatherr | 0x80c0e0
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                       _initterm | 0x80c0e4
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __getmainargs | 0x80c0e8
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p___initenv | 0x80c0ec
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     _XcptFilter | 0x80c0f0
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _exit | 0x80c0f4
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         _onexit | 0x80c0f8
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                     __dllonexit | 0x80c0fc
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strrchr | 0x80c100
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         wcsncmp | 0x80c104
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _close | 0x80c108
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcslen | 0x80c10c
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          wcscpy | 0x80c110
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                        strerror | 0x80c114
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            modf | 0x80c118
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strspn | 0x80c11c
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         realloc | 0x80c120
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                    __p__environ | 0x80c124
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                   __p__wenviron | 0x80c128
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          _errno | 0x80c12c
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                            free | 0x80c130
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncmp | 0x80c134
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          strstr | 0x80c138
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                         strncpy | 0x80c13c
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           _ftol | 0x80c140
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           qsort | 0x80c144
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                           fopen | 0x80c148
+</span></span><span style="display:flex;"><span>* | <span style="color:#ae81ff">3496</span> | UWkpjFjDzM.exe |   MSVCRT.dll | False |                          perror | 0x80c14c
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>TRUNCATED<span style="color:#f92672">]</span>
 </span></span></code></pre></div><h1 id="conclusion">
   Conclusion
   <a class="heading-link" href="#conclusion">
@@ -312,7 +312,7 @@ Windows PE Format Link to heading A portable executable (PE) 1 is a file format 
     
       2021 -
     
-    2023
+    2024
      ForensicXlab 
     ·
     

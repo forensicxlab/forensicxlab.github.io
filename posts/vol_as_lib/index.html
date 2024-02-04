@@ -40,7 +40,7 @@
 
   
   
-  <link rel="stylesheet" href="/css/coder.min.4897cb1d7ba929d10aabbac6e9bf40a8ecb89318118d99027cb159e38fb32b28.css" integrity="sha256-SJfLHXupKdEKq7rG6b9AqOy4kxgRjZkCfLFZ44&#43;zKyg=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="/css/coder.min.e539f281d96f8d76136e7b0656c05c1cc7c2d8a1632b1af84a692b87d0e73ed7.css" integrity="sha256-5TnygdlvjXYTbnsGVsBcHMfC2KFjKxr4Smkrh9DnPtc=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -183,26 +183,26 @@
   </a>
 </h1>
 <p>When using the volatility3 framework on a memory image, the analyst is typically using the command line interface (CLI) component of the framework. It is one of the best way to interact with the framework quickly and get results. In the below example, we are executing the PsList plugin on a memory dump using the CLI.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>» vol -r pretty -f Triage-Memory.mem windows.pslist
-</span></span><span style="display:flex;"><span>  Volatility <span style="color:#099">3</span> Framework 2.0.1
+</span></span><span style="display:flex;"><span>  Volatility <span style="color:#ae81ff">3</span> Framework 2.0.1
 </span></span><span style="display:flex;"><span>  Formatting...0.00		PDB scanning finished
-</span></span><span style="display:flex;"><span>    |  PID | PPID |  ImageFileName |      Offset<span style="font-weight:bold">(</span>V<span style="font-weight:bold">)</span> | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime | File output
-</span></span><span style="display:flex;"><span>  * |    <span style="color:#099">4</span> |    <span style="color:#099">0</span> |         System | 0xfa8003c72b30 |      <span style="color:#099">87</span> |     <span style="color:#099">547</span> |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">252</span> |    <span style="color:#099">4</span> |       smss.exe | 0xfa8004616040 |       <span style="color:#099">2</span> |      <span style="color:#099">30</span> |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">332</span> |  <span style="color:#099">324</span> |      csrss.exe | 0xfa80050546b0 |      <span style="color:#099">10</span> |     <span style="color:#099">516</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">372</span> |  <span style="color:#099">364</span> |      csrss.exe | 0xfa800525a9e0 |      <span style="color:#099">11</span> |     <span style="color:#099">557</span> |         <span style="color:#099">1</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">380</span> |  <span style="color:#099">324</span> |    wininit.exe | 0xfa8005259060 |       <span style="color:#099">3</span> |      <span style="color:#099">78</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">416</span> |  <span style="color:#099">364</span> |   winlogon.exe | 0xfa8005268b30 |       <span style="color:#099">3</span> |     <span style="color:#099">110</span> |         <span style="color:#099">1</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">476</span> |  <span style="color:#099">380</span> |   services.exe | 0xfa8005680910 |      <span style="color:#099">12</span> |     <span style="color:#099">224</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:31:59.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">484</span> |  <span style="color:#099">380</span> |      lsass.exe | 0xfa80056885e0 |       <span style="color:#099">7</span> |     <span style="color:#099">650</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">492</span> |  <span style="color:#099">380</span> |        lsm.exe | 0xfa8005696b30 |      <span style="color:#099">10</span> |     <span style="color:#099">155</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">592</span> |  <span style="color:#099">476</span> |    svchost.exe | 0xfa80056e1060 |       <span style="color:#099">9</span> |     <span style="color:#099">375</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:01.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">672</span> |  <span style="color:#099">476</span> |    svchost.exe | 0xfa800570d060 |       <span style="color:#099">7</span> |     <span style="color:#099">341</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">764</span> |  <span style="color:#099">476</span> |    svchost.exe | 0xfa800575e5b0 |      <span style="color:#099">20</span> |     <span style="color:#099">447</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">796</span> |  <span style="color:#099">476</span> |    svchost.exe | 0xfa8005775b30 |      <span style="color:#099">15</span> |     <span style="color:#099">368</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span>  * |  <span style="color:#099">820</span> |  <span style="color:#099">476</span> |    svchost.exe | 0xfa800577db30 |      <span style="color:#099">33</span> |    <span style="color:#099">1073</span> |         <span style="color:#099">0</span> | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">[</span>etc...<span style="font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>    |  PID | PPID |  ImageFileName |      Offset<span style="color:#f92672">(</span>V<span style="color:#f92672">)</span> | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime | File output
+</span></span><span style="display:flex;"><span>  * |    <span style="color:#ae81ff">4</span> |    <span style="color:#ae81ff">0</span> |         System | 0xfa8003c72b30 |      <span style="color:#ae81ff">87</span> |     <span style="color:#ae81ff">547</span> |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">252</span> |    <span style="color:#ae81ff">4</span> |       smss.exe | 0xfa8004616040 |       <span style="color:#ae81ff">2</span> |      <span style="color:#ae81ff">30</span> |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">332</span> |  <span style="color:#ae81ff">324</span> |      csrss.exe | 0xfa80050546b0 |      <span style="color:#ae81ff">10</span> |     <span style="color:#ae81ff">516</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">372</span> |  <span style="color:#ae81ff">364</span> |      csrss.exe | 0xfa800525a9e0 |      <span style="color:#ae81ff">11</span> |     <span style="color:#ae81ff">557</span> |         <span style="color:#ae81ff">1</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">380</span> |  <span style="color:#ae81ff">324</span> |    wininit.exe | 0xfa8005259060 |       <span style="color:#ae81ff">3</span> |      <span style="color:#ae81ff">78</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">416</span> |  <span style="color:#ae81ff">364</span> |   winlogon.exe | 0xfa8005268b30 |       <span style="color:#ae81ff">3</span> |     <span style="color:#ae81ff">110</span> |         <span style="color:#ae81ff">1</span> | False | 2019-03-22 05:31:58.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">476</span> |  <span style="color:#ae81ff">380</span> |   services.exe | 0xfa8005680910 |      <span style="color:#ae81ff">12</span> |     <span style="color:#ae81ff">224</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:31:59.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">484</span> |  <span style="color:#ae81ff">380</span> |      lsass.exe | 0xfa80056885e0 |       <span style="color:#ae81ff">7</span> |     <span style="color:#ae81ff">650</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">492</span> |  <span style="color:#ae81ff">380</span> |        lsm.exe | 0xfa8005696b30 |      <span style="color:#ae81ff">10</span> |     <span style="color:#ae81ff">155</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:00.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">592</span> |  <span style="color:#ae81ff">476</span> |    svchost.exe | 0xfa80056e1060 |       <span style="color:#ae81ff">9</span> |     <span style="color:#ae81ff">375</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:01.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">672</span> |  <span style="color:#ae81ff">476</span> |    svchost.exe | 0xfa800570d060 |       <span style="color:#ae81ff">7</span> |     <span style="color:#ae81ff">341</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">764</span> |  <span style="color:#ae81ff">476</span> |    svchost.exe | 0xfa800575e5b0 |      <span style="color:#ae81ff">20</span> |     <span style="color:#ae81ff">447</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:02.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">796</span> |  <span style="color:#ae81ff">476</span> |    svchost.exe | 0xfa8005775b30 |      <span style="color:#ae81ff">15</span> |     <span style="color:#ae81ff">368</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span>  * |  <span style="color:#ae81ff">820</span> |  <span style="color:#ae81ff">476</span> |    svchost.exe | 0xfa800577db30 |      <span style="color:#ae81ff">33</span> |    <span style="color:#ae81ff">1073</span> |         <span style="color:#ae81ff">0</span> | False | 2019-03-22 05:32:03.000000  |      N/A |    Disabled
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>etc...<span style="color:#f92672">]</span>
 </span></span></code></pre></div><p>Having those results is a great way to help you during an investigation, but what if we want to make the framework perform more specific tasks to include it to another platform ? For example, you may want to integrate the results directly inside a sandbox or a Web UI. Behind the scene of the execution of this command, volatility3 is using multiple libraries from the framework to produce its results. It&rsquo;s simply parsing the user&rsquo;s arguments and perform the following steps :</p>
 <ul>
 <li>Create an empty memory context for the memory image;</li>
@@ -221,26 +221,26 @@
   </a>
 </h1>
 <p>In this section we will take a look at how we can run the PsList pluging using volatility3 as a library. Let&rsquo;s first take a look at the following code sample :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">volatility3.framework</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> contexts
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3</span> <span style="font-weight:bold">import</span> plugins
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">logging</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> volatility3.framework
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> contexts
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3 <span style="color:#f92672">import</span> plugins
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>logging<span style="font-weight:bold">.</span>basicConfig(level<span style="font-weight:bold">=</span>logging<span style="font-weight:bold">.</span>INFO)
-</span></span><span style="display:flex;"><span>logger <span style="font-weight:bold">=</span> logging<span style="font-weight:bold">.</span>getLogger(__name__)
-</span></span><span style="display:flex;"><span>volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>require_interface_version(<span style="color:#099">2</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>)
+</span></span><span style="display:flex;"><span>logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+</span></span><span style="display:flex;"><span>logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+</span></span><span style="display:flex;"><span>volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>require_interface_version(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ctx <span style="font-weight:bold">=</span> contexts<span style="font-weight:bold">.</span>Context()  <span style="color:#998;font-style:italic"># Construct a blank context</span>
+</span></span><span style="display:flex;"><span>ctx <span style="color:#f92672">=</span> contexts<span style="color:#f92672">.</span>Context()  <span style="color:#75715e"># Construct a blank context</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>failures <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>import_files(plugins, <span style="font-weight:bold">True</span>) <span style="color:#998;font-style:italic">#Load the framework plugins</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> failures:
-</span></span><span style="display:flex;"><span>    logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#b84">{</span>failures<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>    logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Plugins are loaded without failure&#34;</span>)
-</span></span><span style="display:flex;"><span>plugin_list <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>list_plugins()
-</span></span><span style="display:flex;"><span>logger<span style="font-weight:bold">.</span>info(plugin_list)
+</span></span><span style="display:flex;"><span>failures <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>import_files(plugins, <span style="color:#66d9ef">True</span>) <span style="color:#75715e">#Load the framework plugins</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> failures:
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#e6db74">{</span>failures<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Plugins are loaded without failure&#34;</span>)
+</span></span><span style="display:flex;"><span>plugin_list <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>list_plugins()
+</span></span><span style="display:flex;"><span>logger<span style="color:#f92672">.</span>info(plugin_list)
 </span></span></code></pre></div><p>OUTPUT :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
 </span></span><span style="display:flex;"><span>INFO:__main__:
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>&#39;windows.statistics.Statistics&#39;: ,
@@ -249,7 +249,7 @@
 </span></span><span style="display:flex;"><span>...
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this first step, we have constructed a blank context and loaded the native framework plugins. Next, we need to choose which plugin we want to run and construct the appropriate context based on its requirements. For this, I propose we create a function which can construct a simple plugin with no specific arguments.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1    def build_context(image_name ,context, base_config_path, plugin):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1    def build_context(image_name ,context, base_config_path, plugin):
 </span></span><span style="display:flex;"><span>2        available_automagics = automagic.available(context)
 </span></span><span style="display:flex;"><span>3        plugin_config_path = interfaces.configuration.path_join(base_config_path, plugin.__name__)
 </span></span><span style="display:flex;"><span>4        automagics = automagic.choose_automagic(available_automagics, plugin)
@@ -270,42 +270,42 @@ Line 2, 4 and 5 of the code are determining what automagics are available, choos
 <p>Once the context is ready, we can construct the plugin using the framework built-in function &ldquo;construct_plugin&rdquo;.
 This function will check that all the plugin&rsquo;s requirements are fulfilled and if so, will return the constructed plugin (which is an object). The sample code and output below allows us to see a bit more of what happened behind the scene and construct the &lsquo;PsList&rsquo; plugin.
 Notice that our logger also displays the volatility3 logs !</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">volatility3.framework</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> contexts, interfaces
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3</span> <span style="font-weight:bold">import</span> plugins
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> automagic
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework.plugins</span> <span style="font-weight:bold">import</span> construct_plugin
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">logging</span><span style="font-weight:bold">,</span> <span style="color:#555">os</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> volatility3.framework
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> contexts, interfaces
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3 <span style="color:#f92672">import</span> plugins
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> automagic
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework.plugins <span style="color:#f92672">import</span> construct_plugin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging<span style="color:#f92672">,</span> os
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>logging<span style="font-weight:bold">.</span>basicConfig(level<span style="font-weight:bold">=</span>logging<span style="font-weight:bold">.</span>INFO)
-</span></span><span style="display:flex;"><span>logger <span style="font-weight:bold">=</span> logging<span style="font-weight:bold">.</span>getLogger(__name__)
-</span></span><span style="display:flex;"><span>volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>require_interface_version(<span style="color:#099">2</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>)
+</span></span><span style="display:flex;"><span>logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+</span></span><span style="display:flex;"><span>logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+</span></span><span style="display:flex;"><span>volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>require_interface_version(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">build_context</span>(image_name ,context, base_config_path, plugin):
-</span></span><span style="display:flex;"><span>   available_automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>available(context)
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Available automagics : </span><span style="color:#b84">{</span>available_automagics<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span>   plugin_config_path <span style="font-weight:bold">=</span> interfaces<span style="font-weight:bold">.</span>configuration<span style="font-weight:bold">.</span>path_join(base_config_path, plugin<span style="font-weight:bold">.</span>__name__)
-</span></span><span style="display:flex;"><span>   automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>choose_automagic(available_automagics, plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>stacker<span style="font-weight:bold">.</span>choose_os_stackers(plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;file://&#34;</span> <span style="font-weight:bold">+</span> os<span style="font-weight:bold">.</span>getcwd() <span style="font-weight:bold">+</span> <span style="color:#b84">&#34;/&#34;</span> <span style="font-weight:bold">+</span> image_name
-</span></span><span style="display:flex;"><span>   constructed <span style="font-weight:bold">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="font-weight:bold">None</span>, <span style="font-weight:bold">None</span>)
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Contructed plugin : </span><span style="color:#b84">{</span>constructed<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">return</span> constructed
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_context</span>(image_name ,context, base_config_path, plugin):
+</span></span><span style="display:flex;"><span>   available_automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>available(context)
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Available automagics : </span><span style="color:#e6db74">{</span>available_automagics<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>   plugin_config_path <span style="color:#f92672">=</span> interfaces<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>path_join(base_config_path, plugin<span style="color:#f92672">.</span>__name__)
+</span></span><span style="display:flex;"><span>   automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>choose_automagic(available_automagics, plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>stacker<span style="color:#f92672">.</span>choose_os_stackers(plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;file://&#34;</span> <span style="color:#f92672">+</span> os<span style="color:#f92672">.</span>getcwd() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> image_name
+</span></span><span style="display:flex;"><span>   constructed <span style="color:#f92672">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Contructed plugin : </span><span style="color:#e6db74">{</span>constructed<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> constructed
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ctx <span style="font-weight:bold">=</span> contexts<span style="font-weight:bold">.</span>Context()  <span style="color:#998;font-style:italic"># Construct a blank context</span>
-</span></span><span style="display:flex;"><span>failures <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>import_files(plugins, <span style="font-weight:bold">True</span>) <span style="color:#998;font-style:italic">#Load the framework plugins</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> failures:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#b84">{</span>failures<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Plugins are loaded without failure&#34;</span>)
-</span></span><span style="display:flex;"><span>plugin_list <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>list_plugins()
-</span></span><span style="display:flex;"><span>base_config_path <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;plugins&#34;</span>
+</span></span><span style="display:flex;"><span>ctx <span style="color:#f92672">=</span> contexts<span style="color:#f92672">.</span>Context()  <span style="color:#75715e"># Construct a blank context</span>
+</span></span><span style="display:flex;"><span>failures <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>import_files(plugins, <span style="color:#66d9ef">True</span>) <span style="color:#75715e">#Load the framework plugins</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> failures:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#e6db74">{</span>failures<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Plugins are loaded without failure&#34;</span>)
+</span></span><span style="display:flex;"><span>plugin_list <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>list_plugins()
+</span></span><span style="display:flex;"><span>base_config_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;plugins&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>constructed <span style="font-weight:bold">=</span> build_context(<span style="color:#b84">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#b84">&#39;windows.pslist.PsList&#39;</span>])
+</span></span><span style="display:flex;"><span>constructed <span style="color:#f92672">=</span> build_context(<span style="color:#e6db74">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#e6db74">&#39;windows.pslist.PsList&#39;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Context configuration </span><span style="color:#b84">{</span>ctx<span style="font-weight:bold">.</span>config<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
+</span></span><span style="display:flex;"><span>logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Context configuration </span><span style="color:#e6db74">{</span>ctx<span style="color:#f92672">.</span>config<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span></code></pre></div><p>OUTPUT :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> INFO:__main__:Plugins are loaded without failure
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> INFO:__main__:Plugins are loaded without failure
 </span></span><span style="display:flex;"><span> INFO:__main__:Available automagics :
 </span></span><span style="display:flex;"><span> [volatility3.framework.automagic.symbol_cache.SymbolBannerCache object at 0x1052d9e20,
 </span></span><span style="display:flex;"><span>   volatility3.framework.automagic.mac.MacBannerCache object at 0x1052d9eb0,
@@ -359,41 +359,41 @@ Notice that our logger also displays the volatility3 logs !</p>
 </span></span><span style="display:flex;"><span>   &#34;plugins.PsList.pid&#34;: []
 </span></span><span style="display:flex;"><span> }
 </span></span></code></pre></div><p>Once our plugin is constructed, we can run it. However, we need to specify to volatility how we want to render the output. The framework is providing us with multiple renderers. Let&rsquo;s use the &ldquo;pretty text renderer&rdquo; that we have used with the CLI at the begining of the blog and run the plugin.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">volatility3.framework</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> contexts, interfaces
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3</span> <span style="font-weight:bold">import</span> plugins
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> automagic
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework.plugins</span> <span style="font-weight:bold">import</span> construct_plugin
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.cli</span> <span style="font-weight:bold">import</span> text_renderer
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">logging</span><span style="font-weight:bold">,</span> <span style="color:#555">os</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> volatility3.framework
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> contexts, interfaces
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3 <span style="color:#f92672">import</span> plugins
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> automagic
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework.plugins <span style="color:#f92672">import</span> construct_plugin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.cli <span style="color:#f92672">import</span> text_renderer
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging<span style="color:#f92672">,</span> os
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>logging<span style="font-weight:bold">.</span>basicConfig(level<span style="font-weight:bold">=</span>logging<span style="font-weight:bold">.</span>INFO)
-</span></span><span style="display:flex;"><span>logger <span style="font-weight:bold">=</span> logging<span style="font-weight:bold">.</span>getLogger(__name__)
-</span></span><span style="display:flex;"><span>volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>require_interface_version(<span style="color:#099">2</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>)
+</span></span><span style="display:flex;"><span>logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+</span></span><span style="display:flex;"><span>logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+</span></span><span style="display:flex;"><span>volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>require_interface_version(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">build_context</span>(image_name ,context, base_config_path, plugin):
-</span></span><span style="display:flex;"><span>   available_automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>available(context)
-</span></span><span style="display:flex;"><span>   plugin_config_path <span style="font-weight:bold">=</span> interfaces<span style="font-weight:bold">.</span>configuration<span style="font-weight:bold">.</span>path_join(base_config_path, plugin<span style="font-weight:bold">.</span>__name__)
-</span></span><span style="display:flex;"><span>   automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>choose_automagic(available_automagics, plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>stacker<span style="font-weight:bold">.</span>choose_os_stackers(plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;file://&#34;</span> <span style="font-weight:bold">+</span> os<span style="font-weight:bold">.</span>getcwd() <span style="font-weight:bold">+</span> <span style="color:#b84">&#34;/&#34;</span> <span style="font-weight:bold">+</span> image_name
-</span></span><span style="display:flex;"><span>   constructed <span style="font-weight:bold">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="font-weight:bold">None</span>, <span style="font-weight:bold">None</span>)
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">return</span> constructed
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_context</span>(image_name ,context, base_config_path, plugin):
+</span></span><span style="display:flex;"><span>   available_automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>available(context)
+</span></span><span style="display:flex;"><span>   plugin_config_path <span style="color:#f92672">=</span> interfaces<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>path_join(base_config_path, plugin<span style="color:#f92672">.</span>__name__)
+</span></span><span style="display:flex;"><span>   automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>choose_automagic(available_automagics, plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>stacker<span style="color:#f92672">.</span>choose_os_stackers(plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;file://&#34;</span> <span style="color:#f92672">+</span> os<span style="color:#f92672">.</span>getcwd() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> image_name
+</span></span><span style="display:flex;"><span>   constructed <span style="color:#f92672">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> constructed
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ctx <span style="font-weight:bold">=</span> contexts<span style="font-weight:bold">.</span>Context()  <span style="color:#998;font-style:italic"># Construct a blank context</span>
-</span></span><span style="display:flex;"><span>failures <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>import_files(plugins, <span style="font-weight:bold">True</span>) <span style="color:#998;font-style:italic">#Load the framework plugins</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> failures:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#b84">{</span>failures<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Plugins are loaded without failure&#34;</span>)
-</span></span><span style="display:flex;"><span>plugin_list <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>list_plugins()
-</span></span><span style="display:flex;"><span>base_config_path <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;plugins&#34;</span>
-</span></span><span style="display:flex;"><span>constructed <span style="font-weight:bold">=</span> build_context(<span style="color:#b84">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#b84">&#39;windows.pslist.PsList&#39;</span>])
+</span></span><span style="display:flex;"><span>ctx <span style="color:#f92672">=</span> contexts<span style="color:#f92672">.</span>Context()  <span style="color:#75715e"># Construct a blank context</span>
+</span></span><span style="display:flex;"><span>failures <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>import_files(plugins, <span style="color:#66d9ef">True</span>) <span style="color:#75715e">#Load the framework plugins</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> failures:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#e6db74">{</span>failures<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Plugins are loaded without failure&#34;</span>)
+</span></span><span style="display:flex;"><span>plugin_list <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>list_plugins()
+</span></span><span style="display:flex;"><span>base_config_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;plugins&#34;</span>
+</span></span><span style="display:flex;"><span>constructed <span style="color:#f92672">=</span> build_context(<span style="color:#e6db74">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#e6db74">&#39;windows.pslist.PsList&#39;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> constructed:
-</span></span><span style="display:flex;"><span>   result <span style="font-weight:bold">=</span> text_renderer<span style="font-weight:bold">.</span>PrettyTextRenderer()<span style="font-weight:bold">.</span>render(constructed<span style="font-weight:bold">.</span>run())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> constructed:
+</span></span><span style="display:flex;"><span>   result <span style="color:#f92672">=</span> text_renderer<span style="color:#f92672">.</span>PrettyTextRenderer()<span style="color:#f92672">.</span>render(constructed<span style="color:#f92672">.</span>run())
 </span></span></code></pre></div><p>OUTPUT :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Detected a windows category plugin
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Running automagic: ConstructionMagic
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Running automagic: LayerStacker
@@ -436,7 +436,7 @@ Notice that our logger also displays the volatility3 logs !</p>
 </span></span><span style="display:flex;"><span>ctx.config[&#34;plugins.PsList.dump&#34;] = True
 </span></span><span style="display:flex;"><span>constructed = build_context(&#34;Triage-Memory.mem&#34;, ctx, base_config_path, plugin_list[&#39;windows.pslist.PsList&#39;])
 </span></span></code></pre></div><p>OUTPUT :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-1" data-lang="1"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-1" data-lang="1"><span style="display:flex;"><span>INFO:__main__:Plugins are loaded without failure
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Detected a windows category plugin
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Running automagic: ConstructionMagic
 </span></span><span style="display:flex;"><span>INFO:volatility3.framework.automagic:Running automagic: LayerStacker
@@ -447,98 +447,98 @@ Notice that our logger also displays the volatility3 logs !</p>
 </span></span><span style="display:flex;"><span>| PID | PPID | ImageFileName |      Offset(V) | Threads | Handles | SessionId | Wow64 |                  CreateTime | ExitTime |            File output
 </span></span><span style="display:flex;"><span>* | 252 |    4 |      smss.exe | 0xfa8004616040 |       2 |      30 |       N/A | False | 2019-03-22 05:31:55.000000  |      N/A | pid.252.0x48430000.dmp
 </span></span></code></pre></div><p>This code will be interpreted without error. However you&rsquo;ll never find your process on your drive ! Why ? Well, in the &ldquo;build_context&rdquo; function, I have called the volatility3 framework&rsquo;s &ldquo;construct_plugin&rdquo; function with no File Handler Interface. By default, the volatility3 framework lets you decide how to handle files by rewritting the methods (open, write, &hellip;). In this example, we want the file to be directly written in the current directory from where the script is executed. The following code is using the CLIDirectFileHandler from the native framework with a little bit of tweaking. Once integrated into our code, the final result looks like this :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">volatility3.framework</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> contexts, interfaces
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3</span> <span style="font-weight:bold">import</span> plugins
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework</span> <span style="font-weight:bold">import</span> automagic
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.framework.plugins</span> <span style="font-weight:bold">import</span> construct_plugin
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="color:#555">volatility3.cli</span> <span style="font-weight:bold">import</span> text_renderer
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="color:#555">logging</span><span style="font-weight:bold">,</span> <span style="color:#555">os</span><span style="font-weight:bold">,</span> <span style="color:#555">io</span><span style="font-weight:bold">,</span> <span style="color:#555">tempfile</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> volatility3.framework
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> contexts, interfaces
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3 <span style="color:#f92672">import</span> plugins
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework <span style="color:#f92672">import</span> automagic
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.framework.plugins <span style="color:#f92672">import</span> construct_plugin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> volatility3.cli <span style="color:#f92672">import</span> text_renderer
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging<span style="color:#f92672">,</span> os<span style="color:#f92672">,</span> io<span style="color:#f92672">,</span> tempfile
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">file_handler</span>(output_dir):
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">class</span> <span style="color:#458;font-weight:bold">CLIFileHandler</span>(interfaces<span style="font-weight:bold">.</span>plugins<span style="font-weight:bold">.</span>FileHandlerInterface):
-</span></span><span style="display:flex;"><span>       <span style="color:#b84">&#34;&#34;&#34;The FileHandler from Volatility3 CLI&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">_get_final_filename</span>(self):
-</span></span><span style="display:flex;"><span>           <span style="color:#b84">&#34;&#34;&#34;Gets the final filename&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">if</span> output_dir <span style="font-weight:bold">is</span> <span style="font-weight:bold">None</span>:
-</span></span><span style="display:flex;"><span>               <span style="font-weight:bold">raise</span> <span style="color:#900;font-weight:bold">TypeError</span>(<span style="color:#b84">&#34;Output directory is not a string&#34;</span>)
-</span></span><span style="display:flex;"><span>           os<span style="font-weight:bold">.</span>makedirs(output_dir, exist_ok <span style="font-weight:bold">=</span> <span style="font-weight:bold">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">file_handler</span>(output_dir):
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CLIFileHandler</span>(interfaces<span style="color:#f92672">.</span>plugins<span style="color:#f92672">.</span>FileHandlerInterface):
+</span></span><span style="display:flex;"><span>       <span style="color:#e6db74">&#34;&#34;&#34;The FileHandler from Volatility3 CLI&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_final_filename</span>(self):
+</span></span><span style="display:flex;"><span>           <span style="color:#e6db74">&#34;&#34;&#34;Gets the final filename&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> output_dir <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;Output directory is not a string&#34;</span>)
+</span></span><span style="display:flex;"><span>           os<span style="color:#f92672">.</span>makedirs(output_dir, exist_ok <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>           pref_name_array <span style="font-weight:bold">=</span> self<span style="font-weight:bold">.</span>preferred_filename<span style="font-weight:bold">.</span>split(<span style="color:#b84">&#39;.&#39;</span>)
-</span></span><span style="display:flex;"><span>           filename, extension <span style="font-weight:bold">=</span> os<span style="font-weight:bold">.</span>path<span style="font-weight:bold">.</span>join(output_dir, <span style="color:#b84">&#39;.&#39;</span><span style="font-weight:bold">.</span>join(pref_name_array[:<span style="font-weight:bold">-</span><span style="color:#099">1</span>])), pref_name_array[<span style="font-weight:bold">-</span><span style="color:#099">1</span>]
-</span></span><span style="display:flex;"><span>           output_filename <span style="font-weight:bold">=</span> <span style="color:#b84">f</span><span style="color:#b84">&#34;</span><span style="color:#b84">{</span>filename<span style="color:#b84">}</span><span style="color:#b84">.</span><span style="color:#b84">{</span>extension<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>
+</span></span><span style="display:flex;"><span>           pref_name_array <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>preferred_filename<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;.&#39;</span>)
+</span></span><span style="display:flex;"><span>           filename, extension <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(output_dir, <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">.</span>join(pref_name_array[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])), pref_name_array[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>           output_filename <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>filename<span style="color:#e6db74">}</span><span style="color:#e6db74">.</span><span style="color:#e6db74">{</span>extension<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>           counter <span style="font-weight:bold">=</span> <span style="color:#099">1</span>
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">if</span> os<span style="font-weight:bold">.</span>path<span style="font-weight:bold">.</span>exists(output_filename):
-</span></span><span style="display:flex;"><span>               os<span style="font-weight:bold">.</span>remove(output_filename)
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">return</span> output_filename
+</span></span><span style="display:flex;"><span>           counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(output_filename):
+</span></span><span style="display:flex;"><span>               os<span style="color:#f92672">.</span>remove(output_filename)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> output_filename
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">class</span> <span style="color:#458;font-weight:bold">CLIDirectFileHandler</span>(CLIFileHandler):
-</span></span><span style="display:flex;"><span>       <span style="color:#b84">&#34;&#34;&#34;We want to save our files directly to disk&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> __init__(self, filename: <span style="color:#999">str</span>):
-</span></span><span style="display:flex;"><span>           fd, self<span style="font-weight:bold">.</span>_name <span style="font-weight:bold">=</span> tempfile<span style="font-weight:bold">.</span>mkstemp(suffix <span style="font-weight:bold">=</span> <span style="color:#b84">&#39;.vol3&#39;</span>, prefix <span style="font-weight:bold">=</span> <span style="color:#b84">&#39;tmp_&#39;</span>, <span style="color:#999">dir</span> <span style="font-weight:bold">=</span> output_dir)
-</span></span><span style="display:flex;"><span>           self<span style="font-weight:bold">.</span>_file <span style="font-weight:bold">=</span> io<span style="font-weight:bold">.</span>open(fd, mode <span style="font-weight:bold">=</span> <span style="color:#b84">&#39;w+b&#39;</span>)
-</span></span><span style="display:flex;"><span>           CLIFileHandler<span style="font-weight:bold">.</span>__init__(self, filename)
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">for</span> item <span style="font-weight:bold">in</span> <span style="color:#999">dir</span>(self<span style="font-weight:bold">.</span>_file):
-</span></span><span style="display:flex;"><span>               <span style="font-weight:bold">if</span> <span style="font-weight:bold">not</span> item<span style="font-weight:bold">.</span>startswith(<span style="color:#b84">&#39;_&#39;</span>) <span style="font-weight:bold">and</span> <span style="font-weight:bold">not</span> item <span style="font-weight:bold">in</span> [<span style="color:#b84">&#39;closed&#39;</span>, <span style="color:#b84">&#39;close&#39;</span>, <span style="color:#b84">&#39;mode&#39;</span>, <span style="color:#b84">&#39;name&#39;</span>]:
-</span></span><span style="display:flex;"><span>                   <span style="color:#999">setattr</span>(self, item, <span style="color:#999">getattr</span>(self<span style="font-weight:bold">.</span>_file, item))
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CLIDirectFileHandler</span>(CLIFileHandler):
+</span></span><span style="display:flex;"><span>       <span style="color:#e6db74">&#34;&#34;&#34;We want to save our files directly to disk&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> __init__(self, filename: str):
+</span></span><span style="display:flex;"><span>           fd, self<span style="color:#f92672">.</span>_name <span style="color:#f92672">=</span> tempfile<span style="color:#f92672">.</span>mkstemp(suffix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.vol3&#39;</span>, prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;tmp_&#39;</span>, dir <span style="color:#f92672">=</span> output_dir)
+</span></span><span style="display:flex;"><span>           self<span style="color:#f92672">.</span>_file <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>open(fd, mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;w+b&#39;</span>)
+</span></span><span style="display:flex;"><span>           CLIFileHandler<span style="color:#f92672">.</span>__init__(self, filename)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> dir(self<span style="color:#f92672">.</span>_file):
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> item<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;_&#39;</span>) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> item <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;closed&#39;</span>, <span style="color:#e6db74">&#39;close&#39;</span>, <span style="color:#e6db74">&#39;mode&#39;</span>, <span style="color:#e6db74">&#39;name&#39;</span>]:
+</span></span><span style="display:flex;"><span>                   setattr(self, item, getattr(self<span style="color:#f92672">.</span>_file, item))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> __getattr__(self, item):
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">return</span> <span style="color:#999">getattr</span>(self<span style="font-weight:bold">.</span>_file, item)
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> __getattr__(self, item):
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> getattr(self<span style="color:#f92672">.</span>_file, item)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       @property
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">closed</span>(self):
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">return</span> self<span style="font-weight:bold">.</span>_file<span style="font-weight:bold">.</span>closed
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">closed</span>(self):
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_file<span style="color:#f92672">.</span>closed
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       @property
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">mode</span>(self):
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">return</span> self<span style="font-weight:bold">.</span>_file<span style="font-weight:bold">.</span>mode
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mode</span>(self):
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_file<span style="color:#f92672">.</span>mode
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       @property
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">name</span>(self):
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">return</span> self<span style="font-weight:bold">.</span>_file<span style="font-weight:bold">.</span>name
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">name</span>(self):
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_file<span style="color:#f92672">.</span>name
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       <span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">close</span>(self):
-</span></span><span style="display:flex;"><span>           <span style="color:#b84">&#34;&#34;&#34;Closes and commits the file (by moving the temporary file to the correct name&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>           <span style="color:#998;font-style:italic"># Don&#39;t overcommit</span>
-</span></span><span style="display:flex;"><span>           <span style="font-weight:bold">if</span> self<span style="font-weight:bold">.</span>_file<span style="font-weight:bold">.</span>closed:
-</span></span><span style="display:flex;"><span>               <span style="font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close</span>(self):
+</span></span><span style="display:flex;"><span>           <span style="color:#e6db74">&#34;&#34;&#34;Closes and commits the file (by moving the temporary file to the correct name&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e"># Don&#39;t overcommit</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_file<span style="color:#f92672">.</span>closed:
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">return</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>           self<span style="font-weight:bold">.</span>_file<span style="font-weight:bold">.</span>close()
-</span></span><span style="display:flex;"><span>           output_filename <span style="font-weight:bold">=</span> self<span style="font-weight:bold">.</span>_get_final_filename()
-</span></span><span style="display:flex;"><span>           os<span style="font-weight:bold">.</span>rename(self<span style="font-weight:bold">.</span>_name, output_filename)
+</span></span><span style="display:flex;"><span>           self<span style="color:#f92672">.</span>_file<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>           output_filename <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_get_final_filename()
+</span></span><span style="display:flex;"><span>           os<span style="color:#f92672">.</span>rename(self<span style="color:#f92672">.</span>_name, output_filename)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">return</span> CLIDirectFileHandler
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> CLIDirectFileHandler
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> <span style="color:#900;font-weight:bold">build_context</span>(image_name ,context, base_config_path, plugin):
-</span></span><span style="display:flex;"><span>   available_automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>available(context)
-</span></span><span style="display:flex;"><span>   plugin_config_path <span style="font-weight:bold">=</span> interfaces<span style="font-weight:bold">.</span>configuration<span style="font-weight:bold">.</span>path_join(base_config_path, plugin<span style="font-weight:bold">.</span>__name__)
-</span></span><span style="display:flex;"><span>   automagics <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>choose_automagic(available_automagics, plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="font-weight:bold">=</span> automagic<span style="font-weight:bold">.</span>stacker<span style="font-weight:bold">.</span>choose_os_stackers(plugin)
-</span></span><span style="display:flex;"><span>   context<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;file://&#34;</span> <span style="font-weight:bold">+</span> os<span style="font-weight:bold">.</span>getcwd() <span style="font-weight:bold">+</span> <span style="color:#b84">&#34;/&#34;</span> <span style="font-weight:bold">+</span> image_name
-</span></span><span style="display:flex;"><span>   constructed <span style="font-weight:bold">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="font-weight:bold">None</span>, file_handler(os<span style="font-weight:bold">.</span>getcwd()))
-</span></span><span style="display:flex;"><span>   <span style="font-weight:bold">return</span> constructed
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_context</span>(image_name ,context, base_config_path, plugin):
+</span></span><span style="display:flex;"><span>   available_automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>available(context)
+</span></span><span style="display:flex;"><span>   plugin_config_path <span style="color:#f92672">=</span> interfaces<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>path_join(base_config_path, plugin<span style="color:#f92672">.</span>__name__)
+</span></span><span style="display:flex;"><span>   automagics <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>choose_automagic(available_automagics, plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.stackers&#39;</span>] <span style="color:#f92672">=</span> automagic<span style="color:#f92672">.</span>stacker<span style="color:#f92672">.</span>choose_os_stackers(plugin)
+</span></span><span style="display:flex;"><span>   context<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#39;automagic.LayerStacker.single_location&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;file://&#34;</span> <span style="color:#f92672">+</span> os<span style="color:#f92672">.</span>getcwd() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> image_name
+</span></span><span style="display:flex;"><span>   constructed <span style="color:#f92672">=</span> construct_plugin(context, automagics, plugin, base_config_path, <span style="color:#66d9ef">None</span>, file_handler(os<span style="color:#f92672">.</span>getcwd()))
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> constructed
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>logging<span style="font-weight:bold">.</span>basicConfig(level<span style="font-weight:bold">=</span>logging<span style="font-weight:bold">.</span>INFO)
-</span></span><span style="display:flex;"><span>logger <span style="font-weight:bold">=</span> logging<span style="font-weight:bold">.</span>getLogger(__name__)
-</span></span><span style="display:flex;"><span>volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>require_interface_version(<span style="color:#099">2</span>, <span style="color:#099">0</span>, <span style="color:#099">0</span>)
+</span></span><span style="display:flex;"><span>logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+</span></span><span style="display:flex;"><span>logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+</span></span><span style="display:flex;"><span>volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>require_interface_version(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ctx <span style="font-weight:bold">=</span> contexts<span style="font-weight:bold">.</span>Context()  <span style="color:#998;font-style:italic"># Construct a blank context</span>
-</span></span><span style="display:flex;"><span>failures <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>import_files(plugins, <span style="font-weight:bold">True</span>) <span style="color:#998;font-style:italic">#Load the framework plugins</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> failures:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#b84">{</span>failures<span style="color:#b84">}</span><span style="color:#b84">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>   logger<span style="font-weight:bold">.</span>info(<span style="color:#b84">f</span><span style="color:#b84">&#34;Plugins are loaded without failure&#34;</span>)
-</span></span><span style="display:flex;"><span>plugin_list <span style="font-weight:bold">=</span> volatility3<span style="font-weight:bold">.</span>framework<span style="font-weight:bold">.</span>list_plugins()
-</span></span><span style="display:flex;"><span>base_config_path <span style="font-weight:bold">=</span> <span style="color:#b84">&#34;plugins&#34;</span>
-</span></span><span style="display:flex;"><span>ctx<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#34;plugins.PsList.pid&#34;</span>] <span style="font-weight:bold">=</span> [<span style="color:#099">252</span>]
-</span></span><span style="display:flex;"><span>ctx<span style="font-weight:bold">.</span>config[<span style="color:#b84">&#34;plugins.PsList.dump&#34;</span>] <span style="font-weight:bold">=</span> <span style="font-weight:bold">True</span>
-</span></span><span style="display:flex;"><span>constructed <span style="font-weight:bold">=</span> build_context(<span style="color:#b84">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#b84">&#39;windows.pslist.PsList&#39;</span>])
+</span></span><span style="display:flex;"><span>ctx <span style="color:#f92672">=</span> contexts<span style="color:#f92672">.</span>Context()  <span style="color:#75715e"># Construct a blank context</span>
+</span></span><span style="display:flex;"><span>failures <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>import_files(plugins, <span style="color:#66d9ef">True</span>) <span style="color:#75715e">#Load the framework plugins</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> failures:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Some volatility3 plugin couldn&#39;t be loaded : </span><span style="color:#e6db74">{</span>failures<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>   logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Plugins are loaded without failure&#34;</span>)
+</span></span><span style="display:flex;"><span>plugin_list <span style="color:#f92672">=</span> volatility3<span style="color:#f92672">.</span>framework<span style="color:#f92672">.</span>list_plugins()
+</span></span><span style="display:flex;"><span>base_config_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;plugins&#34;</span>
+</span></span><span style="display:flex;"><span>ctx<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#34;plugins.PsList.pid&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">252</span>]
+</span></span><span style="display:flex;"><span>ctx<span style="color:#f92672">.</span>config[<span style="color:#e6db74">&#34;plugins.PsList.dump&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>constructed <span style="color:#f92672">=</span> build_context(<span style="color:#e6db74">&#34;Triage-Memory.mem&#34;</span>, ctx, base_config_path, plugin_list[<span style="color:#e6db74">&#39;windows.pslist.PsList&#39;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> constructed:
-</span></span><span style="display:flex;"><span>   result <span style="font-weight:bold">=</span> text_renderer<span style="font-weight:bold">.</span>PrettyTextRenderer()<span style="font-weight:bold">.</span>render(constructed<span style="font-weight:bold">.</span>run())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> constructed:
+</span></span><span style="display:flex;"><span>   result <span style="color:#f92672">=</span> text_renderer<span style="color:#f92672">.</span>PrettyTextRenderer()<span style="color:#f92672">.</span>render(constructed<span style="color:#f92672">.</span>run())
 </span></span></code></pre></div><p>There we go, when interpreted, this script will dump the process with PID 252 using the PsList plugin. Now that you know more about how to use the volatility3 framework libraries, you can imagine any application you want to a real case scenario!
 Conclusion</p>
 <p>I hope you now have a better understanding of how the volatility3 framework is working behind the scene, how easy it is to exploit and integrate it inside your investigation tools. You can of course write your own renderers to directly inject the results inside a database or any format that suite your needs. VolWeb is using volatility3 as a library and this article is directly linked to the latest release exploiting this capability.
@@ -582,7 +582,7 @@ You can check VolWeb by clicking the link below.</p>
     
       2021 -
     
-    2023
+    2024
      ForensicXlab 
     ·
     
