@@ -75,7 +75,6 @@ The latter has been often encountered in the wild in the past years as a preferr
 
 
 
-<link rel="stylesheet" type="text/css" href="http://www.forensicxlab.comcss/test.css" />
   </head>
 
 
@@ -189,7 +188,7 @@ The latter has been often encountered in the wild in the past years as a preferr
 Here we propose to leverage memory forensics to retrieve and analyze artefacts thanks to a custom Volatility plugin that I made available as a free open-source tool for improving digital investigations.</p>
 <p><em><strong>Conti AnyDesk installation tutorial</strong></em></p>
 <p>A striking example came out the last year upon leaked manuals of Conti’s ransomware-as-a-service operators dedicated to its affiliates with pentesting skills<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.  From this case we can learn how the tool was installed by the attacker using PowerShell.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Закреп AnyDesk  - ознакомиться всем
 </span></span><span style="display:flex;"><span> Function AnyDesk {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    mkdir &#34;C:\ProgramData\AnyDesk&#34;
@@ -231,7 +230,7 @@ Here we propose to leverage memory forensics to retrieve and analyze artefacts t
 <p>On a windows 10 machine, you can respectively find those files in the <code>%APPDATA%\AnyDesk\</code> and <code>%SYSTEMROOT%\ProgramData\AnyDesk\</code>.
 Here is an example of data you could find within the log file:</p>
 <p><em><strong>ad.trace content example</strong></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.920       back   3240   5476                       desk_rt.encoder - 2 segments.
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.923       back   3240   5476                     base.monitor_info - Monitors found: 1
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.923       back   3240   5476                   app.backend_session - Suspending session start until further notice.
@@ -247,7 +246,7 @@ Here is an example of data you could find within the log file:</p>
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.950       back   3240   4136             desk_rt.capture_component - Keyboard layout changed to: unknown
 </span></span><span style="display:flex;"><span>info 2022-09-27 15:31:53.950       back   3240   4136             desk_rt.capture_component - Focused monitor changed: 0 (\\.\DISPLAY1)
 </span></span></code></pre></div><p><em><strong>ad_svc.trace content example</strong></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:30:44.538       gsvc   9068   5920    1                      app.service - New IPC connection.
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>info 2022-09-27 15:30:44.538       gsvc   9068   5920    1                      app.service - New IPC connection.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920    1                  fiber.scheduler - Spawning child fiber 13 (parent 1).
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Creating an IPC accept socket.
 </span></span><span style="display:flex;"><span>  info 2022-09-27 15:30:44.538       gsvc   9068   5920   13                      app.service - Connected to 6572 (control:1).
@@ -318,7 +317,7 @@ Next, a memory dump of machine <strong>B</strong> is performed, ready to be anal
 <li>Interface with any other tools that are exploiting the other volatility3 output capabilities (json, csv, &hellip;).</li>
 </ul>
 <p><em><strong>Plugin output example</strong></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/Windows10_AnyDesk » vol -f Windows_AD.vmem anydesk
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/Windows10_AnyDesk » vol -f Windows_AD.vmem anydesk
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.0.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
 </span></span><span style="display:flex;"><span>Source	Type	Time	Context	Message
@@ -336,7 +335,7 @@ Next, a memory dump of machine <strong>B</strong> is performed, ready to be anal
 </span></span><span style="display:flex;"><span>\ProgramData\AnyDesk\ad_svc.trace	info	2022-09-30 19:37:36.926000 	gsvc	Backend PID: 1268
 </span></span><span style="display:flex;"><span>[...]
 </span></span></code></pre></div><p><em><strong>Using the timeliner plugin</strong></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[...]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[...]
 </span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Fiber 20 terminated.  	2022-09-27 15:30:21.968000 	N/A	N/A	N/A
 </span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Fiber 20 terminated.  	2022-09-27 15:30:21.968000 	N/A	N/A	N/A
 </span></span><span style="display:flex;"><span>Anydesk	AnyDesk: info Starting installation of AnyDesk.  	2022-09-27 15:30:35.484000 	N/A	N/A	N/A
@@ -426,7 +425,7 @@ Do not hesitate to reach me at <a href="mailto:felix.guyard@forensicxlab.com">fe
     
       2021 -
     
-    2024
+    2023
      ForensicXlab 
     ·
     

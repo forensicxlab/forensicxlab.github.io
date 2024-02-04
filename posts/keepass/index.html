@@ -75,7 +75,6 @@ Today in this blog post we will describe the vulnerability and see how we can cr
 
 
 
-<link rel="stylesheet" type="text/css" href="http://www.forensicxlab.comcss/test.css" />
   </head>
 
 
@@ -202,7 +201,7 @@ From this observation, Vdohney built up a method to recover that scattered infor
   </a>
 </h1>
 <p>As a forensics investigator, you might have actual (or past) cases where KeePass 2.X process activities were retrieved. Using volatility3, it is possible to list the running processes using the “pslist” or “psscan” plugin.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.pslist
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.pslist
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.4.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
 </span></span><span style="display:flex;"><span>PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
@@ -230,7 +229,7 @@ From this observation, Vdohney built up a method to recover that scattered infor
 Using volatility3, one can dump this process layer and retrieve all the sections linked to the virtual address spaces. Once completed, one can map virtual pages to physical pages and extract the residing data.</p>
 <p>A custom plugin allows to parse the data to isolate the relevant patterns (in this case “●”) seeking to further attempt the reconstruction of the master KeePass password entered by a user. The plugin can be found here: <a href="https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py">https://github.com/forensicxlab/volatility3_plugins/blob/main/keepass.py</a></p>
 <p>By passing the PID of the process to the volatility3 KeePass plugin, one can try to reconstruct the master password:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.keepass --pid 752                                                                                                          k1nd0ne@MacBook-Pro-de-Felix
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>~/work/DFIR/Memory Analysis/MemoryImages/KeePassMachine » vol -f KeePassMachine.mem windows.keepass --pid 752                                                                                                          k1nd0ne@MacBook-Pro-de-Felix
 </span></span><span style="display:flex;"><span>Volatility 3 Framework 2.4.1
 </span></span><span style="display:flex;"><span>Progress:  100.00		PDB scanning finished
 </span></span><span style="display:flex;"><span>Offset	Size	Constructed_Password
@@ -324,7 +323,7 @@ Using volatility3, one can dump this process layer and retrieve all the sections
     
       2021 -
     
-    2024
+    2023
      ForensicXlab 
     ·
     
