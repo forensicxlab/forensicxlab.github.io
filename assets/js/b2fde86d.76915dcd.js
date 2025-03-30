@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkexhume=self.webpackChunkexhume||[]).push([[2304],{1329:e=>{e.exports=JSON.parse('{"tag":{"label":"Inodes","permalink":"/blog/tags/inodes","allTagsPath":"/blog/tags","count":1,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/inodes","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

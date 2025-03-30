@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkexhume=self.webpackChunkexhume||[]).push([[5732],{8103:e=>{e.exports=JSON.parse('{"tag":{"label":"Linux","permalink":"/blog/tags/linux","allTagsPath":"/blog/tags","count":2,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/linux","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

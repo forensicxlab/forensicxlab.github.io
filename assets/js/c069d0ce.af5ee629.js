@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkexhume=self.webpackChunkexhume||[]).push([[3489],{7698:a=>{a.exports=JSON.parse('{"tag":{"label":"Mac","permalink":"/blog/tags/mac","allTagsPath":"/blog/tags","count":1,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/mac","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

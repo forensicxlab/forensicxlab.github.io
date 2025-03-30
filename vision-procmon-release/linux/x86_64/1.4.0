@@ -1,7 +1,0 @@
-{
-  "version": "1.5.0",
-  "pub_date": "2023-08-06T18:46:34.687Z",
-  "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSd2tBTGxMdG1yRDl5dmFFb2ZUVkc2WjFjS2F1aXcwRTVEY0dIc1lpM1o0Qmlxb1NJNTlxTmwxd2VsYmg5Vk9nMEkyaThQanpLRVZMWThvUVVxQzdaN0MrYWJSVWFHUEE4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkxMzQ3NDMyCWZpbGU6dmlzaW9uLXByb2MtbW9uXzEuNS4wX2FtZDY0LkFwcEltYWdlLnRhci5negptOWphUkRyZVp3MlRYblIybjJJdUs5VzNVRTVQb2lCRndldUQ4YnMwYW5QdCtJUkcxeHd6MEtEcWdBejl4NDNIU1YrUGo4Zm5rV2h1T2pEQTFVSklCUT09Cg==",
-  "url": "https://github.com/forensicxlab/VISION-ProcMon/releases/download/v1.5.0/vision-proc-mon_1.5.0_amd64.AppImage.tar.gz",
-  "notes": "BugFix, UI update and step filter feature."
-}
