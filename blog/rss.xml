@@ -4,10 +4,111 @@
         <title>Forensicxlab Blog</title>
         <link>https://forensicxlab.github.io/blog</link>
         <description>Forensicxlab Blog</description>
-        <lastBuildDate>Sat, 16 Dec 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 09 Jun 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[🦉 Thanatology Part 1 - Introducing the Thanatology project]]></title>
+            <link>https://forensicxlab.github.io/blog/thanatology</link>
+            <guid>https://forensicxlab.github.io/blog/thanatology</guid>
+            <pubDate>Mon, 09 Jun 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[In digital forensics, tools are only as valuable as the investigator’s ability to understand and explain their output, especially when presenting evidence in court. Beyond simply extracting data, the methodology behind how artifacts are collected and interpreted plays a critical role in admissibility, reliability and credibility.]]></description>
+            <content:encoded><![CDATA[<p>In digital forensics, tools are only as valuable as the investigator’s ability to understand and explain their output, especially when presenting evidence in court. Beyond simply extracting data, the methodology behind how artifacts are collected and interpreted plays a critical role in admissibility, reliability and credibility.</p>
+<p>This blog post series introduces the Thanatology Project, an open-source, cross-platform digital forensics framework currently under development. Built on top of the Exhume ToolKit (a modular set of Rust-based forensic tools), Thanatology combines performance, transparency, and modern design via a Tauri-based desktop interface.
+Designed for law enforcement and digital forensic professionals, the project emphasizes not only artifact collection and presentation but will also try to provide help for interpretation.</p>
+<p>For example, when analyzing EXTFS file systems, Thanatology will try to offers guidance on timestamp meanings and includes complete extraction details suitable for annexing to formal reports.</p>
+<p>The blog series will cover:</p>
+<ul>
+<li>An overview of the Thanatology project and its goals.</li>
+<li>A high-level introduction to the Exhume tool suite.</li>
+<li>Deep dives into each Exhume module and its specific forensic use case.</li>
+<li>Updates on the project development.</li>
+<li>Interesting research techniques we found during our journey.</li>
+</ul>
+<p>While Thanatology is not intended to replace established tools, it will attempt to offers a modular and modern alternative ideal for cross-verifying findings or integrating into custom workflows. This blogpost series is mainly here to provide the community with updates, technical knowledge and any interesting subjects we found along the way.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="purpose-and-motivations">Purpose and motivations<a href="https://forensicxlab.github.io/blog/thanatology#purpose-and-motivations" class="hash-link" aria-label="Direct link to Purpose and motivations" title="Direct link to Purpose and motivations">​</a></h2>
+<p>Working in the digital forensics field for a while now. I am amazed to witness many investigators using tools without being able to answer some critical questions in front of court, thus making the whole work sometimes worthless. Here are some critical questions that could pop up during review:</p>
+<ul>
+<li>What is the artefact?</li>
+<li>Where did it come from?</li>
+<li>How was it acquired?</li>
+<li>How was it processed or analyzed?</li>
+<li>What does it mean?</li>
+<li>Can this be independently verified?</li>
+</ul>
+<p>Although <strong>education</strong>, <strong>experience</strong>, and <strong>expertise</strong> are key to answer these questions, we felt that the need to have more control and transparency in the tool we use is critical.</p>
+<p>With the intention to better understand what digital forensics tools are actually doing from scratch; I wanted to build my own tools. The trigger was during a criminology degree in 2024, I was introduced and dived deep inside the traditional medical forensics field and had the opportunity to witness how well the technical procedure is design for the study of the dead and the living. This gave me the motivation to create the “Thanatology” project named after this discipline<sup><a href="https://forensicxlab.github.io/blog/thanatology#user-content-fn-1-5450bf" id="user-content-fnref-1-5450bf" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup> in an effort to create a framework that allows the digital investigator expert to be more rigorous by design.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-thanatology">What Is Thanatology?<a href="https://forensicxlab.github.io/blog/thanatology#what-is-thanatology" class="hash-link" aria-label="Direct link to What Is Thanatology?" title="Direct link to What Is Thanatology?">​</a></h2>
+<p>In short, Thanatology is a modern and enhanced digital forensics Desktop Application which is cross-platform using the power of the Tauri framework.</p>
+<p>It is built on top of the <a href="https://www.forensicxlab.com/docs/exhume" target="_blank" rel="noopener noreferrer"><strong>Exhume tool suite</strong></a> (or toolkit). The exhume tool suite is a set of command line and libraries written in rust from scratch to parse data from different digital sources and formats to extract artifacts. There is nothing new to the approach, the sleuthkit<sup><a href="https://forensicxlab.github.io/blog/thanatology#user-content-fn-2-5450bf" id="user-content-fnref-2-5450bf" data-footnote-ref="true" aria-describedby="footnote-label">2</a></sup> is built around a similar philosophy.</p>
+<p>The difference here is that I wanted to use the powerful capabilities of the rust language to produce an alternative and perhaps more modern approach to propose as many digital forensics features as possible like disk image forensics, memory forensics, malware analysis and, in time, Artificial Intelligence features.</p>
+<p>It also allows me to compare my results with well-established tools and challenge myself technically. I could already witness during my journey some inconsistencies in some well-known and widely used tools that will be detailed in later blog posts. In short, rebuilding almost everything from scratch might sound time consuming and not interesting but it is worth it to learn new things and stimulate innovation.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="design-and-architecture">Design and architecture<a href="https://forensicxlab.github.io/blog/thanatology#design-and-architecture" class="hash-link" aria-label="Direct link to Design and architecture" title="Direct link to Design and architecture">​</a></h2>
+<p>The Thanatology project is built around 2 major components:</p>
+<ul>
+<li>The Exhume Tool Suite</li>
+<li>The Tauri Framework</li>
+</ul>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture1.png" alt="Thanatology architecture"><figcaption><i>Thanatology architecture</i></figcaption></figure>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-exhume-tool-suite">The Exhume Tool suite<a href="https://forensicxlab.github.io/blog/thanatology#the-exhume-tool-suite" class="hash-link" aria-label="Direct link to The Exhume Tool suite" title="Direct link to The Exhume Tool suite">​</a></h3>
+<p>The <a href="https://www.forensicxlab.com/docs/exhume" target="_blank" rel="noopener noreferrer">exhume tool suite</a> (named after the exhume<sup><a href="https://forensicxlab.github.io/blog/thanatology#user-content-fn-3-5450bf" id="user-content-fnref-3-5450bf" data-footnote-ref="true" aria-describedby="footnote-label">3</a></sup> terms in the discipline and the idea of bringing back from neglect or obscurity), is the foundation of the applications. Any digital forensics examiner can use the exhume tool suite as a command line to perform digital forensics investigation. Exhume is a hybrid tool suite, each tool can be used as a command line or as a library thus enabling any member of the community to write their own tools. Thanatology is just a Desktop application using the exhume tool suite as a library. <strong>We will deep dive into exhume in the next blogpost of this series</strong>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-tauri-framework">The Tauri Framework<a href="https://forensicxlab.github.io/blog/thanatology#the-tauri-framework" class="hash-link" aria-label="Direct link to The Tauri Framework" title="Direct link to The Tauri Framework">​</a></h3>
+<p><em><strong>Digital Forensics is a cross-platform discipline!</strong></em></p>
+<p>Tauri is a modern framework for building cross-platform desktop applications using:</p>
+<ul>
+<li>A Frontend: Web technologies (React, Vue, Svelte, etc.)</li>
+<li>A Backend: Native Rust code</li>
+</ul>
+<p>It allows developers to package their web-based UI as a lightweight, secure desktop application across Windows, Linux, and macOS. In our case, we choose the REACT MUI framework for the frontend.</p>
+<p>Unlike Electron (which bundles Chromium), Tauri uses the system’s native webview (WebView2 on Windows, WKWebView on macOS, and WebKitGTK on Linux), making it much smaller and more secure.</p>
+<p>There is many more advantages in using the tauri framework you can learn more <a href="https://tauri.app/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+<p>In the context of Thanatology, Tauri allows seamless reuse of the exhume tool suite code in the desktop app. This ensures high performance, memory safety, and low-level control without sacrificing UX.  We are using a local SQLite database for the first major release, but the goal is to have an hybrid approach where the use can choose between a local or remote database, enabling collaboration.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="state-of-the-art">State of the art<a href="https://forensicxlab.github.io/blog/thanatology#state-of-the-art" class="hash-link" aria-label="Direct link to State of the art" title="Direct link to State of the art">​</a></h2>
+<p>Thanatology is in its development phase, it is evolving in parallel of the Exhume toolsuite, exhume being the library which the projects is relying up on. We are starting with traditional disk forensics and currently have made several millstones described below.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="basic-case--evidence-management">Basic case &amp; evidence management<a href="https://forensicxlab.github.io/blog/thanatology#basic-case--evidence-management" class="hash-link" aria-label="Direct link to Basic case &amp; evidence management" title="Direct link to Basic case &amp; evidence management">​</a></h3>
+<p>In Thanatology, a case is a set of evidence. The investigator can create a case and add one or multiple evidence linked to the created case. The type of evidence supported is currently only “disk image” which can be a logical or physical acquisition.</p>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture2.png" alt="Thanatology evidence selection view"><figcaption><i>Thanatology evidence selection view</i></figcaption></figure>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture3.png" alt="Thanatology case summary view"><figcaption><i>Thanatology case summary view</i></figcaption></figure>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mbr--gpt-partition-discovery">MBR &amp; GPT Partition Discovery<a href="https://forensicxlab.github.io/blog/thanatology#mbr--gpt-partition-discovery" class="hash-link" aria-label="Direct link to MBR &amp; GPT Partition Discovery" title="Direct link to MBR &amp; GPT Partition Discovery">​</a></h3>
+<p>Once the evidence is selected, the preprocessing of the evidence can begin. The preprocessing phase is meant for the investigator to choose what he wants to analyze. It is important in the case of disk forensics for example that the investigator knows exactly what was discovered and that the action can be replicated with the exhume tool kit command line. You can see below the difference between discovering partitions in the Exhume toolkit with the CLI versus the output produced in the desktop application. That show how interlinked the twos are. Our philosophy is: “<em><strong>What you can see in the Desktop application can be recovered using the CLI</strong></em>”.</p>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture4.png" alt="Thanatology partition discovery view"><figcaption><i>Thanatology partition discovery view</i></figcaption></figure>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture5.png" alt="Exhume partition discovery view"><figcaption><i>Exhume partition discovery view</i></figcaption></figure>
+<p>The investigator can choose which partitions he wishes to analyze. Thanatology is transparent and will inform the investigator if it is not capable of parsing some types of partitions. In the example below, we selected the Linux/GNU partition, which is recognized by Exhume, however the swap partition is not yet supported by any modules, thus indicating this information to the user. We plan to add the capability to choose which investigation modules to run in the processing phase so the investigator can disable or enable some modules depending on the context.</p>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture6.png" alt="Exhume partition discovery view"><figcaption><i>Thanatology partition discovery view</i></figcaption></figure>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="basic-extfs-and-ntfs-file-indexing">Basic ExtFS and NTFS file indexing<a href="https://forensicxlab.github.io/blog/thanatology#basic-extfs-and-ntfs-file-indexing" class="hash-link" aria-label="Direct link to Basic ExtFS and NTFS file indexing" title="Direct link to Basic ExtFS and NTFS file indexing">​</a></h3>
+<p>The next step after the <strong>preprocessing</strong> phase is the processing phase. This is where the investigator will start the processing of the evidence. We build a basic file discovery module to index each file inside the local database. We have implemented a filesystem normalization system in exhume. This system is inherited by Thanatology. The advantage is that we can build the Exhume tool suite with the Thanatology application in mind to guide us.</p>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture10.png" alt="Thanatology Processing"><figcaption><i>Thanatology Processing basic view</i></figcaption></figure>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="investigating-the-evidence">Investigating the evidence<a href="https://forensicxlab.github.io/blog/thanatology#investigating-the-evidence" class="hash-link" aria-label="Direct link to Investigating the evidence" title="Direct link to Investigating the evidence">​</a></h3>
+<p>When the processing is done, the last stage is to review it to perform our digital investigation. The current design is only for demonstration purpose and will evolve in time but here is a sneak peak into the features we would like to provide for the first release:</p>
+<ul>
+<li><strong>Artifacts category navigation</strong>: Preselect some known artifacts base on the digital forensic community.</li>
+<li><strong>Simple and deep file introspection</strong>: We are developing our own “Advanced File Viewer” to introspect files in real time.</li>
+<li><strong>Agnostic shell integration</strong>: Many investigators like to use the command line to run their own tools or the Exhume toolkit as a command line in the evidence they are investigating. We are integrating the capability to pop shells in Thanatology like you would in visual studio code for example.</li>
+<li><strong>Whiteboard</strong>: The investigator can keep track of the story he is building around the case using the Whiteboard which is based on <a href="https://plus.excalidraw.com/" target="_blank" rel="noopener noreferrer">excalidraw</a>.</li>
+</ul>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture8.png" alt="Exhume partition discovery view"><figcaption><i>Thanatology basics artifacts categories</i></figcaption></figure>
+<figure style="border:1px solid #888;padding:20px"><img src="https://forensicxlab.github.io/img/thanatology-1/Picture9.png" alt="Exhume partition discovery view"><figcaption><i>Thanatology Advanced file Viewer</i></figcaption></figure>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://forensicxlab.github.io/blog/thanatology#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion">​</a></h2>
+<p>This blogpost was about presenting a high-level vision of the project. In the future blogpost of the series, we will dive deep into the Exhume Tool Suite, exploring the most important existing modules and how to use them. Many blogposts will follow to update on the state of the Thanatology development. We have many ideas, but this is a side project so if you want to get involved into this project, we have created a Discord Community Server that you can join using the following <a href="https://discord.com/invite/AqkYgR5HEg" target="_blank" rel="noopener noreferrer">link</a>.</p>
+<!-- -->
+<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://forensicxlab.github.io/blog/thanatology#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes">​</a></h2>
+<ol>
+<li id="user-content-fn-1-5450bf">
+<p><a href="https://en.wikipedia.org/wiki/Thanatology" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Thanatology</a> <a href="https://forensicxlab.github.io/blog/thanatology#user-content-fnref-1-5450bf" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2-5450bf">
+<p><a href="https://en.wikipedia.org/wiki/The_Sleuth_Kit" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/The_Sleuth_Kit</a> <a href="https://forensicxlab.github.io/blog/thanatology#user-content-fnref-2-5450bf" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3-5450bf">
+<p><a href="https://en.wikipedia.org/wiki/Burial#Exhumation" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Burial#Exhumation</a> <a href="https://forensicxlab.github.io/blog/thanatology#user-content-fnref-3-5450bf" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content:encoded>
+            <category>Thanatology</category>
+            <category>Exhume</category>
+            <category>Digital Forensics</category>
+        </item>
         <item>
             <title><![CDATA[📦 Volatility3 : Import Address Table]]></title>
             <link>https://forensicxlab.github.io/blog/voliat</link>
@@ -475,16 +576,6 @@ Using volatility3, one can dump this process layer and retrieve all the sections
             <category>DFIR</category>
             <category>Memory Forensics</category>
             <category>KeePass</category>
-            <category>Windows</category>
-        </item>
-        <item>
-            <title><![CDATA[Title]]></title>
-            <link>https://forensicxlab.github.io/blog/slug</link>
-            <guid>https://forensicxlab.github.io/blog/slug</guid>
-            <pubDate>Thu, 11 May 2023 00:00:00 GMT</pubDate>
-            <category>DFIR</category>
-            <category>Memory Forensics</category>
-            <category>Anydesk</category>
             <category>Windows</category>
         </item>
         <item>
