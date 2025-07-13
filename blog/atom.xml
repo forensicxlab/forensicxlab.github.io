@@ -2,10 +2,56 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://forensicxlab.github.io/blog</id>
     <title>Forensicxlab Blog</title>
-    <updated>2025-07-07T00:00:00.000Z</updated>
+    <updated>2025-07-13T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://forensicxlab.github.io/blog"/>
     <subtitle>Forensicxlab Blog</subtitle>
+    <entry>
+        <title type="html"><![CDATA[📦 VolWeb v3.15 July 2025 Release]]></title>
+        <id>https://forensicxlab.github.io/blog/volweb-3-15</id>
+        <link href="https://forensicxlab.github.io/blog/volweb-3-15"/>
+        <updated>2025-07-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Following the parity release of the Volatility3 v2.26 framwework, we updated VolWeb to add the latest plugins, fix some issues and add some new features ! Learn more about the news in this blogpost.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/releaseVolWeb-19e1da244fc1fe59c20e18bb201f6550.svg" width="242" height="134" class="img_ev3q"></p>
+<p>Following the parity release of the Volatility3 v2.26 framwework, we updated VolWeb to add the latest plugins, fix some issues and add some new features ! Learn more about the news in this blogpost.</p>
+<p>In this new version of VolWeb, we added some of the plugins released in the <a href="https://github.com/volatilityfoundation/volatility3/releases/tag/v2.26.0" target="_blank" rel="noopener noreferrer">2.26 version of Volatility3</a> to the VolWeb Engine for Windows and Linux memory forensics. We also added the Linux Explore features, a Kubernetes manifest example and fixed some bugs.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-new-features">🔬 New Features<a href="https://forensicxlab.github.io/blog/volweb-3-15#-new-features" class="hash-link" aria-label="Direct link to 🔬 New Features" title="Direct link to 🔬 New Features">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-explore-for-linux">🔍 Explore for Linux<a href="https://forensicxlab.github.io/blog/volweb-3-15#-explore-for-linux" class="hash-link" aria-label="Direct link to 🔍 Explore for Linux" title="Direct link to 🔍 Explore for Linux">​</a></h3>
+<p>Apart of the parity release plugins included from the volatility3 framwework, the goal of VolWeb is to provide a different way to <strong>visualize</strong> data. We included the "Explore" feature for the Linux Memory Forensics investigation.</p>
+<p>When clicking on the Explore tab a graph is presented listing the root processes nodes extracted from the Process Tree.</p>
+<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/1-d5fff13f3cb0df578c7de42ed66a7465.png" width="1012" height="749" class="img_ev3q"></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="navigating-the-process-tree">Navigating the process tree<a href="https://forensicxlab.github.io/blog/volweb-3-15#navigating-the-process-tree" class="hash-link" aria-label="Direct link to Navigating the process tree" title="Direct link to Navigating the process tree">​</a></h4>
+<p>If the selected process the child process nodes will be displayed in order for the investigator to explore the graph.</p>
+<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/2-30fe3b73d9cbfbc884a3180958f053a4.png" width="2289" height="1386" class="img_ev3q"></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="process-detailled-investigation">Process detailled investigation<a href="https://forensicxlab.github.io/blog/volweb-3-15#process-detailled-investigation" class="hash-link" aria-label="Direct link to Process detailled investigation" title="Direct link to Process detailled investigation">​</a></h4>
+<p>The process details Window allows the investigator to view more artifacts about the selected process by clicking on the "view more" button.</p>
+<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/3-079f67304a2283298b2793e68b5c6d37.png" width="1713" height="1241" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-filtering-tables">🔦 Filtering tables<a href="https://forensicxlab.github.io/blog/volweb-3-15#-filtering-tables" class="hash-link" aria-label="Direct link to 🔦 Filtering tables" title="Direct link to 🔦 Filtering tables">​</a></h3>
+<p>We have included the MUI Toolbar for each DataGrid allowing you to filter, export the table, and column customization.</p>
+<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/4-a721269d1683656576df7111c9a73a40.png" width="459" height="183" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://forensicxlab.github.io/assets/images/5-aceadd7238f9fc570e051d19d155456c.png" width="1396" height="448" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="kubernetes-manifest">Kubernetes Manifest<a href="https://forensicxlab.github.io/blog/volweb-3-15#kubernetes-manifest" class="hash-link" aria-label="Direct link to Kubernetes Manifest" title="Direct link to Kubernetes Manifest">​</a></h3>
+<p>As requested from some members of the community, we have added a sample kubernetes manifest ready for production in order for system administrator to deploy volweb in 3 simple commands. You can learn more in the <a href="https://github.com/k1nd0ne/VolWeb/wiki/VolWeb-Documentation#-tutorial---deploying-volweb-with-kubernetes" target="_blank" rel="noopener noreferrer">Documentation</a></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-bug-fixes">🪢 Bug fixes<a href="https://forensicxlab.github.io/blog/volweb-3-15#-bug-fixes" class="hash-link" aria-label="Direct link to 🪢 Bug fixes" title="Direct link to 🪢 Bug fixes">​</a></h2>
+<p>Several issues were addressed in this release</p>
+<ul>
+<li>
+<p>MFTScan deactivation: This plugin is extracting the activies about the Windows Master File Tables updates, however it is generating a LOT of events and was slowing the analysis, making the storage of the resulting JSON object impossible on too large dataset and was making the server crash when fetching the Timeliner from the front-end. This amount of data was unexcepted and was polluting the timeline graph making the visualization less sharp. We also need to implement server side processing in order to display all of the data in the DataGrid (MUI Tables). This will take some time but it will greatly increase the performance of the application in time. <strong>Until this feature is available, we have disabled the MFTScan plugin and removed those artifacts from the Timeliner.</strong></p>
+</li>
+<li>
+<p>Nginx frontend misconfiguration: A bug was identified in our nginx configuration resulting in 500 errors because of a internal rewrite redirecting to /dashboard/ instead of /.</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-future-releases">🎯 Future releases<a href="https://forensicxlab.github.io/blog/volweb-3-15#-future-releases" class="hash-link" aria-label="Direct link to 🎯 Future releases" title="Direct link to 🎯 Future releases">​</a></h2>
+<p>This release include new functionalities but Volatility3 2.26 comes with new dumping features that we want to include into VolWeb and enhance the visualization of some artefacts like Malfin. We also want to include suspicious process recon like done in Windows but for Linux, and fix the BigData issue faced with some plugins. Note that this project is currently done on my free time like all of the projects on ForensicXlab, so this will depend highly on my motivation. That's why we need your contributions ! Don't forget that we have a Discord server if you would like to talk directly to the community.</p>]]></content>
+        <author>
+            <name>k1nd0ne</name>
+            <uri>https://github.com/k1n0ne</uri>
+        </author>
+        <category label="VolWeb" term="VolWeb"/>
+        <category label="Memory Forensics" term="Memory Forensics"/>
+        <category label="Digital Forensics" term="Digital Forensics"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[🦉 Thanatology part 3: MBR and GPT forensics with the Exhume ToolKit.]]></title>
         <id>https://forensicxlab.github.io/blog/thanatology-3</id>
@@ -42,7 +88,7 @@ The Starting and Ending <a href="https://en.wikipedia.org/wiki/Cylinder-head-sec
 <p>Another very important field is the <strong>partition type</strong> number. This number indicates the partition type or rather the "filesystem type". In MBR, each filesystem type is assigned to a unique value between (0x00 to 0xFF). Originally, in the 1980s and early 90s, the field had just a few defined values like 0x01 for FAT12, 0x04 for FAT16 As more operating systems and filesystems emerged (e.g., NTFS, Linux ext, swap, HPFS, etc.) new values were assigned which was still manageable. Eventually, third parties started overloading the values — meaning one type of code might refer to multiple possible formats. For example, the value 0x07 can be used for NTFS, HPFS, exFAT and QNX. Well this is a mess and in digital forensics we can use this field as an information but as this is not authoritative, we rely on partition identification validation using other methods that we will describe in the next blogpost of this series.</p>
 <p>Finally, the MBR signature field. It occupies the last 2 bytes of the 512-byte MBR sector with the constant value of <strong>0x55AA</strong> (in hex) (or AA 55 as it appears in little-endian order in a hex editor). Just overwriting this field will lead to an unbootable system using a legacy BIOS. Malware authors can target the MBR when writing Wipers. Malware like  <a href="https://www.recordedfuture.com/research/whispergate-malware-corrupts-computers-ukraine" target="_blank" rel="noopener noreferrer">Whispergate</a> is a real-world example that is overriding the MBR bootloader section with a custom code to display a ransom note and override the first 199 bytes of each partition entry found.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="ebr-the-ugly-fix-for-the-partition-entries-limitation">EBR: The “ugly” fix for the partition entries limitation<a href="https://forensicxlab.github.io/blog/thanatology-3#ebr-the-ugly-fix-for-the-partition-entries-limitation" class="hash-link" aria-label="Direct link to EBR: The “ugly” fix for the partition entries limitation" title="Direct link to EBR: The “ugly” fix for the partition entries limitation">​</a></h2>
-<p>If you followed everything until now, well first: congrats and thank your. Secondly, you noticed that the MBR is limiting the number of partition entries to 4. That is not enought nowadays as modern systems are using way more partitions entries like dualboot systems, servers with multiple partitions to separate system functions, and more.</p>
+<p>If you followed everything until now, well first: congrats and thank you. Secondly, you noticed that the MBR is limiting the number of partition entries to 4. That is not enought nowadays as modern systems are using way more partition entries like dualboot systems, servers with multiple partitions to separate system functions, and more.</p>
 <p>To counteract this, IBM and Microsoft introduced the Extended Boot Record. EBR is a special partition table that is pointed by a standard MBR partition entry and is holding metadata for one logical partition at a time. It follows a scheme very similar to MBR (with the same signature) and holds only 2 partition entries:</p>
 <ul>
 <li>The first one is describing a logical partition</li>
