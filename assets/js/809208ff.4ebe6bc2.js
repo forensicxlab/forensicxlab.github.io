@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkexhume=self.webpackChunkexhume||[]).push([[8658],{5558:e=>{e.exports=JSON.parse('{"tag":{"label":"NTFS","permalink":"/blog/tags/ntfs","allTagsPath":"/blog/tags","count":1,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/ntfs","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
