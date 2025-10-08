@@ -2,59 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.forensicxlab.com/blog</id>
     <title>Forensicxlab Blog</title>
-    <updated>2025-09-19T00:00:00.000Z</updated>
+    <updated>2025-07-13T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.forensicxlab.com/blog"/>
     <subtitle>Forensicxlab Blog</subtitle>
-    <entry>
-        <title type="html"><![CDATA[🦉 Thanatology part 4: NTFS Forensics with the Exhume ToolKit.]]></title>
-        <id>https://www.forensicxlab.com/blog/thanatology-4</id>
-        <link href="https://www.forensicxlab.com/blog/thanatology-4"/>
-        <updated>2025-09-19T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[This blogpost is part of the Thanatology blogpost series. If you haven’t check it out, I recommend reading the following first:]]></summary>
-        <content type="html"><![CDATA[<p>This blogpost is part of the Thanatology blogpost series. If you haven’t check it out, I recommend reading the following first:</p>
-<ul>
-<li><a href="https://www.forensicxlab.com/blog/thanatology" target="_blank" rel="noopener noreferrer">Thanatology part 1: Introduction to the Thanatology project</a></li>
-<li><a href="https://www.forensicxlab.com/blog/thanatology-2" target="_blank" rel="noopener noreferrer">Thanatology part 2: Multiple disk images formats handling using the Exhume ToolKit</a></li>
-<li><a href="https://www.forensicxlab.com/blog/thanatology-3" target="_blank" rel="noopener noreferrer">Thanatology part 3: MBR and GPT forensics with the Exhume ToolKit.</a></li>
-</ul>
-<p>We saw in the previous part how we could perform partitions discovery for the MBR and GPT scheme. The next step in our digital forensics examination process is to identify the type of Filesystem present on a given partition. In this blogpost, we will dive into the concept of the New Technology FileSystem better known as "NTFS".</p>
-<p>We will explore the history behind this FileSystem, it's layout and specificities. We will dive into how the investigator can perform digital forensics on such filesystem to answer important questions during an investigation. Finally, the reader will have a basic introduction of the exhume_ntfs tool part of the Exhume Toolsuite.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="disclaimer">Disclaimer<a href="https://www.forensicxlab.com/blog/thanatology-4#disclaimer" class="hash-link" aria-label="Direct link to Disclaimer" title="Direct link to Disclaimer">​</a></h2>
-<p>My goal here is not to give you a complete description of the NTFS layout, you can find plenty of documentation online about it. However, I will describe the key structures that are usefull for an investigator to grasp in order to be able to answer the "WWWW" questions that might be raised during a digital forensics investigation:</p>
-<ul>
-<li><strong>W</strong>ho performs action on files ?</li>
-<li><strong>W</strong>here files are coming from ?</li>
-<li><strong>W</strong>hen and how it did happen ?</li>
-<li><strong>W</strong>hat was done on the file ?</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="history-and-origins-of-ntfs">History and origins of NTFS<a href="https://www.forensicxlab.com/blog/thanatology-4#history-and-origins-of-ntfs" class="hash-link" aria-label="Direct link to History and origins of NTFS" title="Direct link to History and origins of NTFS">​</a></h2>
-<p>NTFS is the default FileSystem since Windows NT to the latest version of Windows 11 at time of writting of this blogpost. The NTFS filesystem is used and its layout is maintained by specific Microsoft Windows Kernel drivers. Although NTFS is thought to be used by the Microsoft Operating System it is possible for other operating systems to implement drivers that can understand NTFS (like the Linux NTFS Driver).</p>
-<p>[HERE LET'S TALK MORE ABOUT THE HISTORY OF NTFS WHEN WE HAVE MORE DOCUMENTATION]</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ntfs-key-layout-concepts">NTFS key layout concepts<a href="https://www.forensicxlab.com/blog/thanatology-4#ntfs-key-layout-concepts" class="hash-link" aria-label="Direct link to NTFS key layout concepts" title="Direct link to NTFS key layout concepts">​</a></h2>
-<p>A volume formated using NTFS have the following layout.</p>
-<p>[IMAGE HERE]</p>
-<p>A volume with the Windows operating system installed have the following layout.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-master-file-table">The Master File Table<a href="https://www.forensicxlab.com/blog/thanatology-4#the-master-file-table" class="hash-link" aria-label="Direct link to The Master File Table" title="Direct link to The Master File Table">​</a></h3>
-<p>In NTFS, everything is considered as a <strong>file</strong>. To keep track of all of the files in the filesystem, NTFS is using a special file called the "Master File Table" or MFT in short. The MFT is located at the begining of the disk just after the "$Boot" file <strong>when formating a volume</strong>.</p>
-<p>[IMAGE HERE]</p>
-<p>We will come back on the $Boot file later in this blogpost. For now, let us now dive into the structure of the MFT itself. The MFT is composed of "<strong>Records</strong>" each record is build up from "<strong>Attributes</strong>". The list of possible attributes is defined in a special file called "<strong>$AttrDef</strong>". Each MFT record has a Standard Header, followed by a list of attributes (in order of ascending Attribute Id) and an end marker. The end marker is just four bytes: 0xFFFFFFFF.</p>
-<p>[IMAGE HERE OF THE MFT STRUCTURE]</p>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="mft-transformations-in-time">MFT transformations in time<a href="https://www.forensicxlab.com/blog/thanatology-4#mft-transformations-in-time" class="hash-link" aria-label="Direct link to MFT transformations in time" title="Direct link to MFT transformations in time">​</a></h4>
-<p>When a volume is freshly formated, the MFT size is small, but the more file are created, the more the MFT will grow in order to keep track of them. On the other hand, if the number of files are decreasing, the less file there is to keep track of. So, how does the filesystem adapts to theses changes ?</p>
-<p>[HERE, this will be a good opportunity to talk about what is going on in the MFT when a file is created and deleted]</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="structure-of-a-file-in-ntfs">Structure of a File in NTFS.<a href="https://www.forensicxlab.com/blog/thanatology-4#structure-of-a-file-in-ntfs" class="hash-link" aria-label="Direct link to Structure of a File in NTFS." title="Direct link to Structure of a File in NTFS.">​</a></h3>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="the-boot-file">The $Boot file<a href="https://www.forensicxlab.com/blog/thanatology-4#the-boot-file" class="hash-link" aria-label="Direct link to The $Boot file" title="Direct link to The $Boot file">​</a></h4>
-<p>The $MFT is keeping track of the "$Boot" file. This file contains the important metadata for the Windows Kernel in order to be able to boot the operating system. The $Boot file is also keeping track of the information relative to the $MFT file.</p>]]></content>
-        <author>
-            <name>k1nd0ne</name>
-            <uri>https://github.com/k1n0ne</uri>
-        </author>
-        <category label="Thanatology" term="Thanatology"/>
-        <category label="Exhume" term="Exhume"/>
-        <category label="Digital Forensics" term="Digital Forensics"/>
-        <category label="NTFS" term="NTFS"/>
-    </entry>
     <entry>
         <title type="html"><![CDATA[📦 VolWeb v3.15 July 2025 Release]]></title>
         <id>https://www.forensicxlab.com/blog/volweb-3-15</id>
