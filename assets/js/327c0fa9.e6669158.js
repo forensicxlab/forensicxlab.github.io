@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkexhume=self.webpackChunkexhume||[]).push([[9018],{5264:a=>{a.exports=JSON.parse('{"tag":{"label":"AFF4","permalink":"/blog/tags/aff-4","allTagsPath":"/blog/tags","count":1,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/aff-4","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
