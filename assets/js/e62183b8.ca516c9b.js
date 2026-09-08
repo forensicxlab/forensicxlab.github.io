@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkexhume||=[]).push([[2836],{782(a){a.exports=JSON.parse('{"tag":{"label":"Hibernation","permalink":"/blog/tags/hibernation","allTagsPath":"/blog/tags","count":1,"unlisted":false},"listMetadata":{"permalink":"/blog/tags/hibernation","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
