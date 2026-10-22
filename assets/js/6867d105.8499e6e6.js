@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkexhume||=[]).push([[2424],{212(u,e,r){r.r(e),r.d(e,{default:()=>a});var s=r(6347),t=r(4848);function a(){return(0,t.jsx)(s.rd,{to:"/downloads"})}}}]);
