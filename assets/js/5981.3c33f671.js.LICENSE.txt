@@ -1,0 +1,27 @@
+/*!
+ * jQuery JavaScript Library v4.0.0-pre+c98597ea.dirty
+ * https://jquery.com/
+ *
+ * Copyright OpenJS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2023-11-24T14:04Z
+ */
+
+/*! JointJS React v4.3.6 (2026-09-04) - React bindings and hooks for JointJS to build interactive diagrams and graphs.
+
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+
+/**
+ * @license React
+ * use-sync-external-store-with-selector.production.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */

@@ -6,6 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.forensicxlab.com/blog"/>
     <subtitle>Forensicxlab Blog</subtitle>
+    <icon>https://www.forensicxlab.com/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[🔦 Debunking the Cellebrite (MacQuisition) Advanced Forensics File Format Version 4 (AFF4) implementation]]></title>
         <id>https://www.forensicxlab.com/blog/exhume-aff4</id>
